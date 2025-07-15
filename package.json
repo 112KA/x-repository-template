@@ -1,0 +1,37 @@
+{
+	"name": "rocket-party",
+	"version": "1.0.0",
+	"description": "",
+	"engines": {
+		"node": ">=22.11",
+		"pnpm": ">=9"
+	},
+	"devEngines": {
+		"runtime": {
+			"name": "node",
+			"onFail": "error"
+		},
+		"packageManager": {
+			"name": "pnpm",
+			"onFail": "error"
+		}
+	},
+	"scripts": {
+		"lint": "biome check --write",
+		"app": "pnpm -F app",
+		"prepare": "husky"
+	},
+	"keywords": [],
+	"author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
+	"devDependencies": {
+		"@biomejs/biome": "2.1.1",
+		"@tsconfig/recommended": "1.0.10",
+		"husky": "9.1.7",
+		"lint-staged": "16.1.2",
+		"typescript": "5.8.3"
+	},
+
+	"lint-staged": {
+		"**/*.{js,ts,jsx,tsx,json,jsonc,html,vue,astro,md,yaml}": "biome check --write"
+	}
+}

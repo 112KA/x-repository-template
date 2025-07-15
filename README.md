@@ -1,1 +1,5 @@
-# x-repository-template
+# pnpm monorepo project
+
+## Setup
+
+## Usage
