@@ -1,10 +1,10 @@
 {
-	"name": "rocket-party",
+	"name": "x-repository-template",
 	"version": "1.0.0",
 	"description": "",
 	"engines": {
 		"node": ">=22.11",
-		"pnpm": ">=9"
+		"pnpm": ">=10"
 	},
 	"devEngines": {
 		"runtime": {
@@ -24,13 +24,12 @@
 	"keywords": [],
 	"author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
 	"devDependencies": {
-		"@biomejs/biome": "2.1.1",
+		"@biomejs/biome": "2.2.5",
 		"@tsconfig/recommended": "1.0.10",
 		"husky": "9.1.7",
-		"lint-staged": "16.1.2",
-		"typescript": "5.8.3"
+		"lint-staged": "16.2.3",
+		"typescript": "5.9.3"
 	},
-
 	"lint-staged": {
 		"**/*.{js,ts,jsx,tsx,json,jsonc,html,vue,astro,md,yaml}": "biome check --write"
 	}
