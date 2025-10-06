@@ -14,6 +14,9 @@ importers:
       '@tsconfig/recommended':
         specifier: 1.0.10
         version: 1.0.10
+      eslint:
+        specifier: 9.37.0
+        version: 9.37.0
       husky:
         specifier: 9.1.7
         version: 9.1.7

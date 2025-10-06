@@ -1,9 +1,9 @@
 {
-	"name": "app",
-	"type": "module",
+  "name": "app",
+  "type": "module",
 
-	"scripts": {
-		"lint": "eslint",
-		"lint:fix": "eslint --fix"
-	}
+  "scripts": {
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  }
 }
