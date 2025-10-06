@@ -3,6 +3,7 @@
 	"type": "module",
 
 	"scripts": {
-		"test": "echo \"hello app!\""
+		"lint": "eslint",
+		"lint:fix": "eslint --fix"
 	}
 }
