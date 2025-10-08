@@ -1,0 +1,5 @@
+//npm.pkg.github.com/:_authToken=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
+@112ka:registry=https://npm.pkg.github.com
+
+save-exact=true
+engine-strict=true
