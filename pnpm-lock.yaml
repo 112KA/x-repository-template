@@ -27,7 +27,7 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
-  packages/app-astro:
+  apps/app-astro:
     dependencies:
       astro:
         specifier: ^5.14.1
