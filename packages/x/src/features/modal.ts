@@ -16,7 +16,7 @@ export function setupModal(classNamePrefix = '') {
   assertIsDefined(styleSheet)
 
   if (modalContents) {
-    for (const div of modalContents) {
+    for (const div of Array.from(modalContents)) {
       const target = div.getAttribute('data-content')
       styleSheet.insertRule(
         `.${classNamePrefix}modal[data-target="${target}"] div[data-content="${target}"] {display:block;}`,
@@ -28,7 +28,7 @@ export function setupModal(classNamePrefix = '') {
     console.warn('[x] setupModal - no modalContents')
   }
 
-  for (const button of modalButtons) {
+  for (const button of Array.from(modalButtons)) {
     button.addEventListener('click', (be: Event): void => {
       be.preventDefault()
       const modalId = button.getAttribute('data-modal')

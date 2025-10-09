@@ -1,11 +1,27 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import IndexPage from '@components/index/Page.astro'
+import ExamplePage from '@components/page-example/Page.astro'
+import Layout from '@layouts/Layout.astro'
+import '@styles/global.css'
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+  <main class="w-full h-full">
+    <IndexPage id="index" />
+    <ExamplePage id="example" />
+  </main>
 </Layout>
+
+<script>
+import { IndexPage } from '@components/index/page'
+import { ExamplePage } from '@components/page-example/page'
+import { Paging } from 'x/features/paging'
+
+const paging = new Paging()
+const _indexPage = new IndexPage(paging)
+const _examplePage = new ExamplePage(paging)
+paging.to('index')
+</script>

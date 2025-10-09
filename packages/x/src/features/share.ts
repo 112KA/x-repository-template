@@ -150,7 +150,7 @@ export function setupShareLink(serviceType: ShareServiceType, targetQuery: strin
       console.warn(`no matching share service: ${serviceType}`)
   }
 
-  for (const element of qsAll(targetQuery)) {
+  for (const element of Array.from(qsAll(targetQuery))) {
     element.setAttribute('href', href)
   }
 }
