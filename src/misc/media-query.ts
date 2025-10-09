@@ -1,7 +1,7 @@
 import { assertIsDefined } from '../utils/assert.js'
 
 export type DeviceSize = 'sm' | 'md' | 'lg'
-export type MediaQueryEventMap = {
+export interface MediaQueryEventMap {
   change: {
     deviceSize: DeviceSize
   }
