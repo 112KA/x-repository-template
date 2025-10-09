@@ -40,11 +40,11 @@ export function setupMotion() {
 
   let elements: NodeListOf<Element>
   elements = qsAll('*[data-motion], *[data-motion-toggle]')
-  for (const element of elements) {
+  for (const element of Array.from(elements)) {
     playIntersectionObserver.observe(element)
   }
   elements = qsAll('*[data-motion-toggle]')
-  for (const element of elements) {
+  for (const element of Array.from(elements)) {
     stopIntersectionObserver.observe(element)
   }
 }
