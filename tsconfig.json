@@ -1,0 +1,17 @@
+{
+  "extends": "@tsconfig/recommended/tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "x3/*": ["./src/*"],
+      "x": ["./node_modules/@112ka/x"],
+      "three": ["./node_modules/@types/three"]
+    },
+    "outDir": "dist"
+  },
+  "include": ["./src/**/*.ts"]
+}
