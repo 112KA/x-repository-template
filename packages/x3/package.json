@@ -1,0 +1,48 @@
+{
+  "name": "@112ka/x3",
+  "type": "module",
+  "version": "0.0.1",
+  "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/112KA/x-monorepo.git",
+    "directory": "packages/x3"
+  },
+  "keywords": [],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./*.js": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "dev": "vite",
+    "build": "vite build",
+    "tsc": "tsc",
+    "tsc:clean": "tsc --build --clean",
+    "watch": "vite build --watch"
+  },
+  "peerDependencies": {
+    "@112ka/x": "0.0.9",
+    "three": "0.174.0"
+  },
+  "devDependencies": {
+    "@112ka/x": "0.0.9",
+    "@antfu/eslint-config": "^5.4.1",
+    "@tsconfig/recommended": "^1.0.10",
+    "@types/three": "0.174.0",
+    "eslint": "^9.37.0",
+    "vite": "^7.1.9",
+    "vite-plugin-dts": "^4.5.4"
+  }
+}
