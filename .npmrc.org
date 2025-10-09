@@ -1,0 +1,4 @@
+engine-strict=true
+save-exact=true
+//npm.pkg.github.com/:_authToken=%%PERSONAL_ACCESS_TOKEN%%
+@112ka:registry=https://npm.pkg.github.com
