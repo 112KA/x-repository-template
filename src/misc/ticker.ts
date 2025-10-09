@@ -1,4 +1,4 @@
-export type TickerEventMap = {
+export interface TickerEventMap {
   tick: {
     time: number
     dt: number

@@ -1,10 +1,10 @@
 import { Ticker } from 'x/misc'
 
-export type CoundDownEventMap = {
-  'tick': {
+export interface CoundDownEventMap {
+  tick: {
     count: number
-  },
-  'complete': {}
+  }
+  complete: object
 }
 
 export class CountDown extends EventTarget {

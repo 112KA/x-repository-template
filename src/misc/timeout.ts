@@ -1,6 +1,6 @@
-export type TimeoutEventMap = {
-  timeout: {},
-  complete: {}
+export interface TimeoutEventMap {
+  timeout: object
+  complete: object
 }
 
 export class Timeout extends EventTarget {

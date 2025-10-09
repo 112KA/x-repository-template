@@ -5,8 +5,7 @@
   "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/112KA/x-monorepo.git",
-    "directory": "packages/x"
+    "url": "https://github.com/112KA/x.git"
   },
   "keywords": [],
   "sideEffects": false,

@@ -5,7 +5,7 @@ export interface IPage {
   leave: () => Promise<void>
 }
 
-export type PagingEventMap = {
+export interface PagingEventMap {
   onUpdatePage: {
     pageId: string
   }
