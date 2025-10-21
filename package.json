@@ -21,6 +21,7 @@
 		"app": "pnpm app:astro",
 		"app:astro": "pnpm -F app-astro",
 		"app:nextjs": "pnpm -F app-nextjs",
+		"app:vite": "pnpm -F app-vite-vanilla",
 		"build:x": "pnpm x build",
 		"build:x3": "pnpm x3 build",
 		"build": "pnpm -r -F @112ka/x -F @112ka/x3 build",
@@ -33,7 +34,8 @@
 		"x3": "pnpm -F @112ka/x3",
 		"dev": "pnpm dev:astro",
 		"dev:astro": "concurrently 'pnpm watch' 'pnpm app:astro dev'",
-		"dev:nextjs": "concurrently 'pnpm watch' 'pnpm app:nextjs dev'"
+		"dev:nextjs": "concurrently 'pnpm watch' 'pnpm app:nextjs dev'",
+		"dev:vite": "concurrently 'pnpm watch' 'pnpm app:vite dev'"
 	},
 	"keywords": [],
 	"author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
