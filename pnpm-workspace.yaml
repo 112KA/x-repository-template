@@ -4,3 +4,6 @@ packages:
 
 catalog:
   tailwindcss: 4.1.15
+  '@tailwindcss/vite': 4.1.15
+  '@vitejs/plugin-basic-ssl': 2.1.0
+  'eslint-plugin-format': 1.0.2
