@@ -11,14 +11,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.14.6",
+    "astro": "^5.14.7",
     "x": "workspace:@112ka/x@*"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "4.1.14",
+    "@tailwindcss/vite": "4.1.15",
     "@vitejs/plugin-basic-ssl": "2.1.0",
     "eslint-plugin-astro": "1.3.1",
     "eslint-plugin-format": "1.0.2",
-    "tailwindcss": "4.1.14"
+    "tailwindcss": "4.1.15"
   }
 }
