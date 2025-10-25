@@ -20,24 +20,23 @@
     }
   },
   "main": "dist/index.js",
-  "types": "dist/index.d.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "dev": "vite",
-    "build": "vite build",
-    "tsc:clean": "tsc --build --clean",
-    "watch": "vite build --watch"
+    "lint": "eslint --fix",
+    "build": "tsdown",
+    "watch": "tsdown --watch"
   },
   "devDependencies": {
     "@antfu/eslint-config": "6.0.0",
+    "@eslint/eslintrc": "3.3.1",
     "@tsconfig/recommended": "1.0.10",
     "@types/webxr": "^0.5.22",
     "@types/youtube": "^0.0.50",
     "eslint": "9.38.0",
+    "tsdown": "0.15.9",
     "vite": "^7.1.11",
     "vite-plugin-dts": "4.5.4"
   }

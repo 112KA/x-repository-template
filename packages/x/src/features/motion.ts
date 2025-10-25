@@ -1,5 +1,10 @@
 import { qsAll } from '../utils/document.js'
 
+/**
+ * data-motion / data-motion-toggle 属性に基づき IntersectionObserver で
+ * 要素の再生/停止クラス（.play）を制御する。
+ * 閾値は再生用が 0.5、停止用が 0。
+ */
 export function setupMotion() {
   const playIntersectionObserver = new IntersectionObserver(
     (entries: IntersectionObserverEntry[]) => {
