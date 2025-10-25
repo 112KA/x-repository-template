@@ -1,6 +1,9 @@
 import { assert, assertIsDefined } from '../utils/assert.js'
 import { qsAll } from '../utils/document.js'
 
+/**
+ * サービス識別子の列挙（文字列リテラルマップ）。
+ */
 export const ShareService = {
   facebook: 'facebook',
   twitter: 'twitter',
@@ -9,10 +12,16 @@ export const ShareService = {
   hatebu: 'hatebu',
   linkedin: 'linkedin',
   pinterest: 'pinterest',
-}
+} as const
 
+/**
+ * ShareService の文字列リテラル型
+ */
 export type ShareServiceType = (typeof ShareService)[keyof typeof ShareService]
 
+/**
+ * Facebook 共有オプション
+ */
 export interface ShareServiceFacebookOptions {
   url: string
   text: string
@@ -20,12 +29,18 @@ export interface ShareServiceFacebookOptions {
   via: string
   related: string
 }
+/**
+ * mailto 用オプション
+ */
 export interface ShareServiceMailOptions {
   address: string
   subject: string
   body: string
 }
 
+/**
+ * 共有に使うオプション集合（部分的指定可）
+ */
 export type ShareServiceOptions = Partial<
   {
     title: string
@@ -33,12 +48,14 @@ export type ShareServiceOptions = Partial<
   & ShareServiceMailOptions
 >
 
+/** Facebook 用の共有 URL を生成する（内部用） */
 function getFacebookHref(options: ShareServiceOptions): string {
   const { url } = options
   assertIsDefined(url)
   return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
 }
 
+/** Twitter 用の共有 URL を生成する（内部用） */
 function getTwitterHref(options: ShareServiceOptions): string {
   const { text, url, hashtags, via, related } = options
 
@@ -62,6 +79,7 @@ function getTwitterHref(options: ShareServiceOptions): string {
   return href
 }
 
+/** LINE 用の共有 URL を生成する（内部用） */
 function getLineHref(options: ShareServiceOptions): string {
   const { url, text } = options
 
@@ -78,6 +96,7 @@ function getLineHref(options: ShareServiceOptions): string {
   return href
 }
 
+/** mailto リンクを生成する（内部用） */
 function getMailHref(options: ShareServiceOptions): string {
   const { address, subject, body } = options
 
@@ -96,12 +115,14 @@ function getMailHref(options: ShareServiceOptions): string {
   return href
 }
 
+/** はてなブックマーク用の共有 URL を生成する（内部用） */
 function getHatebuHref(options: ShareServiceOptions): string {
   const { url } = options
   assertIsDefined(url)
   return `http://b.hatena.ne.jp/add&url=${encodeURIComponent(url)}`
 }
 
+/** LinkedIn 用の共有 URL を生成する（内部用） */
 function getLinkedinHref(options: ShareServiceOptions): string {
   const { url, title } = options
   assertIsDefined(url)
@@ -112,6 +133,7 @@ function getLinkedinHref(options: ShareServiceOptions): string {
   return href
 }
 
+/** Pinterest 用の共有 URL を生成する（内部用） */
 function getPinterestHref(options: ShareServiceOptions): string {
   const { url, title } = options
   assertIsDefined(url)
@@ -122,6 +144,13 @@ function getPinterestHref(options: ShareServiceOptions): string {
   return href
 }
 
+/**
+ * 指定したサービスに対応する共有リンクを targetQuery で指定した要素群に設定する。
+ *
+ * @param serviceType - ShareServiceType のいずれか
+ * @param targetQuery - クエリセレクタ（href をセットする要素群）
+ * @param options - サービスごとのオプション
+ */
 export function setupShareLink(serviceType: ShareServiceType, targetQuery: string, options: ShareServiceOptions) {
   let href = ''
   switch (serviceType) {
