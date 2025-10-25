@@ -1,17 +1,29 @@
+/** IndexedDB の ObjectStore 設定 */
 export interface Store {
+  /** ストア名 */
   name: string
+  /** createObjectStore 用パラメータ */
   options: IDBObjectStoreParameters
 }
 
+/**
+ * IndexedDB の簡易ラッパー。バージョンは固定(1)。
+ * 現状 onupgradeneeded で 'images' ストアのみ生成 (将来拡張余地あり)。
+ */
 export class DB {
   protected _storeMap = new Map<string, Store>()
 
   constructor(protected _dbName: string) {}
 
+  /** ストア情報を登録 (接続前に呼び出す) */
   public addStore(store: Store) {
     this._storeMap.set(store.name, store)
   }
 
+  /**
+   * DB へ接続し IDBDatabase を取得
+   * @returns IDBDatabase
+   */
   protected _connect(): Promise<IDBDatabase> {
     const request = indexedDB.open(this._dbName, 1)
     return new Promise((resolve, reject) => {
@@ -36,6 +48,12 @@ export class DB {
     })
   }
 
+  /**
+   * ObjectStore へ新規追加
+   * @param storeName ストア名
+   * @param object 保存対象
+   * @returns request 成功イベント
+   */
   public async add(storeName: string, object: unknown): Promise<Event> {
     const db = await this._connect()
     const transaction = db.transaction([storeName], 'readwrite')
@@ -48,6 +66,12 @@ export class DB {
     })
   }
 
+  /**
+   * 指定 ID のオブジェクト取得
+   * @param storeName ストア名
+   * @param id キー
+   * @returns 取得結果
+   */
   public async get(storeName: string, id: string): Promise<IDBDatabase> {
     const db = await this._connect()
     const transaction = db
@@ -61,6 +85,11 @@ export class DB {
     })
   }
 
+  /**
+   * 指定 ID のオブジェクト削除
+   * @param storeName ストア名
+   * @param id キー
+   */
   public async delete(storeName: string, id: string) {
     const db = await this._connect()
     const transaction = db.transaction([storeName], 'readwrite')

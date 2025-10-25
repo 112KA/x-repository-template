@@ -3,6 +3,16 @@ import { qs, qsAll } from '../utils/document.js'
 import { scrollFix, scrollUnfix } from './scroll.js'
 import { YoutubePlayer } from './youtube.js'
 
+/**
+ * モーダルの初期化を行う。
+ *
+ * classNamePrefix を使って対象の modal/container クラスを解決し、
+ * data-modal 属性を持つボタンでモーダルを開き、閉じるボタンで閉じる処理を設定する。
+ *
+ * YouTube 用の data-modal="youtube:VIDEO_ID" のような指定にも対応する。
+ *
+ * @param classNamePrefix - クラス名のプレフィックス（デフォルトは空文字）
+ */
 export function setupModal(classNamePrefix = '') {
   const modalButtons = qsAll('button[data-modal]')
   const modal = qs(`.${classNamePrefix}modal`)
@@ -16,7 +26,7 @@ export function setupModal(classNamePrefix = '') {
   assertIsDefined(styleSheet)
 
   if (modalContents) {
-    for (const div of modalContents) {
+    for (const div of Array.from(modalContents)) {
       const target = div.getAttribute('data-content')
       styleSheet.insertRule(
         `.${classNamePrefix}modal[data-target="${target}"] div[data-content="${target}"] {display:block;}`,
@@ -28,7 +38,7 @@ export function setupModal(classNamePrefix = '') {
     console.warn('[x] setupModal - no modalContents')
   }
 
-  for (const button of modalButtons) {
+  for (const button of Array.from(modalButtons)) {
     button.addEventListener('click', (be: Event): void => {
       be.preventDefault()
       const modalId = button.getAttribute('data-modal')
