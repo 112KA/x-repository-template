@@ -22,6 +22,11 @@ pnpm install
 ```
 
 ## Usage
+補足: ルートのスクリプトについて
+
+- ルートの `postinstall` スクリプトは `pnpm build` を実行します。
+- `prepare` スクリプトは Husky のセットアップを行います。
+- 開発起動の例: `pnpm dev:astro`, `pnpm dev:nextjs`, `pnpm dev:vite`
 
 ## ディレクトリ構成 (2階層)
 
@@ -30,7 +35,9 @@ pnpm install
 ```
 /
 ├── apps/
-│   └── app-astro/
+│   ├── app-astro/
+│   ├── app-nextjs/
+│   └── app-vite-vanilla/
 ├── packages/
 │   ├── x/
 │   └── x3/
@@ -40,7 +47,6 @@ pnpm install
 └── package.json
 ```
 
-説明:
 説明:
 - `apps/` : 実際のアプリケーションを格納します。各アプリは独立して起動・ビルド可能で、ルートから `pnpm --filter <app> dev` などで操作します。
 	- 例: `app-astro` は Astro ベースのフロントエンド
