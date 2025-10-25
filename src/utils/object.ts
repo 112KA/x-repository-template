@@ -1,22 +1,27 @@
-export function deepmerge(target: Record<string, unknown>, source: Record<string, unknown>): Record<string, unknown> {
-  const destination = {}
-  Object.assign(destination, target)
+/**
+ * 深くマージするユーティリティ。
+ * plain object 同士のみ再帰的にマージし、配列や null/その他は上書きする。
+ * @typeParam T マージ先型
+ * @typeParam U マージ元型
+ * @param target マージ先オブジェクト（変更されない）
+ * @param source マージ元オブジェクト
+ * @returns マージ後の新しいオブジェクト (T & U)
+ */
+export function deepmerge<T extends Record<string, any>, U extends Record<string, any>>(target: T, source: U): T & U {
+  const isPlainObject = (v: unknown): v is Record<string, any> =>
+    v !== null && typeof v === 'object' && !Array.isArray(v)
 
-  const merge = (a: Record<string, unknown>, b: Record<string, unknown>) => {
-    const tmpRecord = a
-    const entries = Object.entries(b)
+  const destination: Record<string, any> = { ...target }
 
-    for (const [key, value] of entries) {
-      if (typeof value !== 'object' || typeof tmpRecord[key] !== 'object') {
-        tmpRecord[key] = value
-      }
-      else {
-        merge(tmpRecord[key] as Record<string, unknown>, value as Record<string, unknown>)
-      }
+  for (const [key, value] of Object.entries(source)) {
+    const current = destination[key]
+    if (isPlainObject(current) && isPlainObject(value)) {
+      destination[key] = deepmerge(current, value)
+    }
+    else {
+      destination[key] = value
     }
   }
 
-  merge(destination, source)
-
-  return destination
+  return destination as T & U
 }

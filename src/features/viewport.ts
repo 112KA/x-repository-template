@@ -2,7 +2,9 @@ import { stage } from '../core/stage.js'
 import { Ticker } from '../misc/ticker.js'
 import { qs } from '../utils/document.js'
 /**
- * 360px 未満は viewport を固定する
+ * ウィンドウ幅に応じて meta[name="viewport"] の content を切り替える。
+ * 360px 未満では幅を固定する（iOS 等の挙動対策）。
+ *
  * @ref https://zenn.dev/tak_dcxi/articles/690caf6e9c4e26
  */
 export function setupSwitchViewport() {
@@ -18,6 +20,9 @@ export function setupSwitchViewport() {
 }
 
 /**
+ * CSS カスタムプロパティ --vh をウィンドウ高さに基づいて設定する。
+ * iOS Safari の高さ変動対策のため定期的に確認して更新する。
+ *
  * @ref https://zenn.dev/tak_dcxi/articles/2ac77656aa94c2cd40bf
  */
 export function setupViewportHeight() {

@@ -9,7 +9,13 @@
     "paths": {
       "x/*": ["./src/*"]
     },
-    "outDir": "dist"
+    "outDir": "dist",
+    "plugins": [
+      {
+        "name": "typescript-tsd",
+        "config": {}
+      }
+    ]
   },
   "include": ["src/**/*.ts"]
 }

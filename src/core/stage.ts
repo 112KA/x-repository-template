@@ -1,11 +1,27 @@
 import { Ticker } from '../misc/ticker.js'
 import { InteractiveObject } from './interactive-object.js'
 
+/**
+ * Stage
+ *
+ * アプリケーション全体を表すステージオブジェクト。
+ * InteractiveObject を継承し、pointer 系イベントの伝播やリスナー管理を行います。
+ * 内部で Ticker を保持し、'tick' イベントの購読数に応じて自動的に開始/停止します。
+ *
+ * @remarks
+ * - Window をターゲットとしてグローバルイベント（resize/scroll/wheel）を監視し、内部でバブルします。
+ * - stage はライブラリ全体のグローバルなイベント中継点として利用されます。
+ */
 export class Stage extends InteractiveObject {
   protected _ticker = new Ticker()
 
   #scrollEnabled = true
 
+  /**
+   * コンストラクタ
+   *
+   * Window をターゲットにして初期化し、pointer 系および window のグローバルイベント登録を行います。
+   */
   constructor() {
     super(window, false)
 
@@ -14,6 +30,13 @@ export class Stage extends InteractiveObject {
 
   // [Symbol.toStringTag] = 'Stage';
 
+  /**
+   * ターゲット（HTMLElement | Window）に対してイベントリスナーを追加します。
+   *
+   * @param targetElement - イベントを追加する対象（HTMLElement | Window）
+   * @remarks
+   * 親クラスの addEventListeners を呼び出した上で、内部の Ticker と window の resize/scroll/wheel を監視します。
+   */
   protected addEventListeners(targetElement: HTMLElement | Window): void {
     super.addEventListeners(targetElement)
 
@@ -24,15 +47,30 @@ export class Stage extends InteractiveObject {
     targetElement.addEventListener('wheel', this._bubble)
   }
 
+  /**
+   * リソース解放 / リスナー解除
+   *
+   * ここでは InteractiveObject 側で登録したポインター関連のリスナーに加え、
+   * 内部の Ticker と window のグローバルリスナーも解除します。
+   */
   public dispose() {
     super.dispose()
     this._ticker.removeEventListener('tick', this._bubble)
-    const targetElement = this.get('targetElement') as HTMLElement
+    const targetElement = this.get('targetElement') as HTMLElement | Window
     targetElement.removeEventListener('resize', this._bubble)
     targetElement.removeEventListener('scroll', this._bubble)
     targetElement.removeEventListener('wheel', this._bubble)
   }
 
+  /**
+   * addEventListener をオーバーライドして購読数に応じた副作用を追加します。
+   *
+   * @param type - イベント名
+   * @param callback - イベントリスナー（null は親クラス側で弾かれる想定）
+   * @param options - addEventListener に渡すオプション
+   * @remarks
+   * 'tick' イベントの最初のリスナー登録時に内部の Ticker を起動します。
+   */
   public addEventListener(
     type: string,
     callback: EventListenerOrEventListenerObject | null,
@@ -50,6 +88,15 @@ export class Stage extends InteractiveObject {
     }
   }
 
+  /**
+   * removeEventListener をオーバーライドして購読解除時の副作用を追加します。
+   *
+   * @param type - イベント名
+   * @param callback - 削除するリスナー。null が渡された場合はその type の登録をすべて削除します。
+   * @param options - removeEventListener に渡すオプション
+   * @remarks
+   * 'tick' の購読がなくなった場合に内部の Ticker を停止します。
+   */
   public removeEventListener(
     type: string,
     callback: EventListenerOrEventListenerObject | null,
@@ -67,6 +114,13 @@ export class Stage extends InteractiveObject {
     }
   }
 
+  /**
+   * DOMContentLoaded を待つユーティリティ。
+   *
+   * @returns Promise<void> - DOMContentLoaded 後に解決される Promise
+   * @remarks
+   * 既に DOM が読み込まれている場合は即時解決します。
+   */
   static ready(): Promise<void> {
     return new Promise((resolve) => {
       const loaded = () => {
@@ -74,7 +128,8 @@ export class Stage extends InteractiveObject {
         resolve()
       }
 
-      if (document.readyState === 'complete') {
+      // loading 以外なら既に DOMContentLoaded 相当とみなす
+      if (document.readyState !== 'loading') {
         resolve()
       }
       else {
@@ -83,26 +138,55 @@ export class Stage extends InteractiveObject {
     })
   }
 
+  /**
+   * window の load イベントを待つユーティリティ。
+   *
+   * @returns Promise<void> - load イベント発火後に解決される Promise
+   * @remarks
+   * 既に load 済み（document.readyState === 'complete'）なら即時解決します。
+   */
   static loaded(): Promise<void> {
     return new Promise((resolve) => {
       const loaded = () => {
         window.removeEventListener('load', loaded)
-
         resolve()
       }
 
-      window.addEventListener('load', loaded)
+      // 既に load 済みなら即時解決
+      if (document.readyState === 'complete') {
+        resolve()
+      }
+      else {
+        window.addEventListener('load', loaded)
+      }
     })
   }
 
+  /**
+   * ステージの幅（ウィンドウ幅）
+   *
+   * @returns number - 現在の window.innerWidth（利用できない場合は 0）
+   */
   static get width() {
     return window.innerWidth ?? 0
   }
 
+  /**
+   * ステージの高さ（ウィンドウ高さ）
+   *
+   * @returns number - 現在の window.innerHeight（利用できない場合は 0）
+   */
   static get height() {
     return window.innerHeight ?? 0
   }
 
+  /**
+   * スクロール制御の有効/無効を設定します。
+   *
+   * @param v - true でスクロールを許可、false でスクロールを無効化（wheel / pointermove の preventDefault を利用）
+   * @remarks
+   * 無効化時は passive: false を指定して preventDefault が動作するようにします。
+   */
   set scrollEnabled(v: boolean) {
     if (this.#scrollEnabled === v)
       return
@@ -120,9 +204,19 @@ export class Stage extends InteractiveObject {
     }
   }
 
+  /**
+   * 現在の scrollEnabled の状態を返します。
+   *
+   * @returns boolean - スクロールが有効なら true
+   */
   get scrollEnabled() {
     return this.#scrollEnabled === true
   }
 }
 
+/**
+ * グローバルなステージインスタンス
+ *
+ * ライブラリ全体で共有される単一の Stage インスタンスです。
+ */
 export const stage = /* #__PURE__ */ new Stage()
