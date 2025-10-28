@@ -1,59 +1,27 @@
-# Task Completion Checklist
+# Task completion checklist
 
-Use this checklist before creating a pull request to ensure changes are ready.
+When you've completed a task or feature, run these checks before opening a PR:
 
-1. Update local base
-   - `git fetch`
-   - `git rebase origin/main` (or `git merge`, depending on workflow)
+1. Code quality
+   - pnpm lint (root) -> autofix issues
+   - Ensure no new ESLint errors remain
+2. Tests
+   - Run unit tests for affected packages:
+     - pnpm -F @112ka/x test
+     - pnpm -F @112ka/x3 test
+   - Ensure coverage thresholds (if enforced) are met
+3. Build
+   - pnpm build (root) to ensure packages compile with `tsdown`
+   - Optionally run `pnpm -F @112ka/x build` per-package
+4. Commit & push
+   - Run `pnpm prepare` if hooks need to be installed locally
+   - Ensure lint-staged + husky ran and passed
+5. PR checklist
+   - Provide a clear description and link to relevant issues
+   - Add changelog entry if library/package change
+   - Ensure CI passes (install -> build -> test)
 
-2. Install or update dependencies
-   - `pnpm install`
+Optional:
+- Run integration or manual checks for frontends:
+  - pnpm dev:astro and test UI flows
 
-3. Build and type-check
-   - `pnpm build` (or `pnpm x build` to build a specific package)
-   - Run a TypeScript type-check if your workflow separates it (for example `pnpm -w tsc --noEmit` if configured)
-
-4. Lint and auto-fix
-   - `pnpm -r lint:fix` or `pnpm lint`
-
-5. Run tests (if available)
-   - `pnpm -r test` or package-specific test scripts
-
-6. Review changes
-   - `git diff --staged` to confirm staged changes
-
-7. Commit and open PR
-   - Use a clear commit message and follow any PR templates in the repository
-
-8. Monitor CI and address feedback
-
-Notes:
-- The checklist assumes workspace-level scripts are available. Adjust per-package commands where appropriate.
-# task_completion
-
-タスク完了時に行う標準的な手順（PR を作る前のチェックリスト）:
-
-1. 変更を最新にする
-   - `git fetch` / `git rebase origin/main`（または `git merge`）
-
-2. 依存関係を更新/インストール（必要な場合）
-   - `pnpm install`
-
-3. ビルドと型チェック
-   - `pnpm build`（必要なパッケージのみなら `pnpm x build` など）
-   - （型チェックが別に必要なら）`pnpm -w tsc --noEmit` をプロジェクトに合わせて実行
-
-4. Lint / 自動修正
-   - `pnpm -r lint:fix` または `pnpm lint`
-
-5. 変更の確認
-   - `git diff --staged` / `pnpm -r test`（テストがある場合）
-
-6. コミットと PR 作成
-   - コミットメッセージは意味を持つ短い要約 + 詳細
-   - PR テンプレートがあればそれに従う
-
-7. CI の確認
-   - PR が通るまで必要に応じて修正
-
-簡潔に: `pnpm install`, `pnpm -r lint:fix`, `pnpm build`, コミット -> プルリクの流れを基本とする。
