@@ -17,25 +17,33 @@
 		}
 	},
 	"scripts": {
-		"lint": "pnpm -r lint:fix",
+		
 		"app": "pnpm app:astro",
 		"app:astro": "pnpm -F app-astro",
 		"app:nextjs": "pnpm -F app-nextjs",
 		"app:vite": "pnpm -F app-vite-vanilla",
-		"build:x": "pnpm x build",
-		"build:x3": "pnpm x3 build",
-		"build": "pnpm -r -F @112ka/x -F @112ka/x3 build",
+
+		"x": "pnpm -F @112ka/x",
+		"x3": "pnpm -F @112ka/x3",
+		"x-lib": "pnpm -F x-lib",
+
+		"lint": "pnpm -r lint:fix",
+		
 		"watch:x": "pnpm x watch",
 		"watch:x3": "pnpm x3 watch",
 		"watch": "pnpm -r -F @112ka/x -F @112ka/x3 watch",
-		"postinstall": "pnpm build",
-		"prepare": "husky",
-		"x": "pnpm -F @112ka/x",
-		"x3": "pnpm -F @112ka/x3",
+
 		"dev": "pnpm dev:astro",
 		"dev:astro": "concurrently 'pnpm watch' 'pnpm app:astro dev'",
 		"dev:nextjs": "concurrently 'pnpm watch' 'pnpm app:nextjs dev'",
-		"dev:vite": "concurrently 'pnpm watch' 'pnpm app:vite dev'"
+		"dev:vite": "concurrently 'pnpm watch' 'pnpm app:vite dev'",
+
+		"build:x": "pnpm x build",
+		"build:x3": "pnpm x3 build",
+		"build": "pnpm -r -F @112ka/x -F @112ka/x3 build",
+
+		"prepare": "husky",
+		"postinstall": "pnpm build"
 	},
 	"keywords": [],
 	"author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
