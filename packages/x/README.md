@@ -36,7 +36,6 @@ pnpm watch   # runs tsdown --watch
 ## Lint
 
 ```bash
-pnpm lint
 pnpm lint:fix
 ```
 

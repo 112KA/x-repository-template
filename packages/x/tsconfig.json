@@ -4,6 +4,7 @@
     "composite": true,
     "target": "ES2020",
     "lib": ["ES2020", "DOM"],
+    "experimentalDecorators": true,
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
@@ -17,5 +18,9 @@
       }
     ]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "src/**/*.test.ts"
+  ]
 }

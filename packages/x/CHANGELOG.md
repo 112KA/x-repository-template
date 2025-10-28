@@ -1,5 +1,19 @@
 # @112ka/x
 
+## 0.0.10
+
+### Patch Changes
+
+- add autotag feature
+
+## 0.0.9
+
+### Patch Changes
+
+- Add Event Type
+- c1d9fa7: add math classes
+- 40b1e04: update CameraDisplay interface
+
 ## 0.0.8
 
 ### Patch Changes
@@ -10,7 +24,7 @@
 
 ### Patch Changes
 
-- up \\失敗してたのでもう一度
+- up \\ 失敗してたのでもう一度
 
 ## 0.0.6
 
