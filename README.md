@@ -41,6 +41,7 @@ pnpm install
 ├── packages/
 │   ├── x/
 │   └── x3/
+│   └── x-lib/
 ├── scripts/
 ├── .serena/
 ├── .vscode/
