@@ -1,7 +1,7 @@
 {
   "name": "@112ka/x3",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "repository": {
     "type": "git",
@@ -33,16 +33,16 @@
     "watch": "vite build --watch"
   },
   "peerDependencies": {
-    "@112ka/x": "0.0.9",
+    "@112ka/x": "0.0.10",
     "three": "0.174.0"
   },
   "devDependencies": {
-    "@112ka/x": "0.0.9",
-    "@antfu/eslint-config": "^6.0.0",
+    "@112ka/x": "0.0.10",
+    "@antfu/eslint-config": "^6.1.0",
     "@tsconfig/recommended": "^1.0.10",
     "@types/three": "0.174.0",
     "eslint": "^9.38.0",
-    "vite": "^7.1.11",
+    "vite": "^7.1.12",
     "vite-plugin-dts": "^4.5.4"
   }
 }
