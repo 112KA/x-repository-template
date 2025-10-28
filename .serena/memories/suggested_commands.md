@@ -1,28 +1,57 @@
-主要コマンド（推奨）:
+# Suggested Commands
 
-- 依存インストール:
+Useful commands to work with this repository (run from the repository root):
+
+## Install
+- `pnpm install` — install all workspace dependencies
+
+## Development
+- `pnpm dev:astro` — start `app-astro` development server (commonly used together with `pnpm watch`)
+- `pnpm dev:nextjs` — start `app-nextjs` development server
+- `pnpm dev:vite` — start `app-vite-vanilla` development server
+- `pnpm watch` — run package watch tasks (e.g., `tsdown --watch` for packages)
+- `pnpm -F <package>` — focus on a single package (example: `pnpm -F @112ka/x`)
+
+## Build
+- `pnpm build` — build selected workspace packages (root script targets `@112ka/x` and `@112ka/x3`)
+- `pnpm x build` — build `@112ka/x` package
+- `pnpm x3 build` — build `@112ka/x3` package
+
+## Lint / format
+- `pnpm lint` — run workspace lint/fix (root maps to `pnpm -r lint:fix`)
+
+## Git and misc
+- `git status`, `git add -p`, `git commit`, `git push` — standard git workflows
+
+## Notes
+- The root `postinstall` runs `pnpm build`. If you want to avoid running build steps during install (for CI or local work), consider `pnpm install --ignore-scripts`.
+# suggested_commands
+
+開発でよく使うコマンド集（ルートから実行）:
+
+- インストール
   - `pnpm install`
 
-- 開発:
-  - ルートで全体開発（例）: `pnpm dev`（内部で `pnpm watch` と `pnpm app:astro dev` を並列実行）
-  - 個別アプリ: `pnpm --filter app-astro dev` または `pnpm -F app-astro dev`（package.json の script を参照）
+- 開発サーバ / ホットリロード
+  - `pnpm dev:astro`  -> `apps/app-astro` の開発サーバ（`pnpm watch` と併用）
+  - `pnpm dev:nextjs` -> `apps/app-nextjs` の開発サーバ
+  - `pnpm dev:vite`   -> `apps/app-vite-vanilla` の開発サーバ
+  - `pnpm watch`      -> ライブラリのウォッチ（`packages/*` の watch スクリプトを起動）
 
-- ビルド:
-  - ルートでワークスペース内の x と x3 をビルド: `pnpm build`
-  - 個別パッケージ: `pnpm x` / `pnpm x3` にエイリアスがある
+- ビルド
+  - `pnpm build`           -> ワークスペース全体のビルド（`@112ka/x`, `@112ka/x3` を含む）
+  - `pnpm x build`         -> `@112ka/x` パッケージのビルド
+  - `pnpm x3 build`        -> `@112ka/x3` パッケージのビルド
 
-- ウォッチ/ホットリロード:
-  - `pnpm watch`（ライブラリ監視）
-  - 各アプリの dev スクリプトを併用
+- Lint / フォーマット
+  - `pnpm lint`            -> ルートで定義された lint（fix を含む）
+  - `pnpm -r lint:fix`     -> ワークスペース内の lint:fix を再帰実行
 
-- Lint/Format:
-  - `pnpm lint`（ルートでは `pnpm -r lint:fix` を実行）
+- その他
+  - `pnpm install --filter <pkg>` 等でフィルタを利用
+  - `pnpm -F <package>` でフォーカス実行
 
-- Git フック / コミット整形:
-  - `husky` が `prepare` スクリプトで有効化されている。lint-staged の設定あり。コミット前に自動で lint が走る可能性あり。
+Git / ローカル操作の参考コマンド
+- `git status`, `git add -p`, `git commit`, `git push`
 
-- ユーティリティ:
-  - `.npmrc.org` をコピーして `.npmrc` に調整: `cp .npmrc.org .npmrc`
-  - pnpm のフィルタ指定: `pnpm -F <package>` / `pnpm --filter <package>`
-
-備考: ルート `package.json` の scripts を参照すると便利（`app`, `dev`, `build`, `watch` など）。
+注意: ルート `postinstall` が `pnpm build` を呼ぶため、CI やインストール後の副作用を考慮する（必要に応じて `--ignore-scripts` を使う）
