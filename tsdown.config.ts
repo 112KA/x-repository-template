@@ -5,5 +5,6 @@ export default defineConfig({
     'src/index.ts',
   ],
   dts: true,
-  minify: true,
+  unbundle: true,
+  // minify: true,
 })

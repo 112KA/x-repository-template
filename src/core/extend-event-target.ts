@@ -1,3 +1,4 @@
+import { autotag } from 'x/decorators'
 import { assertIsDefined } from 'x/utils'
 
 /**
@@ -10,6 +11,7 @@ import { assertIsDefined } from 'x/utils'
  * - set によるプロパティ変更時に detail に { value, value0 } を含む CustomEvent を発火。
  * - addEventListener / removeEventListener の呼び出しをラップし、登録済みリスナーを内部で追跡。
  */
+@autotag
 export class ExtendEventTarget extends EventTarget {
   #properties: Record<string, unknown> = {}
 
