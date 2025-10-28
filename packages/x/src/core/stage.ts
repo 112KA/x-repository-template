@@ -1,3 +1,4 @@
+import { autotag } from 'x/decorators/autotag.js'
 import { Ticker } from '../misc/ticker.js'
 import { InteractiveObject } from './interactive-object.js'
 
@@ -12,6 +13,7 @@ import { InteractiveObject } from './interactive-object.js'
  * - Window をターゲットとしてグローバルイベント（resize/scroll/wheel）を監視し、内部でバブルします。
  * - stage はライブラリ全体のグローバルなイベント中継点として利用されます。
  */
+@autotag
 export class Stage extends InteractiveObject {
   protected _ticker = new Ticker()
 

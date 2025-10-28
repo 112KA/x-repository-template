@@ -1,3 +1,4 @@
+import { autotag } from 'x/decorators/autotag.js'
 import { ExtendEventTarget } from './extend-event-target.js'
 
 /**
@@ -9,6 +10,7 @@ import { ExtendEventTarget } from './extend-event-target.js'
  * ExtendEventTarget を継承し、プロパティ変更の CustomEvent 発火や
  * リスナー追跡機能を利用します。
  */
+@autotag
 export class InteractiveObject extends ExtendEventTarget {
   /**
    * コンストラクタ
