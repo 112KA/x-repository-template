@@ -1,18 +1,59 @@
-タスク完了時に実行/確認すべきこと:
+# Task Completion Checklist
 
-1. Lint/Format の適用
-   - `pnpm lint` をルートで実行し、指摘がないことを確認する。自動修正が必要な場合は `pnpm -r lint:fix` を利用する。
+Use this checklist before creating a pull request to ensure changes are ready.
 
-2. ビルドの確認
-   - 変更がパッケージに影響する場合は `pnpm build`（または個別 `pnpm x build`）を実行してビルドが成功することを確認する。
+1. Update local base
+   - `git fetch`
+   - `git rebase origin/main` (or `git merge`, depending on workflow)
 
-3. ローカル動作確認
-   - 該当アプリがある場合はその dev モードで動作確認（例: `pnpm app:astro dev`）
+2. Install or update dependencies
+   - `pnpm install`
 
-4. Git / CI
-   - コミット前に Husky が起動していることを確認。CI での `pnpm install` → `pnpm build` の流れを想定する。
+3. Build and type-check
+   - `pnpm build` (or `pnpm x build` to build a specific package)
+   - Run a TypeScript type-check if your workflow separates it (for example `pnpm -w tsc --noEmit` if configured)
 
-5. ドキュメント更新
-   - 変更に伴い README やパッケージの README を更新する。
+4. Lint and auto-fix
+   - `pnpm -r lint:fix` or `pnpm lint`
 
-備考: ルートの `postinstall` に `pnpm build` が設定されているので、依存インストール後の振る舞いに注意する。
+5. Run tests (if available)
+   - `pnpm -r test` or package-specific test scripts
+
+6. Review changes
+   - `git diff --staged` to confirm staged changes
+
+7. Commit and open PR
+   - Use a clear commit message and follow any PR templates in the repository
+
+8. Monitor CI and address feedback
+
+Notes:
+- The checklist assumes workspace-level scripts are available. Adjust per-package commands where appropriate.
+# task_completion
+
+タスク完了時に行う標準的な手順（PR を作る前のチェックリスト）:
+
+1. 変更を最新にする
+   - `git fetch` / `git rebase origin/main`（または `git merge`）
+
+2. 依存関係を更新/インストール（必要な場合）
+   - `pnpm install`
+
+3. ビルドと型チェック
+   - `pnpm build`（必要なパッケージのみなら `pnpm x build` など）
+   - （型チェックが別に必要なら）`pnpm -w tsc --noEmit` をプロジェクトに合わせて実行
+
+4. Lint / 自動修正
+   - `pnpm -r lint:fix` または `pnpm lint`
+
+5. 変更の確認
+   - `git diff --staged` / `pnpm -r test`（テストがある場合）
+
+6. コミットと PR 作成
+   - コミットメッセージは意味を持つ短い要約 + 詳細
+   - PR テンプレートがあればそれに従う
+
+7. CI の確認
+   - PR が通るまで必要に応じて修正
+
+簡潔に: `pnpm install`, `pnpm -r lint:fix`, `pnpm build`, コミット -> プルリクの流れを基本とする。
