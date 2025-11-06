@@ -1,2 +1,3 @@
 - Please answer in Japanese
 - Please refer to .serena/memories/onboarding_summary.md at session start.
+- You must ask the user questions to clarify the request when necessary.
