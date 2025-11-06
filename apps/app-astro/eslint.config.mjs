@@ -3,11 +3,16 @@ import antfu from '@antfu/eslint-config'
 export default antfu(
   {
     astro: true,
+
+    typescript: true,
+
+    stylistic: true,
+
     formatters: {
-    /**
-     * Format CSS, LESS, SCSS files, also the `<style>` blocks in Vue
-     * By default uses Prettier
-     */
+      /**
+       * Format CSS, LESS, SCSS files, also the `<style>` blocks in Vue
+       * By default uses Prettier
+       */
       css: true,
       /**
        * Format HTML files
