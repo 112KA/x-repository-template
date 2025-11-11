@@ -41,5 +41,8 @@ export default antfu(
       'no-irregular-whitespace': 'warn',
     },
   },
+  {
+    ignores: ['public/**'],
+  },
 
 )
