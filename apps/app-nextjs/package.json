@@ -10,16 +10,16 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "15.5.6",
+    "next": "16.0.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "x": "workspace:@112ka/x@*"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "15.5.6",
-    "@tailwindcss/postcss": "^4",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@next/eslint-plugin-next": "16.0.3",
+    "@tailwindcss/postcss": "^4.1.17",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
     "tailwindcss": "catalog:"
   }
 }
