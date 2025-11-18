@@ -24,16 +24,14 @@
     "dist"
   ],
   "scripts": {
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "dev": "vite",
-    "build": "vite build",
-    "tsc": "tsc",
-    "tsc:clean": "tsc --build --clean",
-    "watch": "vite build --watch"
+    "lint": "eslint --fix",
+    "build": "tsdown",
+    "watch": "tsdown --watch",
+    "test": "vitest --run --coverage"
   },
   "peerDependencies": {
     "@112ka/x": "0.0.10",
+    "stats-gl": "3.7.0",
     "three": "0.174.0"
   },
   "devDependencies": {
@@ -42,7 +40,7 @@
     "@tsconfig/recommended": "^1.0.13",
     "@types/three": "0.174.0",
     "eslint": "^9.39.1",
-    "vite": "^7.2.2",
-    "vite-plugin-dts": "^4.5.4"
+    "stats-gl": "3.7.0",
+    "tsdown": "0.16.5"
   }
 }
