@@ -12,7 +12,7 @@ export class Deferred<T> {
   reject = this.#mock
 
   /** resolve / reject を初期状態に戻す */
-  clear() {
+  clear(): void {
     this.resolve = this.#mock
     this.reject = this.#mock
   }
@@ -21,7 +21,7 @@ export class Deferred<T> {
    * 新しい Promise を生成
    * @returns 生成された Promise
    */
-  promise() {
+  promise(): Promise<T> {
     return new Promise<T>((resolve: (value: T) => void, reject: (value: T) => void) => {
       this.resolve = resolve
       this.reject = reject
@@ -29,7 +29,7 @@ export class Deferred<T> {
   }
 
   /** promise() 済みかどうか */
-  get isCreatedPromise() {
+  get isCreatedPromise(): boolean {
     return this.resolve !== this.#mock
   }
 }

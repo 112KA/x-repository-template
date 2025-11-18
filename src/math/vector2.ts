@@ -41,7 +41,7 @@ export class Vector2 {
    * @param v - 加算するベクトル
    * @returns this
    */
-  add(v: Vector2) {
+  add(v: Vector2): Vector2 {
     this.x += v.x
     this.y += v.y
     return this

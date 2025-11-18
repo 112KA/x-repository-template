@@ -55,7 +55,7 @@ export class Stage extends InteractiveObject {
    * ここでは InteractiveObject 側で登録したポインター関連のリスナーに加え、
    * 内部の Ticker と window のグローバルリスナーも解除します。
    */
-  public dispose() {
+  public dispose(): void {
     super.dispose()
     this._ticker.removeEventListener('tick', this._bubble)
     const targetElement = this.get('targetElement') as HTMLElement | Window
@@ -125,7 +125,7 @@ export class Stage extends InteractiveObject {
    */
   static ready(): Promise<void> {
     return new Promise((resolve) => {
-      const loaded = () => {
+      const loaded = (): void => {
         document.removeEventListener('DOMContentLoaded', loaded)
         resolve()
       }
@@ -149,7 +149,7 @@ export class Stage extends InteractiveObject {
    */
   static loaded(): Promise<void> {
     return new Promise((resolve) => {
-      const loaded = () => {
+      const loaded = (): void => {
         window.removeEventListener('load', loaded)
         resolve()
       }
@@ -169,7 +169,7 @@ export class Stage extends InteractiveObject {
    *
    * @returns number - 現在の window.innerWidth（利用できない場合は 0）
    */
-  static get width() {
+  static get width(): number {
     return window.innerWidth ?? 0
   }
 
@@ -178,7 +178,7 @@ export class Stage extends InteractiveObject {
    *
    * @returns number - 現在の window.innerHeight（利用できない場合は 0）
    */
-  static get height() {
+  static get height(): number {
     return window.innerHeight ?? 0
   }
 
@@ -211,7 +211,7 @@ export class Stage extends InteractiveObject {
    *
    * @returns boolean - スクロールが有効なら true
    */
-  get scrollEnabled() {
+  get scrollEnabled(): boolean {
     return this.#scrollEnabled === true
   }
 }

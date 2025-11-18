@@ -1,29 +1,39 @@
 /**
- * RGB を 0xRRGGBB 数値へ変換。
- * @param r 0-255
- * @param g 0-255
- * @param b 0-255
+ * RGB値を0xRRGGBB形式の数値に変換する。
+ * @param r 赤成分 (0-255)
+ * @param g 緑成分 (0-255)
+ * @param b 青成分 (0-255)
+ * @returns 24ビットカラー値 (0x000000-0xFFFFFF)
+ * @example
+ * rgb2hex(255, 128, 0) // 0xFF8000
  */
-export function rgb2hex(r: number, g: number, b: number) {
+export function rgb2hex(r: number, g: number, b: number): number {
   return (r << 16) | (g << 8) | b
 }
 
 /**
- * 0xRRGGBB 数値を [r,g,b] へ。
- * @param hex 24bitカラー
+ * 0xRRGGBB形式のカラー値を [r, g, b] 配列に変換する。
+ * @param hex 24ビットカラー値 (0x000000-0xFFFFFF)
+ * @returns [r, g, b] 形式の配列。各要素は0-255の範囲
+ * @example
+ * hex2rgb(0xFF8000) // [255, 128, 0]
  */
-export function hex2rgb(hex: number) {
+export function hex2rgb(hex: number): number[] {
   return [(hex >> 16) & 255, (hex >> 8) & 255, hex & 255]
 }
 
 /**
- * RGBA 配列 (length = width*height*4) を YUV420 (I420) フォーマットへ変換。
- * @param rgba RGBA 1ピクセル4要素並び
- * @param width 幅
- * @param height 高さ
- * @returns YUV420 (Y 平面 + U 平面 + V 平面) の Uint8Array
+ * RGBA配列をYUV420 (I420) フォーマットに変換する。
+ * Y平面 + U平面 + V平面の順序で格納されます。
+ * @param rgba RGBA形式の配列。1ピクセルは4要素 (length = width*height*4)
+ * @param width 画像の幅 (ピクセル)
+ * @param height 画像の高さ (ピクセル)
+ * @returns YUV420フォーマットの Uint8Array (サイズ: width*height*1.5)
+ * @example
+ * const rgba = new Array(640 * 480 * 4).fill(255)
+ * const yuv420 = rgba2yuv420(rgba, 640, 480)
  */
-export function rgba2yuv420(rgba: number[], width: number, height: number) {
+export function rgba2yuv420(rgba: number[], width: number, height: number): Uint8Array {
   const buffer = new Uint8Array((width * height * 3) / 2)
   let r: number
   let g: number
@@ -63,11 +73,14 @@ export function rgba2yuv420(rgba: number[], width: number, height: number) {
 }
 
 /**
- * RGB を HSV へ変換。
- * @param r0 R (数値) もしくは hex 文字列 (#ff0000 など)
- * @param g0 G
- * @param b0 B
- * @returns {h,s,v} h:0-360 s:0-1 v:0-1
+ * RGB値またはHEX文字列をHSV形式に変換する。
+ * @param r0 赤成分 (0-255) またはHEX文字列 ("#ff0000" など)
+ * @param g0 緑成分 (0-255) 。r0がHEX文字列の場合は使用されない (デフォルト: 0)
+ * @param b0 青成分 (0-255) 。r0がHEX文字列の場合は使用されない (デフォルト: 0)
+ * @returns {h, s, v} h: 0-360度、s: 0-1、v: 0-1
+ * @example
+ * rgb2hsv(255, 0, 0) // { h: 0, s: 1, v: 1 }
+ * rgb2hsv("#FF0000") // { h: 0, s: 1, v: 1 }
  */
 export function rgb2hsv(r0: number, g0 = 0, b0 = 0): { h: number, s: number, v: number } {
   // 引数処理
@@ -100,11 +113,13 @@ export function rgb2hsv(r0: number, g0 = 0, b0 = 0): { h: number, s: number, v: 
 }
 
 /**
- * HSV を RGB/HEX へ変換。
- * @param h0 Hue 0-360
- * @param s0 Saturation 0-1
- * @param v0 Value 0-1
- * @returns hex/rgb/r/g/b
+ * HSV値をRGB/HEX形式に変換する。
+ * @param h0 色相 (Hue) 0-360度
+ * @param s0 彩度 (Saturation) 0-1
+ * @param v0 明度 (Value) 0-1
+ * @returns {hex, rgb, r, g, b} 変換後のRGB値とHEX文字列
+ * @example
+ * hsv2rgb(0, 1, 1) // { hex: "#ff0000", rgb: [255, 0, 0], r: 255, g: 0, b: 0 }
  */
 export function hsv2rgb(
   h0: number,
