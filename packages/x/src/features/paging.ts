@@ -24,11 +24,11 @@ export class Paging extends EventTarget {
   protected _pages: Map<string, IPage> = new Map()
   protected _currentPage: IPage | null = null
 
-  public addPage(page: IPage) {
+  public addPage(page: IPage): void {
     this._pages.set(page.id, page)
   }
 
-  public removePage(page: IPage) {
+  public removePage(page: IPage): void {
     this._pages.delete(page.id)
   }
 
@@ -38,7 +38,7 @@ export class Paging extends EventTarget {
    *
    * @param id - 遷移先ページの id
    */
-  public async to(id: string) {
+  public async to(id: string): Promise<void> {
     if (this._currentPage !== null) {
       if (this._currentPage.id === id)
         return

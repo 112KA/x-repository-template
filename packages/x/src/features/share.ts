@@ -151,7 +151,7 @@ function getPinterestHref(options: ShareServiceOptions): string {
  * @param targetQuery - クエリセレクタ（href をセットする要素群）
  * @param options - サービスごとのオプション
  */
-export function setupShareLink(serviceType: ShareServiceType, targetQuery: string, options: ShareServiceOptions) {
+export function setupShareLink(serviceType: ShareServiceType, targetQuery: string, options: ShareServiceOptions): void {
   let href = ''
   switch (serviceType) {
     case 'facebook':

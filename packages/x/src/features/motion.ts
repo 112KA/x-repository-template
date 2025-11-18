@@ -5,7 +5,7 @@ import { qsAll } from '../utils/document.js'
  * 要素の再生/停止クラス（.play）を制御する。
  * 閾値は再生用が 0.5、停止用が 0。
  */
-export function setupMotion() {
+export function setupMotion(): void {
   const playIntersectionObserver = new IntersectionObserver(
     (entries: IntersectionObserverEntry[]) => {
       for (const entry of entries) {

@@ -62,7 +62,7 @@ export class YoutubePlayer {
    *
    * @param vid - 再生する動画の ID（省略時は現在のまま再生）
    */
-  play(vid: string) {
+  play(vid: string): void {
     assertIsDefined(this.body)
     if (vid) {
       this.body.loadVideoById(vid)
@@ -74,7 +74,7 @@ export class YoutubePlayer {
   /**
    * 再生を停止する。
    */
-  stop() {
+  stop(): void {
     assertIsDefined(this.body)
     this.body.stopVideo()
   }
