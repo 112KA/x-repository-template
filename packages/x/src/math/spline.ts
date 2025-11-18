@@ -1,8 +1,30 @@
 import { Vector2 } from './vector2.js'
 
 /**
+ * Catmull-Rom スプラインによる 1 次元の 4 点補間。
+ *
+ * @param t - パラメータ（0 から 1）。0 で p1、1 で p2 の値を返す
+ * @param p0 - 接線計算用の前前点
+ * @param p1 - 補間開始点
+ * @param p2 - 補間終了点
+ * @param p3 - 接線計算用の次次点
+ * @returns 補間された 1 次元スカラー値
+ */
+function CatmullRom(t: number, p0: number, p1: number, p2: number, p3: number): number {
+  const v0 = (p2 - p0) * 0.5
+  const v1 = (p3 - p1) * 0.5
+  const t2 = t * t
+  const t3 = t * t2
+  return (2 * p1 - 2 * p2 + v0 + v1) * t3 + (-3 * p1 + 3 * p2 - 2 * v0 - v1) * t2 + v0 * t + p1
+}
+
+/**
  * 一連の 2D 点列に対して Catmull-Rom スプライン補間を提供するクラス。
  * closed が true の場合は最後の点と最初の点を連結したループとして扱います。
+ * @example
+ * const points = [new Vector2(0, 0), new Vector2(1, 1), new Vector2(2, 0)]
+ * const spline = new Spline(points, false)
+ * const curvePoint = spline.getPoint(0.5) // 曲線上の中点を取得
  */
 export class Spline {
   /** 計算時に一時的な外挿用として再利用される内部 Vector2 インスタンス */
@@ -10,8 +32,8 @@ export class Spline {
 
   /**
    * Spline インスタンスを生成します。
-   * @param points 補間対象となる制御点配列（Vector2）
-   * @param closed true の場合は閉曲線（ループ）として扱う
+   * @param points 補間対象となる制御点配列（Vector2）。デフォルト: 空配列
+   * @param closed true の場合は閉曲線（ループ）として扱う。デフォルト: true
    */
   constructor(
     public points: Vector2[] = [],
@@ -21,9 +43,13 @@ export class Spline {
   /**
    * パラメータ t (0..1) に対応するスプライン上の点を取得します。
    * 内部で区間インデックスを求め、4 つの隣接点を用いた Catmull-Rom 補間を行います。
+   * open スプライン（closed=false）の場合、端点では外挿により擬似制御点を生成します。
    * @param t 区間正規化パラメータ (0..1)
-   * @param optionalTarget 結果を書き込む既存インスタンス（省略時は新規生成）
+   * @param optionalTarget 結果を書き込む既存インスタンス。デフォルト: 新規生成
    * @returns 曲線上の補間結果（optionalTarget と同じ参照）
+   * @example
+   * const spline = new Spline([p0, p1, p2, p3], false)
+   * const mid = spline.getPoint(0.5) // t=0.5 の位置を取得
    */
   getPoint(t: number, optionalTarget = new Vector2()): Vector2 {
     const point = optionalTarget
@@ -80,7 +106,7 @@ export class Spline {
     return point
   }
 
-  getPoints(divisions: number) {
+  getPoints(divisions: number): Vector2[] {
     const points: Vector2[] = []
 
     for (let d = 0; d <= divisions; d++) {
@@ -89,21 +115,4 @@ export class Spline {
 
     return points
   }
-}
-
-/**
- * Catmull-Rom スプラインの 1 次元補間。
- *
- * @param t - パラメータ (0..1)
- * @param p0 - 前前点
- * @param p1 - 前点
- * @param p2 - 次点
- * @param p3 - 次次点
- */
-function CatmullRom(t: number, p0: number, p1: number, p2: number, p3: number) {
-  const v0 = (p2 - p0) * 0.5
-  const v1 = (p3 - p1) * 0.5
-  const t2 = t * t
-  const t3 = t * t2
-  return (2 * p1 - 2 * p2 + v0 + v1) * t3 + (-3 * p1 + 3 * p2 - 2 * v0 - v1) * t2 + v0 * t + p1
 }

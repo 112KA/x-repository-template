@@ -16,7 +16,7 @@ export class DB {
   constructor(protected _dbName: string) {}
 
   /** ストア情報を登録 (接続前に呼び出す) */
-  public addStore(store: Store) {
+  public addStore(store: Store): void {
     this._storeMap.set(store.name, store)
   }
 
@@ -90,7 +90,7 @@ export class DB {
    * @param storeName ストア名
    * @param id キー
    */
-  public async delete(storeName: string, id: string) {
+  public async delete(storeName: string, id: string): Promise<void> {
     const db = await this._connect()
     const transaction = db.transaction([storeName], 'readwrite')
     const store = transaction.objectStore(storeName)
@@ -98,7 +98,7 @@ export class DB {
 
     return new Promise((resolve, reject) => {
       request.onerror = reject
-      request.onsuccess = resolve
+      request.onsuccess = () => resolve()
     })
   }
 }

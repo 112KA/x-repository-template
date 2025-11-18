@@ -57,7 +57,7 @@ export class Node<T> {
    * 振る舞い:
    * - child を children に push し、child.parent をこのノードに設定します。
    */
-  addChild(child: Node<T>) {
+  addChild(child: Node<T>): void {
     this.children.push(child)
     child.parent = this
   }
@@ -70,7 +70,7 @@ export class Node<T> {
    * 挙動:
    * - children 配列から該当ノードを削除し、child.parent を undefined に戻します。
    */
-  removeChild(child: Node<T>) {
+  removeChild(child: Node<T>): void {
     const index = this.children.indexOf(child)
     if (index !== -1) {
       this.children.splice(index, 1)
@@ -86,7 +86,7 @@ export class Node<T> {
    * 注意:
    * - コールバック内で children を変更すると挙動が変わる可能性があります。
    */
-  traverse(callback: (node: Node<T>) => void) {
+  traverse(callback: (node: Node<T>) => void): void {
     callback(this)
     for (const child of this.children) {
       child.traverse(callback)

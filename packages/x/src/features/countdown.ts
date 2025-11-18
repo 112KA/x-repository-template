@@ -53,21 +53,21 @@ export class CountDown extends EventTarget {
   /**
    * カウントを初期値にリセットします（ticker の停止は行いません）。
    */
-  reset() {
+  reset(): void {
     this.count = this.initialCount
   }
 
   /**
    * カウントダウンを開始します（内部で ticker を開始します）。
    */
-  start() {
+  start(): void {
     this.ticker.start()
   }
 
   /**
    * カウントダウンを停止します（内部で ticker を停止します）。
    */
-  stop() {
+  stop(): void {
     // console.log('stop countdown')
     this.ticker.stop()
   }
@@ -82,7 +82,7 @@ export class CountDown extends EventTarget {
    *
    * @private
    */
-  #tickHandler = (e: Event) => {
+  #tickHandler = (e: Event): void => {
     const { time, dt: _dt } = (e as CustomEvent).detail
     const count = this.initialCount - ~~Math.floor(time / 1000)
 

@@ -171,7 +171,7 @@ export class CameraDisplay {
    *
    * @returns ストリームが存在する場合に true、それ以外は false
    */
-  get isStart() {
+  get isStart(): boolean {
     return this.stream !== null
   }
 

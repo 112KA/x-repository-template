@@ -61,7 +61,7 @@ export class InteractiveObject extends ExtendEventTarget {
    *
    * @param e 元の Event
    */
-  protected _bubble = (e: Event) => {
+  protected _bubble = (e: Event): void => {
     this.dispatchEvent(new (e as any).constructor(e.type, e))
   }
 
@@ -72,5 +72,5 @@ export class InteractiveObject extends ExtendEventTarget {
    *
    * @param e 対象の Event
    */
-  protected _discard = (e: Event) => e.preventDefault()
+  protected _discard = (e: Event): void => e.preventDefault()
 }

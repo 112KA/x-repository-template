@@ -9,7 +9,7 @@ import { scrollFix, scrollUnfix } from './scroll.js'
  *
  * @param classNamePrefix - クラス名のプレフィックス（デフォルトは空文字）。例: 'site-'
  */
-export function setupMenu(classNamePrefix = '') {
+export function setupMenu(classNamePrefix = ''): void {
   const menu = qs(`.${classNamePrefix}menu`)
   const menuButton = qs(`.${classNamePrefix}menu__button`)
   const container = qs<HTMLElement>(`.${classNamePrefix}container`)
