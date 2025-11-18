@@ -5,7 +5,7 @@ import { qs } from '../utils/document.js'
  *
  * @param top - 目的の垂直位置（ピクセル）
  */
-export function scrollTo(top: number) {
+export function scrollTo(top: number): void {
   window.scrollTo({
     top,
     behavior: 'smooth',
@@ -19,7 +19,7 @@ let py: number
  *
  * @param container - 固定対象の HTMLElement
  */
-export function scrollFix(container: HTMLElement) {
+export function scrollFix(container: HTMLElement): void {
   const target = container
   py = window.scrollY
   target.classList.add('fixed')
@@ -31,7 +31,7 @@ export function scrollFix(container: HTMLElement) {
  *
  * @param container - 固定解除対象の HTMLElement
  */
-export function scrollUnfix(container: HTMLElement) {
+export function scrollUnfix(container: HTMLElement): void {
   const target = container
   target.classList.remove('fixed')
   target.style.top = ''
@@ -43,7 +43,7 @@ export function scrollUnfix(container: HTMLElement) {
  *
  * @param btnClassName - ボタンのセレクタ（デフォルト '.btn-totop'）
  */
-export function setupScrollToTop(btnClassName = '.btn-totop') {
+export function setupScrollToTop(btnClassName = '.btn-totop'): void {
   const button = qs(btnClassName)
   if (button) {
     button.addEventListener('click', (e: Event) => {

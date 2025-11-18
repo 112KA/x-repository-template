@@ -13,7 +13,7 @@ import { YoutubePlayer } from './youtube.js'
  *
  * @param classNamePrefix - クラス名のプレフィックス（デフォルトは空文字）
  */
-export function setupModal(classNamePrefix = '') {
+export function setupModal(classNamePrefix = ''): void {
   const modalButtons = qsAll('button[data-modal]')
   const modal = qs(`.${classNamePrefix}modal`)
   const container = qs<HTMLElement>(`.${classNamePrefix}container`)

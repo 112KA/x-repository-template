@@ -32,7 +32,7 @@ export class Timeout extends EventTarget {
   }
 
   /** 完了状態を解除し再度 tick 監視を可能にする */
-  reset() {
+  reset(): void {
     this.#isComplete = false
   }
 

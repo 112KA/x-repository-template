@@ -23,7 +23,7 @@ export class ExtendEventTarget extends EventTarget {
    * @param key 取得するプロパティのキー
    * @returns キーに対応する値（存在しなければ undefined）
    */
-  get(key: string) {
+  get(key: string): unknown {
     return this.#properties[key]
   }
 
@@ -38,7 +38,7 @@ export class ExtendEventTarget extends EventTarget {
    *
    * @param properties 設定するキー/値のマップ
    */
-  set(properties: Record<string, unknown>) {
+  set(properties: Record<string, unknown>): void {
     for (const [type, value] of Object.entries(properties)) {
       if (this.#properties[type] === undefined || this.#properties[type] !== value) {
         const value0 = this.#properties[type]

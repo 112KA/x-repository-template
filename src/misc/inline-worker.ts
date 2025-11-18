@@ -30,7 +30,7 @@ export class InlineWorker extends Worker {
   }
 
   /** Worker を終了し Blob URL を解放 */
-  terminate() {
+  terminate(): void {
     super.terminate()
     URL.revokeObjectURL(this.#context)
   }

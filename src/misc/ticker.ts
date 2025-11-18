@@ -32,7 +32,7 @@ export class Ticker extends EventTarget {
     this.#fps = 30
   }
 
-  #tickHandler = () => {
+  #tickHandler = (): void => {
     this.#requestId = window.requestAnimationFrame(this.#tickHandler)
 
     this.#lastMs = Ticker.getTime()
@@ -70,14 +70,14 @@ export class Ticker extends EventTarget {
   }
 
   /** tick の発火開始 */
-  start() {
+  start(): void {
     this.#startMs = Ticker.getTime()
     this.#nextMs = this.#startMs + this.#gap
     this.#requestId = window.requestAnimationFrame(this.#tickHandler)
   }
 
   /** tick の発火停止 (requestAnimationFrame 解除) */
-  stop() {
+  stop(): void {
     window.cancelAnimationFrame(this.#requestId)
   }
 }

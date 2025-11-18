@@ -64,7 +64,7 @@ export class MediaQuery extends EventTarget {
     }
   }
 
-  private _onChange = (e: MediaQueryListEvent) => {
+  private _onChange = (e: MediaQueryListEvent): void => {
     // console.log(LOG_PREFIX, '_onChange', { e })
 
     const deviceSizeList = this._mediaQueryMap.get(e.media)
