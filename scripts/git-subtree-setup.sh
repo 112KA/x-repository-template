@@ -27,10 +27,14 @@ fi
 # remote をフェッチ
 git fetch "$name" || { echo "fetch failed for $name" >&2; exit 1; }
 
-# subtree add（prefix が既に存在する場合はスキップ）
-if [ -d "$prefix" ] || git ls-tree -r --name-only HEAD | grep -qx "$prefix"; then
-  echo "prefix exists or tracked: $prefix (skipping git subtree add)"
+# subtree add（git-subtree-dir コミットメッセージで既に追加済みの場合はスキップ）
+if git log --grep="^git-subtree-dir: $prefix$" --pretty=format:"%h %s" | grep -q .; then
+  echo "subtree already added: $prefix (skipping git subtree add)"
 else
+  # prefixディレクトリが存在する場合は削除
+  if [ -d "$prefix" ]; then
+    rm -rf "$prefix"
+  fi
   git subtree add --prefix="$prefix" "$name" "$branch" $squash_flag || { echo "git subtree add failed" >&2; exit 1; }
   echo "subtree added: $prefix from $name/$branch (with squash)"
 fi
