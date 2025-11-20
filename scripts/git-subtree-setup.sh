@@ -33,7 +33,7 @@ if git log --grep="^git-subtree-dir: $prefix$" --pretty=format:"%h %s" | grep -q
 else
   # prefixディレクトリが存在する場合は削除
   if [ -d "$prefix" ]; then
-    rm -rf "$prefix"
+    git filter-branch --tree-filter "rm -rf '$prefix'" -- --all
   fi
   git subtree add --prefix="$prefix" "$name" "$branch" $squash_flag || { echo "git subtree add failed" >&2; exit 1; }
   echo "subtree added: $prefix from $name/$branch (with squash)"
