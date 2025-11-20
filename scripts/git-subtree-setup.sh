@@ -34,6 +34,8 @@ else
   # prefixディレクトリが存在する場合は削除
   if [ -d "$prefix" ]; then
     git filter-branch --tree-filter "rm -rf '$prefix'" -- --all
+    git reflog expire --expire=now --all
+    git gc --prune=now
   fi
   git subtree add --prefix="$prefix" "$name" "$branch" $squash_flag || { echo "git subtree add failed" >&2; exit 1; }
   echo "subtree added: $prefix from $name/$branch (with squash)"
