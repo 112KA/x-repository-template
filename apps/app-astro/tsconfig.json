@@ -9,7 +9,7 @@
       "@layouts/*": ["./src/layouts/*"],
       "@pages/*": ["./src/pages/*"],
       "@styles/*": ["./src/styles/*"],
-      "x/*": ["./node_modules/x/src/*"]
+      "x/*": ["./node_modules/x/dist/*"]
     }
   },
   "include": [".astro/types.d.ts", "**/*"],

@@ -10,7 +10,7 @@
     "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"],
-      "x/*": ["./node_modules/x/src/*"]
+      "x/*": ["./node_modules/x/dist/*"]
     },
     "types": ["vite/client"],
     "allowImportingTsExtensions": true,
