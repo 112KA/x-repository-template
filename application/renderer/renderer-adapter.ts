@@ -40,7 +40,7 @@ export class RendererAdapter extends EventDispatcher {
         await this.postProcessing.renderAsync()
       }
       else {
-        await renderer.renderAsync(scene, camera)
+        renderer.render(scene, camera)
       }
       renderer.resolveTimestampsAsync(TimestampQuery.RENDER)
     }
@@ -49,14 +49,14 @@ export class RendererAdapter extends EventDispatcher {
     }
   }
 
-  start() {
+  start(): void {
     this.renderer.setAnimationLoop(this.handleTick)
   }
 
   protected handleTick = (
     time: DOMHighResTimeStamp,
     _frame: XRFrame | undefined,
-  ) => {
+  ): void => {
     const dt = time - this.previousTime
     this.previousTime = time
     this.updateCallback(dt, time)

@@ -19,7 +19,7 @@ export class MaterialReplacer {
     this.addReplaceUnit(this.createDefaultReplaceUnit())
   }
 
-  addReplaceUnit(replaceUnit: ReplaceUnit) {
+  addReplaceUnit(replaceUnit: ReplaceUnit): void {
     this.replaceUnitList.push(replaceUnit)
   }
 
@@ -34,7 +34,7 @@ export class MaterialReplacer {
     }
   }
 
-  replace(o: Object3D) {
+  replace(o: Object3D): void {
     // mesh毎の置換判定グループ
     const meshReplaceGroup = this.replaceUnitList
       .filter(unit => unit.target === 'mesh')
@@ -57,7 +57,7 @@ export class MaterialReplacer {
         else if (Array.isArray(unit.nameMatcher)) {
           return (unit.nameMatcher as string[]).includes(mesh.name)
         }
-        return undefined
+        return false
       })
 
       if (targetReplaceUnit) {
@@ -67,9 +67,14 @@ export class MaterialReplacer {
             return this.cacheAndReturn(replacedMaterial)
           })
         }
-        else {
+        else if (mesh.material.name !== '') {
           const replacedMaterial = targetReplaceUnit.replacer(mesh.material)
           mesh.material = this.cacheAndReturn(replacedMaterial)
+        }
+        else {
+          console.warn('replaceの元となるmaterial名が付与されていない', { meshName: mesh.name })
+          // NOTE: 何も名前がない場合は、モデル素材でmaterial未設定の可能性があるため、cacheせず常に新しいmaterialをつくる
+          mesh.material = targetReplaceUnit.replacer(mesh.material)
         }
         return
       }
@@ -104,7 +109,7 @@ export class MaterialReplacer {
   protected createMaterial(
     originalMaterial: Material,
     replaceGroup: ReplaceUnit[],
-  ) {
+  ): Material | undefined {
     const targetReplaceUnit = replaceGroup.find((unit) => {
       if (unit.nameMatcher instanceof RegExp) {
         return (unit.nameMatcher as RegExp).test(originalMaterial.name)
@@ -112,7 +117,7 @@ export class MaterialReplacer {
       else if (Array.isArray(unit.nameMatcher)) {
         return (unit.nameMatcher as string[]).includes(originalMaterial.name)
       }
-      return undefined
+      return false
     })
 
     if (targetReplaceUnit) {
