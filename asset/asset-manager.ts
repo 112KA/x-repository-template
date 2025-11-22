@@ -6,7 +6,9 @@ import type { IResolver } from './resolver/index.js'
 import type { ResourceItem } from './types.js'
 import {
   EventDispatcher,
+
   REVISION,
+
 } from 'three'
 import {
   LoadingManager,
@@ -72,17 +74,9 @@ export class AssetManager extends EventDispatcher<AssetManagerEventMap> {
     }
 
     const ktx2Loader = this.loadingManager.getHandler('.ktx2') as KTX2Loader
-    // let _workerConfig: unknown
-    assertIsDefined(ktx2Loader)
-    if ((renderer as WebGPURenderer).isWebGPURenderer) {
-      await ktx2Loader.detectSupportAsync(renderer as WebGPURenderer)
-    }
-    else {
-      ktx2Loader.detectSupport(renderer)
-    }
-    // console.info(workerConfig)
+    ktx2Loader.detectSupport(renderer)
 
-    // console.groupCollapsed(`${LOG_PREFIX} load`)
+    // console.groupCollapsed(`${_LOG_PREFIX} load`)
 
     for (const [index, resource] of resources.entries()) {
       const { type } = resource
@@ -107,7 +101,7 @@ export class AssetManager extends EventDispatcher<AssetManagerEventMap> {
         this.#resolvers.atlas.resolve(resource, loaded, renderer)
       }
 
-      // console.info(LOG_PREFIX, 'Loaded', { targetUrl })
+      // console.info(_LOG_PREFIX, 'Loaded', { targetUrl })
 
       this.dispatchEvent({
         type: 'progress',
@@ -116,7 +110,7 @@ export class AssetManager extends EventDispatcher<AssetManagerEventMap> {
       })
     }
 
-    // console.info(LOG_PREFIX, 'Load Completed', { assetManager: this })
+    // console.info(_LOG_PREFIX, 'Load Completed', { assetManager: this })
     // console.groupEnd()
 
     this.dispatchEvent({ type: 'loaded' })
