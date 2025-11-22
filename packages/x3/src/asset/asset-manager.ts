@@ -6,7 +6,9 @@ import type { IResolver } from './resolver/index.js'
 import type { ResourceItem } from './types.js'
 import {
   EventDispatcher,
+
   REVISION,
+
 } from 'three'
 import {
   LoadingManager,
