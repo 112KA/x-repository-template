@@ -1,6 +1,11 @@
 import { qsAll } from '../utils/document.js'
 
-export function setupMotion() {
+/**
+ * data-motion / data-motion-toggle 属性に基づき IntersectionObserver で
+ * 要素の再生/停止クラス（.play）を制御する。
+ * 閾値は再生用が 0.5、停止用が 0。
+ */
+export function setupMotion(): void {
   const playIntersectionObserver = new IntersectionObserver(
     (entries: IntersectionObserverEntry[]) => {
       for (const entry of entries) {
@@ -40,11 +45,11 @@ export function setupMotion() {
 
   let elements: NodeListOf<Element>
   elements = qsAll('*[data-motion], *[data-motion-toggle]')
-  for (const element of elements) {
+  for (const element of Array.from(elements)) {
     playIntersectionObserver.observe(element)
   }
   elements = qsAll('*[data-motion-toggle]')
-  for (const element of elements) {
+  for (const element of Array.from(elements)) {
     stopIntersectionObserver.observe(element)
   }
 }
