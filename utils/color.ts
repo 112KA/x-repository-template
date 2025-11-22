@@ -1,34 +1,39 @@
 /**
- * Converts RGB color values to a hexadecimal number.
- *
- * @param r - The red component of the color (0-255).
- * @param g - The green component of the color (0-255).
- * @param b - The blue component of the color (0-255).
- * @returns The hexadecimal representation of the RGB color.
+ * RGB値を0xRRGGBB形式の数値に変換する。
+ * @param r 赤成分 (0-255)
+ * @param g 緑成分 (0-255)
+ * @param b 青成分 (0-255)
+ * @returns 24ビットカラー値 (0x000000-0xFFFFFF)
+ * @example
+ * rgb2hex(255, 128, 0) // 0xFF8000
  */
-export function rgb2hex(r: number, g: number, b: number) {
+export function rgb2hex(r: number, g: number, b: number): number {
   return (r << 16) | (g << 8) | b
 }
 
 /**
- * Converts a hexadecimal color value to an RGB array.
- *
- * @param hex - The hexadecimal color value.
- * @returns An array containing the RGB values [red, green, blue].
+ * 0xRRGGBB形式のカラー値を [r, g, b] 配列に変換する。
+ * @param hex 24ビットカラー値 (0x000000-0xFFFFFF)
+ * @returns [r, g, b] 形式の配列。各要素は0-255の範囲
+ * @example
+ * hex2rgb(0xFF8000) // [255, 128, 0]
  */
-export function hex2rgb(hex: number) {
+export function hex2rgb(hex: number): number[] {
   return [(hex >> 16) & 255, (hex >> 8) & 255, hex & 255]
 }
 
 /**
- * rgba2yuv420
- * @param {number[]} rgba
- * @param {number} width
- * @param {number} height
- * @returns {Uint8Array} 変換後のbuffer
- * @ref https://en.wikipedia.org/wiki/File:Yuv420.svg
+ * RGBA配列をYUV420 (I420) フォーマットに変換する。
+ * Y平面 + U平面 + V平面の順序で格納されます。
+ * @param rgba RGBA形式の配列。1ピクセルは4要素 (length = width*height*4)
+ * @param width 画像の幅 (ピクセル)
+ * @param height 画像の高さ (ピクセル)
+ * @returns YUV420フォーマットの Uint8Array (サイズ: width*height*1.5)
+ * @example
+ * const rgba = new Array(640 * 480 * 4).fill(255)
+ * const yuv420 = rgba2yuv420(rgba, 640, 480)
  */
-export function rgba2yuv420(rgba: number[], width: number, height: number) {
+export function rgba2yuv420(rgba: number[], width: number, height: number): Uint8Array {
   const buffer = new Uint8Array((width * height * 3) / 2)
   let r: number
   let g: number
@@ -68,23 +73,14 @@ export function rgba2yuv420(rgba: number[], width: number, height: number) {
 }
 
 /**
- * Converts RGB color values to HSV color values.
- *
- * @param r0 - The red color value (0-255) or a hex color string.
- * @param g0 - The green color value (0-255).
- * @param b0 - The blue color value (0-255).
- * @returns {{h: number, s: number, v: number}} An object containing the HSV color values:
- *  - `h`: Hue (0-360)
- *  - `s`: Saturation (0-1)
- *  - `v`: Value (0-1)
- *
+ * RGB値またはHEX文字列をHSV形式に変換する。
+ * @param r0 赤成分 (0-255) またはHEX文字列 ("#ff0000" など)
+ * @param g0 緑成分 (0-255) 。r0がHEX文字列の場合は使用されない (デフォルト: 0)
+ * @param b0 青成分 (0-255) 。r0がHEX文字列の場合は使用されない (デフォルト: 0)
+ * @returns {h, s, v} h: 0-360度、s: 0-1、v: 0-1
  * @example
- * ```typescript
- * const hsv = rgb2hsv(255, 0, 0); // { h: 0, s: 1, v: 1 }
- * const hsvFromHex = rgb2hsv('#ff0000'); // { h: 0, s: 1, v: 1 }
- * ```
- *
- * @see https://qiita.com/akebi_mh/items/3377666c26071a4284ee
+ * rgb2hsv(255, 0, 0) // { h: 0, s: 1, v: 1 }
+ * rgb2hsv("#FF0000") // { h: 0, s: 1, v: 1 }
  */
 export function rgb2hsv(r0: number, g0 = 0, b0 = 0): { h: number, s: number, v: number } {
   // 引数処理
@@ -117,19 +113,13 @@ export function rgb2hsv(r0: number, g0 = 0, b0 = 0): { h: number, s: number, v: 
 }
 
 /**
- * Converts HSV (Hue, Saturation, Value) color values to RGB (Red, Green, Blue) color values.
- *
- * @param h - The hue of the color, a number between 0 and 360.
- * @param s - The saturation of the color, a number between 0 and 1.
- * @param v - The value (brightness) of the color, a number between 0 and 1.
- * @returns An object containing the following properties:
- * - `hex`: The hexadecimal string representation of the RGB color.
- * - `rgb`: An array containing the RGB values as numbers.
- * - `r`: The red component of the RGB color.
- * - `g`: The green component of the RGB color.
- * - `b`: The blue component of the RGB color.
- *
- * @see https://qiita.com/akebi_mh/items/3377666c26071a4284ee
+ * HSV値をRGB/HEX形式に変換する。
+ * @param h0 色相 (Hue) 0-360度
+ * @param s0 彩度 (Saturation) 0-1
+ * @param v0 明度 (Value) 0-1
+ * @returns {hex, rgb, r, g, b} 変換後のRGB値とHEX文字列
+ * @example
+ * hsv2rgb(0, 1, 1) // { hex: "#ff0000", rgb: [255, 0, 0], r: 255, g: 0, b: 0 }
  */
 export function hsv2rgb(
   h0: number,
