@@ -1,5 +1,5 @@
 import { autotag } from 'x/decorators/autotag.js'
-import { Ticker } from '../misc/ticker.js'
+import { Ticker } from '../web/ticker.js'
 import { InteractiveObject } from './interactive-object.js'
 
 /**

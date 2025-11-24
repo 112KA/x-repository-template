@@ -1,6 +1,6 @@
 import type { Nullable } from '../@types/utils.js'
-import { assertIsDefined } from '../utils/assert.js'
-import { deepmerge } from '../utils/object.js'
+import { assertIsDefined } from '../data/assert.js'
+import { deepmerge } from '../data/object.js'
 
 /**
  * デフォルトの MediaStreamConstraints のセット。
