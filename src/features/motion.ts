@@ -1,4 +1,4 @@
-import { qsAll } from '../utils/document.js'
+import { qsAll } from '../web/document.js'
 
 /**
  * data-motion / data-motion-toggle 属性に基づき IntersectionObserver で
