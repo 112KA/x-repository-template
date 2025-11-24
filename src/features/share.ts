@@ -1,5 +1,5 @@
-import { assert, assertIsDefined } from '../utils/assert.js'
-import { qsAll } from '../utils/document.js'
+import { assert, assertIsDefined } from '../data/assert.js'
+import { qsAll } from '../web/document.js'
 
 /**
  * サービス識別子の列挙（文字列リテラルマップ）。

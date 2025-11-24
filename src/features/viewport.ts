@@ -1,6 +1,6 @@
-import { stage } from '../core/stage.js'
-import { Ticker } from '../misc/ticker.js'
-import { qs } from '../utils/document.js'
+import { stage } from '../application/stage.js'
+import { qs } from '../web/document.js'
+import { Ticker } from '../web/ticker.js'
 /**
  * ウィンドウ幅に応じて meta[name="viewport"] の content を切り替える。
  * 360px 未満では幅を固定する（iOS 等の挙動対策）。

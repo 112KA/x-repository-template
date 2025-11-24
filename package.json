@@ -25,7 +25,7 @@
     "dist"
   ],
   "scripts": {
-    "lint": "eslint --fix",
+    "lint:fix": "eslint --fix",
     "build": "tsdown",
     "watch": "tsdown --watch",
     "test": "vitest --run --coverage"
