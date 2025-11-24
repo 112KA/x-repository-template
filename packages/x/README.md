@@ -48,17 +48,18 @@ pnpm lint:fix
 
 ## プロジェクト構成
 - `src/` (主要な実装。`src/index.ts` が公開 API の起点)
-- `core/`, `data/`, `features/`, `math/`, `misc/`, `utils/`, `errors/`, `decorators/`, `@types/`
+- `application/` (アプリケーション全体のステージやインタラクティブオブジェクト)
+- `data/` (データ処理や操作関連のユーティリティおよび低レベルなデータ処理ユーティリティ)
+- `structures/` (データ構造関連のユーティリティ)
+- `features/` (特定の機能のユーティリティ)
+- `math/` (数学計算や数値処理関連のユーティリティ)
+- `web/` (Web APIのユーティリティ)
+- `errors/` (エラーハンドリング関連のユーティリティ)
+- `decorators/` (デコレーター関連のユーティリティ)
+- `@types/` (型定義ファイル)
 - `dist/` (ビルド成果物。preserveModules による個別ファイル出力)
-
-## TypeScript / ビルド設定の注意
-- `tsconfig.json` は `@tsconfig/recommended` を拡張しており、`moduleResolution: "bundler"` とパスエイリアス `x/*` -> `./src/*` を持ちます。
-- 出力ターゲットは互換性のために ES2018 を使っていますが、ソースは ES2020 の型で開発されています。
 
 ## スタイル & 慣例
 - ESLint（`@antfu/eslint-config`）に従ってください。
 - 公開 API には TSDoc/JSDoc を付けることを推奨します。
 - 小さな単一責任のモジュールを心がけ、barrel（`src/index.ts`）で明示的に再エクスポートしてください。
-
-## 作者
-- Masayuki Iizuka <mas.iizuka@gmail.com>

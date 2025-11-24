@@ -1,5 +1,5 @@
 import type { Nullable } from '../@types/utils.js'
-import { assertIsDefined } from '../utils/assert.js'
+import { assertIsDefined } from '../data/assert.js'
 
 /**
  * YouTube IFrame API を読み込み、API 利用可能になったら解決する Promise を返す。
