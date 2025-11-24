@@ -4,10 +4,10 @@
     "composite": true,
     "target": "ES2020",
     "lib": ["ES2020", "DOM"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "module": "esnext",
     "moduleResolution": "bundler",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "paths": {
       "x3/*": ["./src/*"],
       "@112ka/x": ["./node_modules/@112ka/x"],

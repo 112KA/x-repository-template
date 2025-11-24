@@ -1,5 +1,5 @@
-import { assertIsDefined } from '../utils/assert.js'
-import { qs, qsAll } from '../utils/document.js'
+import { assertIsDefined } from '../data/assert.js'
+import { qs, qsAll } from '../web/document.js'
 import { scrollFix, scrollUnfix } from './scroll.js'
 import { YoutubePlayer } from './youtube.js'
 
