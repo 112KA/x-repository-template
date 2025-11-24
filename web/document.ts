@@ -1,4 +1,4 @@
-import { assert, assertIsDefined } from './assert.js'
+import { assert, assertIsDefined } from '../data/assert.js'
 
 /**
  * 単一要素取得。存在しなければ例外。

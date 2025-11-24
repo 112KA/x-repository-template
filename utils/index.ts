@@ -1,7 +1,0 @@
-export * from './array.js'
-export * from './assert.js'
-export * from './color.js'
-export * from './document.js'
-export * from './net.js'
-export * from './number.js'
-export * from './object.js'

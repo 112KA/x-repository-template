@@ -1,4 +1,4 @@
-import { qs } from '../utils/document.js'
+import { qs } from '../web/document.js'
 
 /**
  * スムーススクロールで指定トップ位置へ移動する。

@@ -1,4 +1,4 @@
-import { qs } from '../utils/document.js'
+import { qs } from '../web/document.js'
 import { scrollFix, scrollUnfix } from './scroll.js'
 
 /**

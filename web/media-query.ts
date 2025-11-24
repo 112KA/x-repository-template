@@ -1,4 +1,4 @@
-import { assertIsDefined } from '../utils/assert.js'
+import { assertIsDefined } from '../data/assert.js'
 
 /**
  * デバイスのサイズを表すユニオン型。
