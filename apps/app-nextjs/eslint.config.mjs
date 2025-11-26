@@ -30,7 +30,7 @@ export default antfu(
     },
   },
   {
-    files: ['**/*.tsx'],
+    files: ['**/*.{tsx,ts}'],
     rules: {
       'node/prefer-global/process': 'off', // Allow using `process.env`
     },
