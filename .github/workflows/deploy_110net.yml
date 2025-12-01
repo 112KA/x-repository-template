@@ -1,0 +1,53 @@
+name: Deploy 1-10.net
+on:
+  workflow_dispatch:
+#   push:
+#     branches:
+#       - 'develop'
+
+env:
+  DEPLOY_BRANCH: develop
+  DEPLOY_LOCAL_DIR: ./apps/app-nextjs/out
+  DEPLOY_REMOTE_DIR: /home/1-10net/www/xxxx.1-10.net
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.DEPLOY_BRANCH }}
+          lfs: true
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 10
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: "pnpm"
+
+      - run: pnpm install
+
+      - run: pnpm app build
+
+      - name: Deploy files via SFTP
+        uses: pressidium/lftp-mirror-action@v1
+        with:
+          # SFTP credentials
+          host: ${{ secrets.FTP_110NET_HOST }}
+          user: ${{ secrets.FTP_110NET_USER }}
+          pass: ${{ secrets.FTP_110NET_PASSWORD }}
+          onlyNewer: true
+          settings: 'sftp:auto-confirm=yes'
+          parallel: 12
+          # Mirror command options
+          localDir: ${{ env.DEPLOY_LOCAL_DIR }}
+          remoteDir: ${{ env.DEPLOY_REMOTE_DIR }}
+          reverse: true
+          ignoreFile: '.lftp_ignore'
+          options: '--verbose --delete'
