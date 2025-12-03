@@ -36,6 +36,12 @@ export default antfu(
     },
   },
   {
+    files: ['**/*.tsx'],
+    rules: {
+      '@next/next/no-img-element': 'off',
+    },
+  },
+  {
     files: ['**/*.md'],
     rules: {
       'no-irregular-whitespace': 'warn',
