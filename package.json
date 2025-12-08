@@ -24,7 +24,8 @@
 		"x": "pnpm -F @112ka/x",
 		"x3": "pnpm -F @112ka/x3",
 		"x-lib": "pnpm -F x-lib",
-		"lint": "pnpm -r lint:fix",
+		"lint": "pnpm -r lint",
+		"lint:fix": "pnpm -r lint:fix",
 		"watch:x": "pnpm x watch",
 		"watch:x3": "pnpm x3 watch",
 		"watch": "pnpm -r -F @112ka/x -F @112ka/x3 watch",
@@ -41,13 +42,13 @@
 	"keywords": [],
 	"author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
 	"devDependencies": {
-		"@antfu/eslint-config": "6.2.0",
+		"@antfu/eslint-config": "6.4.2",
 		"@tsconfig/recommended": "1.0.13",
 		"@types/node": "24.10.1",
 		"concurrently": "9.2.1",
 		"eslint": "9.39.1",
 		"husky": "9.1.7",
-		"lint-staged": "16.2.6",
+		"lint-staged": "16.2.7",
 		"typescript": "5.9.3"
 	},
 	"lint-staged": {

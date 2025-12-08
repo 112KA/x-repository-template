@@ -3,7 +3,35 @@ packages:
   - packages/*
 
 catalog:
+  '@antfu/eslint-config': ^6.4.2
+  '@eslint/eslintrc': 3.3.3
   '@tailwindcss/vite': 4.1.17
+  '@tsconfig/recommended': ^1.0.13
+  '@types/three': 0.181.0
+  '@types/webxr': ^0.5.22
+  '@types/youtube': ^0.1.2
   '@vitejs/plugin-basic-ssl': 2.1.0
-  eslint-plugin-format: 1.0.2
+  '@vitest/coverage-v8': 4.0.15
+  astro: ^5.16.4
+  eslint: ^9.39.1
+  eslint-plugin-astro: 1.5.0
+  eslint-plugin-format: 1.1.0
+  stats-gl: 3.8.0
   tailwindcss: 4.1.17
+  tsdown: 0.17.0
+  vitest: 4.0.15
+
+minimumReleaseAge: 2880
+catalogs:
+  conflicts_@antfu/eslint-config_6_4_2:
+    '@antfu/eslint-config': 6.4.2
+  conflicts_@tsconfig/recommended_1_0_13:
+    '@tsconfig/recommended': 1.0.13
+  conflicts_eslint_9_39_1:
+    eslint: 9.39.1
+  conflicts_conflicts_@antfu/eslint-config_6_4_2_h6_4_2:
+    '@antfu/eslint-config': ^6.4.2
+  conflicts_conflicts_@tsconfig/recommended_1_0_13_h1_0_13:
+    '@tsconfig/recommended': ^1.0.13
+  conflicts_conflicts_eslint_9_39_1_h9_39_1:
+    eslint: ^9.39.1
