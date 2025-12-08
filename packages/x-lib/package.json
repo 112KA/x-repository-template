@@ -13,14 +13,15 @@
   "keywords": [],
   "main": "index.js",
   "scripts": {
+    "lint": "eslint",
     "lint:fix": "eslint --fix",
     "test": "vitest --run --coverage",
     "build": "tsdown",
     "watch": "tsdown --watch"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "4.0.4",
-    "tsdown": "0.15.11",
-    "vitest": "4.0.4"
+    "@vitest/coverage-v8": "4.0.15",
+    "tsdown": "catalog:",
+    "vitest": "catalog:"
   }
 }
