@@ -1,0 +1,72 @@
+name: Deploy S3
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        type: choice
+        description: "choice target environment"
+        required: true
+        default: "develop"
+        options:
+          - "develop"
+          - "staging"
+          - "production"
+#   push:
+#     branches:
+#       - 'develop'
+
+env:
+  BUCKET: my-bucket-name
+  DEPLOY_LOCAL_DIR: ./apps/app-nextjs/out
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: config
+        run: |
+          case "${{ inputs.target }}" in
+            develop)
+              echo "bucket=${{ env.BUCKET }}-dev" >> $GITHUB_OUTPUT
+              echo "deploy-branch=develop" >> $GITHUB_OUTPUT
+              ;;
+            staging)
+              echo "bucket=${{ env.BUCKET }}-stg" >> $GITHUB_OUTPUT
+              echo "deploy-branch=develop" >> $GITHUB_OUTPUT
+              ;;
+            production)
+              echo "bucket=${{ env.BUCKET }}-prd" >> $GITHUB_OUTPUT
+              echo "deploy-branch=main" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.config.outputs.deploy-branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - run: git lfs pull
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 10
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: "pnpm"
+
+      - run: pnpm install
+      - run: pnpm app build
+
+      - uses: aws-actions/configure-aws-credentials@v5
+        with:
+          aws-region: ap-northeast-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - run: |
+          aws s3 sync ${{ env.DEPLOY_LOCAL_DIR }} s3://${{ steps.config.outputs.bucket }} --delete
