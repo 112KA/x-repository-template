@@ -34,7 +34,9 @@ export default antfu(
   {
     files: ['**/package.json'],
     rules: {
-      'pnpm/json-enforce-catalog': 'warn',
+      'pnpm/json-enforce-catalog': ['warn', {
+        autofix: false,
+      }],
     },
   },
   {

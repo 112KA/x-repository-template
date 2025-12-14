@@ -1,5 +1,7 @@
 # x-repository-template
 
+[![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
+
 ## 概要
 
 このリポジトリは pnpm を用いたモノレポ向けのテンプレートです。主にフロントエンドのWebFramework（astro, vite, nuxt, nextjs）のtemplate、共通パッケージを同一ワークスペースで管理するためのベース構成（TypeScript、pnpm workspace、標準的なビルド/テスト/リンティングスクリプト）を提供します。新規プロジェクトの立ち上げや内部テンプレートとして利用することを想定しています。
@@ -61,4 +63,3 @@ pnpm install
 	- 例: `app-astro` は Astro ベースのフロントエンド
 - `packages/` : 再利用可能なライブラリを格納します。パッケージは TypeScript + Vite を使ってビルドされ、他のパッケージ/アプリから参照されます。
 	- 例: `@112ka/x`（コアライブラリ）, `@112ka/x3`（3D 関連ライブラリ）
-
