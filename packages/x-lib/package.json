@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@vitest/coverage-v8": "4.0.15",
-    "tsdown": "catalog:",
-    "vitest": "catalog:"
+    "tsdown": "0.17.0",
+    "vitest": "4.0.15"
   }
 }

@@ -36,20 +36,23 @@
 		"build:x": "pnpm x build",
 		"build:x3": "pnpm x3 build",
 		"build": "pnpm -r -F @112ka/x -F @112ka/x3 build",
-		"prepare": "husky",
+		"prepare": "simple-git-hooks",
 		"postinstall": "pnpm build"
 	},
 	"keywords": [],
 	"author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
 	"devDependencies": {
-		"@antfu/eslint-config": "6.4.2",
+		"@antfu/eslint-config": "6.6.1",
 		"@tsconfig/recommended": "1.0.13",
-		"@types/node": "24.10.1",
+		"@types/node": "25.0.1",
 		"concurrently": "9.2.1",
 		"eslint": "9.39.1",
-		"husky": "9.1.7",
 		"lint-staged": "16.2.7",
+		"simple-git-hooks": "2.13.1",
 		"typescript": "5.9.3"
+	},
+	"simple-git-hooks": {
+		"pre-commit": "pnpm lint-staged"
 	},
 	"lint-staged": {
 		"**/*.{js,ts,jsx,tsx,json,jsonc,html,vue,astro,md,yaml}": "pnpm lint"
