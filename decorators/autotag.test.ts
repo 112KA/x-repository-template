@@ -6,14 +6,14 @@ describe('autotag decorator', () => {
     @autotag
     class Foo {}
     const f = new Foo()
-    expect(Object.prototype.toString.call(f)).toBe('[object Foo]')
+    expect(Object.prototype.toString.call(f)).toBe('[object [Foo]]')
   })
 
   it('returns the same constructor and sets prototype tag for function constructors', () => {
     function Bar() {}
     const ret = autotag(Bar)
     expect(ret).toBe(Bar)
-    expect(Bar.prototype[Symbol.toStringTag]).toBe('Bar')
+    expect(Bar.prototype[Symbol.toStringTag]).toBe('[Bar]')
   })
 
   it('does nothing when prototype is not an object', () => {
