@@ -1,5 +1,5 @@
-import { autotag } from 'x/decorators'
 import { assertIsDefined } from 'x/data'
+import { autotag } from 'x/decorators'
 
 /**
  * ExtendEventTarget

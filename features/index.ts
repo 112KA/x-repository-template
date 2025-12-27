@@ -1,4 +1,5 @@
 export * from './camera.js'
+export * from './clock.js'
 export * from './menu.js'
 export * from './modal.js'
 export * from './motion.js'
