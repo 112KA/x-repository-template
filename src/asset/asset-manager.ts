@@ -7,7 +7,9 @@ import type { ResourceItem } from './types.js'
 import { assertIsDefined } from '@112ka/x'
 import {
   EventDispatcher,
+
   REVISION,
+
 } from 'three'
 import {
   LoadingManager,
