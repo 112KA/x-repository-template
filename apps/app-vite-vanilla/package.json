@@ -18,6 +18,6 @@
     "@vitejs/plugin-basic-ssl": "catalog:",
     "eslint-plugin-format": "catalog:",
     "tailwindcss": "catalog:",
-    "vite": "^7.2.7"
+    "vite": "^7.3.0"
   }
 }
