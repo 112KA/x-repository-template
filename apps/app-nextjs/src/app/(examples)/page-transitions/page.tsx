@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -11,8 +12,8 @@ export default ({ className }: Props) => {
   return (
     <div className={cn('', className)}>
       <ul className="flex gap-2">
-        <li><Button asChild><a href="./page1/">Page 1</a></Button></li>
-        <li><Button asChild><a href="./page2/">Page 2</a></Button></li>
+        <li><Button asChild><Link href="./page1/">Page 1</Link></Button></li>
+        <li><Button asChild><Link href="./page2/">Page 2</Link></Button></li>
       </ul>
     </div>
   )
