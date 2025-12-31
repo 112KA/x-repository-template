@@ -16,7 +16,8 @@
       ],
       "x/*": [
         "./node_modules/x/dist/*"
-      ]
+      ],
+      "@constraints/*": ["./src/app/_constraints/*"]
     },
     "resolveJsonModule": true,
     "allowJs": true,
