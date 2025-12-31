@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { TransitionLink } from '@constraints/view-transitions/transition-link'
 import { Button } from '@/components/ui/button'
 
 function PageTwo() {
@@ -8,7 +8,7 @@ function PageTwo() {
     <section className="space-y-6">
       <div className="space-y-2">
         <p className="text-xs uppercase tracking-wide text-muted-foreground">
-          Page transitions demo
+          View transitions demo
         </p>
         <h1 className="text-3xl font-semibold">Page 2</h1>
         <p className="text-sm text-muted-foreground">
@@ -17,10 +17,10 @@ function PageTwo() {
       </div>
       <div className="flex flex-wrap gap-3">
         <Button asChild variant="secondary">
-          <Link href="/page-transitions/page1">Page 1 へ移動</Link>
+          <TransitionLink href="/view-transitions/page1">Page 1 へ移動</TransitionLink>
         </Button>
         <Button asChild>
-          <Link href="/page-transitions">一覧へ戻る</Link>
+          <TransitionLink href="/view-transitions">一覧へ戻る</TransitionLink>
         </Button>
       </div>
     </section>
