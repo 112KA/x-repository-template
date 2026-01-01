@@ -10,6 +10,8 @@ function PageTwo() {
         <p className="text-xs uppercase tracking-wide text-muted-foreground">
           View transitions demo
         </p>
+      </div>
+      <div className="space-y-2">
         <h1 className="text-3xl font-semibold">Page 2</h1>
         <p className="text-sm text-muted-foreground">
           こちらも仮コンテンツです。遷移アニメーションを自由に試してみてください。

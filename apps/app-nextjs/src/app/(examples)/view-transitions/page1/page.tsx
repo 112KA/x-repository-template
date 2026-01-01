@@ -10,6 +10,8 @@ function PageOne() {
         <p className="text-xs uppercase tracking-wide text-muted-foreground">
           View transitions demo
         </p>
+      </div>
+      <div className="space-y-2">
         <h1 className="text-3xl font-semibold">Page 1</h1>
         <p className="text-sm text-muted-foreground">
           仮のページです。コンテンツを書き換えて動作を確認してください。

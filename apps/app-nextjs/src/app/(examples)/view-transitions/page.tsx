@@ -15,8 +15,8 @@ function ViewTransitionsIndex({ className }: Props) {
         <p className="text-xs uppercase tracking-wide text-muted-foreground">
           View transitions demo
         </p>
-        <h1 className="text-3xl font-semibold">Page List</h1>
       </div>
+      <h1 className="text-3xl font-semibold">Page List</h1>
       <ul className="flex gap-2">
         <li>
           <Button asChild>
