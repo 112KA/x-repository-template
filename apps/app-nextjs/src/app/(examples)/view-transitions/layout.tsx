@@ -1,8 +1,10 @@
+'use client'
+
 import type { ReactNode } from 'react'
-import { ViewTransitionProvider } from '@constraints/view-transitions'
+import { createFadeStrategy, ViewTransitionProvider } from '@constraints/view-transitions'
 
 function ViewTransitionsLayout({ children }: { children: ReactNode }) {
-  return <ViewTransitionProvider>{children}</ViewTransitionProvider>
+  return <ViewTransitionProvider strategy={createFadeStrategy()}>{children}</ViewTransitionProvider>
 }
 
 export default ViewTransitionsLayout
