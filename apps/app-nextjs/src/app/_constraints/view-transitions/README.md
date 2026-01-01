@@ -46,6 +46,7 @@ const slideStrategy: ViewTransitionStrategy = {
   afterEnter: async ({ element }) => {
     await animateIn(element)
   },
+  cleanup: () => {}
 }
 ```
 
