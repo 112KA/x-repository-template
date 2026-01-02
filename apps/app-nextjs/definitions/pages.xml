@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../schemas/pages.xsd">
+  <page>
+    <url>/examples/page-mockup/</url>
+    <button>
+      <label>Page1</label>
+      <href>/examples/page-mockup/page1/</href>
+    </button>
+    <button>
+      <label>Page2</label>
+      <href>/examples/page-mockup/page2/</href>
+    </button>
+  </page>
+  <page>
+    <url>/examples/page-mockup/page1/</url>
+    <button>
+      <label>Back</label>
+      <href>../</href>
+    </button>
+  </page>
+  <page>
+    <url>/examples/page-mockup/page2/</url>
+    <button>
+      <label>Back</label>
+      <href>../</href>
+    </button>
+  </page>
+</pages>
