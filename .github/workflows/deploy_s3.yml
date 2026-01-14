@@ -60,6 +60,11 @@ jobs:
           cache: "pnpm"
 
       - run: pnpm install
+      
+      - name: Remove develop directory for staging/production
+        if: inputs.target == 'staging' || inputs.target == 'production'
+        run: rm -rf './apps/app-nextjs/src/app/(examples)'
+
       - run: pnpm app build
 
       - uses: aws-actions/configure-aws-credentials@v5
