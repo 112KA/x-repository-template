@@ -4,55 +4,25 @@ applyTo: '**/*.ts'
 ---
 
 # TypeScript Coding Standards
-This file defines our TypeScript coding conventions for Copilot code review.
-
-## Naming Conventions
-
-- Use `camelCase` for variables and functions.
-- Use `PascalCase` for class and interface names.
-- Prefix private variables with `_`.
 
 ## Code Style
 
-- Prefer `const` over `let` when variables are not reassigned.
-- Use arrow functions for anonymous callbacks.
-- Avoid using `any` type; specify more precise types whenever possible.
-- Limit line length to 100 characters.
+- Avoid `any` type.
+  - **Why**: Production bugs from implicit any bypassed type checking.
 
 ## Error Handling
 
-- Always handle promise rejections with `try/catch` or `.catch()`.
-- Use custom error classes for application-specific errors.
+- Use custom error classes (extend from `packages/x/src/errors/`).
+  - **Why**: Generic Error stack traces lack debugging context.
 
-## Testing
+## Project Constraints
 
-- Write unit tests for all exported functions.
-- Use [Vitest](https://vitest.dev/) for all testing.
-- Name test files as `<filename>.test.ts`.
+- Use ES modules only - no CommonJS.
+- Shared utilities belong in `packages/x/src/` - do not duplicate in apps.
+- Keep implementations minimal - avoid unnecessary abstractions.
 
-## Example
+## Avoid
 
-```typescript
-// Good
-interface User {
-  id: number;
-  name: string;
-}
-
-const fetchUser = async (id: number): Promise<User> => {
-  try {
-    // ...fetch logic
-  } catch (error) {
-    // handle error
-  }
-};
-
-// Bad
-interface user {
-  Id: number;
-  Name: string;
-}
-
-async function FetchUser(Id) {
-  // ...fetch logic, no error handling
-}
+- Adding dependencies without approval.
+- Creating multiple files for single-responsibility tasks.
+- Using `console.log` for error handling.

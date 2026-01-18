@@ -9,7 +9,7 @@ I collected and saved onboarding memories for this repository:
 
 Development environment:
 - OS: Linux
-- Node: >=22.11
+- Node: >=24.12
 - Package manager: pnpm >=10
 
 Next steps for new contributors:

@@ -6,7 +6,7 @@ Purpose:
 - Monorepo template using pnpm workspaces, intended as multi-frontend templates (Astro, Vite, Next.js) and shared TypeScript libraries. Provides standard build/test/lint tooling and workspace structure to bootstrap new projects.
 
 Tech stack:
-- Node.js >= 22.11, pnpm >= 10
+- Node.js >= 24.12, pnpm >= 10
 - TypeScript 5.x targeting ES2020 (per repo instructions)
 - ESLint, Vitest, Vite, tsdown for building packages
 - Frontend frameworks: Astro, Next.js, Vite (vanilla)
