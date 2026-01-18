@@ -22,7 +22,7 @@
     "x": "workspace:@112ka/x@*"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "16.1.1",
+    "@next/eslint-plugin-next": "16.1.2",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
