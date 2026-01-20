@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pages version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../schemas/pages.xsd">
-  <page>
-    <url>/examples/page-mockup/</url>
-    <button>
-      <label>Page1</label>
-      <href>/examples/page-mockup/page1/</href>
-    </button>
-    <button>
-      <label>Page2</label>
-      <href>/examples/page-mockup/page2/</href>
-    </button>
+  <!-- Multi-view page with view transitions -->
+  <page id="page-mockup" url="/examples/page-mockup/" title="Page Mockup" 
+        defaultView="index" viewTransition="fade">
+    <view id="index" name="Index" title="Page Mockup">
+      <button label="View 1" action="switchView:view1"/>
+      <button label="View 2" action="switchView:view2"/>
+    </view>
+    
+    <view id="view1" name="View 1" title="View 1 Content">
+      <button label="Back" action="switchView:index"/>
+    </view>
+    
+    <view id="view2" name="View 2" title="View 2 Content">
+      <button label="Back" action="switchView:index"/>
+    </view>
   </page>
-  <page>
-    <url>/examples/page-mockup/page1/</url>
-    <button>
-      <label>Back</label>
-      <href>../</href>
-    </button>
+
+  <!-- Traditional external navigation pages -->
+  <page id="page1" url="/examples/page-mockup/page1/" title="Page 1">
+    <button label="Back" href="../"/>
   </page>
-  <page>
-    <url>/examples/page-mockup/page2/</url>
-    <button>
-      <label>Back</label>
-      <href>../</href>
-    </button>
+  
+  <page id="page2" url="/examples/page-mockup/page2/" title="Page 2">
+    <button label="Back" href="../"/>
   </page>
 </pages>

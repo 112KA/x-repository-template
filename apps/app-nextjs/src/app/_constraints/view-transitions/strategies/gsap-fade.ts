@@ -47,6 +47,12 @@ export function createFadeStrategy(options?: FadeStrategyOptions): ViewTransitio
     afterEnter: async ({ element }) => {
       await animate(element, 1)
     },
+    beforeSwitchView: async ({ container }) => {
+      await animate(container, 0)
+    },
+    afterSwitchView: async ({ container }) => {
+      await animate(container, 1)
+    },
     cleanup: () => {
       killTween()
     },

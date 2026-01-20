@@ -46,7 +46,7 @@ export function ViewTransitionProvider({ children, strategy }: ViewTransitionPro
       isAnimatingRef.current = true
 
       try {
-        await strategyRef.current.beforeNavigate({
+        await strategyRef.current?.beforeNavigate?.({
           element: containerRef.current,
           href,
           fromPathname: pathname,
@@ -69,7 +69,7 @@ export function ViewTransitionProvider({ children, strategy }: ViewTransitionPro
 
     const run = async () => {
       try {
-        await strategyRef.current.afterEnter({
+        await strategyRef.current?.afterEnter?.({
           element: containerRef.current,
           pathname,
         })

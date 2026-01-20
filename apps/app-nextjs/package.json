@@ -7,7 +7,8 @@
     "lint:fix": "eslint --fix",
     "dev": "next dev --turbopack --experimental-https",
     "build": "next build --turbopack",
-    "start": "next start"
+    "start": "next start",
+    "generate:pages": "node ../../scripts/generate-page-definitions.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.2.4",
