@@ -3,7 +3,7 @@
 import { TransitionLink } from '@constraints/view-transitions/transition-link'
 import { Button } from '@/components/ui/button'
 
-function PageOne() {
+function Page1() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
@@ -19,14 +19,14 @@ function PageOne() {
       </div>
       <div className="flex flex-wrap gap-3">
         <Button asChild variant="secondary">
-          <TransitionLink href="/view-transitions/page2">Page 2 へ移動</TransitionLink>
+          <TransitionLink href="/examples/view-transitions/page2/">Page 2 へ移動</TransitionLink>
         </Button>
         <Button asChild>
-          <TransitionLink href="/view-transitions">一覧へ戻る</TransitionLink>
+          <TransitionLink href="/examples/view-transitions/">一覧へ戻る</TransitionLink>
         </Button>
       </div>
     </section>
   )
 }
 
-export default PageOne
+export default Page1

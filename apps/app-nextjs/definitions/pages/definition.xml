@@ -6,6 +6,8 @@
     <view id="index" name="Index" title="Page Mockup">
       <button label="View 1" action="switchView:view1"/>
       <button label="View 2" action="switchView:view2"/>
+      <button label="Page1" href="page1/"/>
+      <button label="Page2" href="page2/"/>
     </view>
     
     <view id="view1" name="View 1" title="View 1 Content">

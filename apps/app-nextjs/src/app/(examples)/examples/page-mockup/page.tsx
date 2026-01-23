@@ -1,16 +1,15 @@
 'use client'
 
+import { ViewTransitionProvider } from '@constraints/view-transitions'
 import { MultiViewPage } from '@/components/multi-view-page'
 import { PAGE_DEFINITIONS } from '@/lib/page-definitions.generated'
 
-function PageMockup() {
+export default function PageMockupPage() {
   const pageDefinition = PAGE_DEFINITIONS['page-mockup']
 
-  if (!pageDefinition) {
-    return <div>Page definition not found</div>
-  }
-
-  return <MultiViewPage pageDefinition={pageDefinition} />
+  return (
+    <ViewTransitionProvider strategy="fade" pageDefinition={pageDefinition}>
+      <MultiViewPage pageDefinition={pageDefinition} />
+    </ViewTransitionProvider>
+  )
 }
-
-export default PageMockup

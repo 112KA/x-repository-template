@@ -1,50 +1,104 @@
-# Suggested commands
+# 推奨コマンド
 
-Development setup:
-- Copy npmrc template:
-  - cp .npmrc.org .npmrc
-- Install dependencies:
-  - pnpm install
+## セットアップ
 
-Run apps (examples):
-- Start all dev (packages watch + astro app):
-  - pnpm dev
-- Start specific app:
-  - pnpm dev:astro
-  - pnpm dev:nextjs
-  - pnpm dev:vite
-- Run a specific package or app using filter:
-  - pnpm -F app-astro dev
-  - pnpm -F @112ka/x build
+```bash
+# .npmrc ファイルのコピー
+cp .npmrc.org .npmrc
 
-Build and watch packages:
-- Build all packages:
-  - pnpm build
-- Build specific package:
-  - pnpm build:x
-  - pnpm build:x3
-- Watch packages during development:
-  - pnpm watch
-  - pnpm watch:x
+# 依存関係のインストール (自動的に pnpm build も実行される)
+pnpm install
+```
 
-Linting / formatting / tests:
-- Run eslint with autofix across workspace:
-  - pnpm lint
-- Run package test (example for packages/x):
-  - pnpm -w -F @112ka/x test
-- Run vitest directly in package:
-  - pnpm -C packages/x test
+## 開発
 
-Git hooks / prepare:
-- Set up husky hooks (normally run automatically during prepare):
-  - pnpm prepare
+```bash
+# 開発サーバー起動 (Next.js)
+pnpm dev:nextjs
 
-Utilities:
-- Show changed files (git):
-  - git status
-- Run a single command in package's directory:
-  - pnpm -C packages/x run build
+# 開発サーバー起動 (Astro)
+pnpm dev:astro
 
-Notes:
-- Root `postinstall` triggers `pnpm build` so CI setups may call `pnpm install` and skip postinstall if desired.
-- Use `pnpm --filter` to target package subsets when building or running.
+# 開発サーバー起動 (Vite)
+pnpm dev:vite
+
+# パッケージの watch モード (x と x3 を同時に)
+pnpm watch
+
+# 個別パッケージの watch
+pnpm watch:x
+pnpm watch:x3
+```
+
+## リンティング・フォーマット
+
+```bash
+# 全パッケージのリンティング
+pnpm lint
+
+# 全パッケージのリンティング (自動修正)
+pnpm lint:fix
+```
+
+## テスト
+
+```bash
+# Next.js アプリのテスト実行
+pnpm app:nextjs test
+
+# カバレッジ付きテスト
+pnpm -F app-nextjs test
+```
+
+## ビルド
+
+```bash
+# 全パッケージのビルド
+pnpm build
+
+# 個別パッケージのビルド
+pnpm build:x
+pnpm build:x3
+```
+
+## パッケージ別コマンド
+
+```bash
+# app-nextjs のスクリプト実行
+pnpm app:nextjs <script>
+
+# @112ka/x のスクリプト実行
+pnpm x <script>
+
+# @112ka/x3 のスクリプト実行
+pnpm x3 <script>
+```
+
+## システムコマンド (Linux)
+
+```bash
+# ファイル検索
+find . -name "*.ts" -type f
+
+# テキスト検索
+grep -r "pattern" .
+
+# ディレクトリ移動
+cd /path/to/directory
+
+# ファイル一覧
+ls -la
+
+# Git 操作
+git status
+git add .
+git commit -m "message"
+git push
+```
+
+## タスク完了時の推奨フロー
+
+1. `pnpm lint:fix` - コードの整形とリンティング
+2. `pnpm test` (該当プロジェクト) - テストの実行
+3. `git add .` - 変更をステージング
+4. `git commit -m "message"` - Conventional Commits 形式でコミット

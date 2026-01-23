@@ -1,27 +1,61 @@
-# Task completion checklist
+# タスク完了チェックリスト
 
-When you've completed a task or feature, run these checks before opening a PR:
+タスクが完了した際に実行すべきステップ:
 
-1. Code quality
-   - pnpm lint (root) -> autofix issues
-   - Ensure no new ESLint errors remain
-2. Tests
-   - Run unit tests for affected packages:
-     - pnpm -F @112ka/x test
-     - pnpm -F @112ka/x3 test
-   - Ensure coverage thresholds (if enforced) are met
-3. Build
-   - pnpm build (root) to ensure packages compile with `tsdown`
-   - Optionally run `pnpm -F @112ka/x build` per-package
-4. Commit & push
-   - Run `pnpm prepare` if hooks need to be installed locally
-   - Ensure lint-staged + husky ran and passed
-5. PR checklist
-   - Provide a clear description and link to relevant issues
-   - Add changelog entry if library/package change
-   - Ensure CI passes (install -> build -> test)
+## 1. コードの品質チェック
 
-Optional:
-- Run integration or manual checks for frontends:
-  - pnpm dev:astro and test UI flows
+```bash
+# リンティングと自動修正
+pnpm lint:fix
+```
 
+## 2. テストの実行
+
+```bash
+# 該当プロジェクトのテスト実行
+pnpm app:nextjs test  # Next.js の場合
+# または
+pnpm -F <package-name> test
+```
+
+## 3. ビルドの確認 (必要に応じて)
+
+```bash
+# パッケージのビルド
+pnpm build
+```
+
+## 4. Git コミット
+
+```bash
+# 変更をステージング
+git add .
+
+# Conventional Commits 形式でコミット
+git commit -m "feat: add new feature"
+# または
+git commit -m "fix: correct bug"
+# または
+git commit -m "refactor: improve code structure"
+```
+
+## 5. プッシュ
+
+```bash
+git push
+```
+
+## コミットメッセージの形式
+
+Conventional Commits に従う:
+- `feat:` - 新機能
+- `fix:` - バグ修正
+- `refactor:` - リファクタリング
+- `test:` - テストの追加・修正
+- `docs:` - ドキュメントの更新
+- `chore:` - ビルドプロセスやツールの変更
+
+## pre-commit フック
+
+- `simple-git-hooks` が自動的に `lint-staged` を実行
+- コミット前に自動でリンティングが行われる

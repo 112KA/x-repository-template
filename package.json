@@ -17,7 +17,7 @@
 		}
 	},
 	"scripts": {
-		"app": "pnpm app:astro",
+		"app": "pnpm app:nextjs",
 		"app:astro": "pnpm -F app-astro",
 		"app:nextjs": "pnpm -F app-nextjs",
 		"app:vite": "pnpm -F app-vite-vanilla",
@@ -49,8 +49,7 @@
 		"eslint": "9.39.2",
 		"lint-staged": "16.2.7",
 		"simple-git-hooks": "2.13.1",
-		"typescript": "5.9.3",
-		"xml2js": "0.6.2"
+		"typescript": "5.9.3"
 	},
 	"simple-git-hooks": {
 		"pre-commit": "pnpm lint-staged"

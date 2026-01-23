@@ -1,22 +1,38 @@
-# Style conventions
+# コーディング規約とスタイル
 
-Derived from repo files and TypeScript instructions:
+## 言語とフォーマット
 
-- Language: TypeScript 5.x targeting ES2020. Use ES modules.
-- Filenames: kebab-case for files, PascalCase for classes/types, camelCase for variables/functions.
-- No CommonJS; prefer `export` / `import` syntax.
-- Avoid `any`; prefer `unknown` and proper type narrowing.
-- Use ESLint with `@antfu/eslint-config` base. Run `pnpm lint` to autofix.
-- Tests: Vitest with node environment and coverage via V8 provider.
-- Build: `tsdown` for packages; packages are composite projects with `outDir: dist`.
-- Decorators: experimentalDecorators enabled where needed.
-- Keep public API documented with JSDoc; update `tsdown` outputs accordingly.
+- **言語**: TypeScript (Strict Mode)
+- **リンティング**: ESLint + @antfu/eslint-config
+- **コードスタイル**: [@antfu/eslint-config](https://github.com/antfu/eslint-config)
+- **自動整形**: 保存時に ESLint が自動整形
 
-Formatting and tooling:
-- Run `pnpm lint` and tests locally before PR.
-- Husky + lint-staged enforces pre-commit checks.
+## 命名規則
 
-Naming and architecture:
-- Reuse shared utilities and keep modules single-purpose.
-- Prefer immutable data and pure functions where practical.
+- **変数・関数**: camelCase
+- **コンポーネント**: PascalCase
+- **定数**: UPPER_SNAKE_CASE
 
+## テストポリシー
+
+- **テストフレームワーク**: Vitest
+- **テストライブラリ**: @testing-library/react (Next.js アプリ)
+- **カバレッジ**: 80% 以上を推奨
+- **テストの粒度**: 開発コストを抑えるため、クリティカルパスのみテスト
+
+## Git ワークフロー
+
+- **ブランチ命名**: `feature/` または `fix/` から始める
+- **コミットメッセージ**: Conventional Commits 形式に従う
+  - 例: `feat: add new feature`, `fix: correct bug`
+- **pre-commit フック**: lint-staged が自動実行され、リンティングが行われる
+
+## ドキュメント
+
+- **JSDoc**: 全ての関数には JSDoc 形式でコメントを記述
+- **inline コメント**: 複雑なロジックには inline コメントを付ける
+
+## ファイル構成ルール
+
+- 機能が小さい場合は、テストファイルを過度に分割しない
+- 統合テストファイルを優先し、ハッピーパスのみテスト

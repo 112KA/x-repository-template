@@ -1,60 +1,72 @@
 'use client'
 
 import type { PageDefinition } from '@/lib/page-definitions.generated'
-import { createFadeStrategy, ViewSwitchProvider } from '@constraints/view-transitions'
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
+import { useViewSwitch } from '@constraints/view-transitions'
+import { useMemo } from 'react'
+import { Button } from './ui/button'
 
-interface MultiViewPageProps {
+export interface MultiViewPageProps {
   pageDefinition: PageDefinition
 }
 
+/**
+ * マルチビューページコンポーネント
+ * PageDefinitionに基づいて複数のビューを切り替え表示します
+ */
 export function MultiViewPage({ pageDefinition }: MultiViewPageProps) {
-  if (!pageDefinition.isMultiView || !pageDefinition.views) {
-    throw new Error('Invalid page configuration: page is not a multi-view page')
+  const { switchView, currentViewId } = useViewSwitch()
+
+  // 現在のビューID（null の場合はdefaultViewを使用）
+  const effectiveViewId = currentViewId ?? pageDefinition.defaultView
+
+  // 現在表示するビュー
+  const currentView = useMemo(() => {
+    return pageDefinition.views?.find(v => v.id === effectiveViewId)
+  }, [pageDefinition.views, effectiveViewId])
+
+  const handleButtonClick = async (action?: string, href?: string) => {
+    if (action?.startsWith('switchView:')) {
+      const viewId = action.replace('switchView:', '')
+      await switchView(viewId)
+    }
+    else if (href) {
+      // 外部リンクの場合は通常のナビゲーション（ViewTransitionProviderが処理）
+      window.location.href = href
+    }
   }
 
-  const defaultView = pageDefinition.defaultView || pageDefinition.views[0]?.id || ''
-  const [currentViewId, setCurrentViewId] = useState(defaultView)
-  const strategy = createFadeStrategy()
-
-  // 現在のビューを取得
-  const currentView = pageDefinition.views.find(v => v.id === currentViewId)
+  if (!currentView) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p className="text-muted-foreground">
+          View not found:
+          {effectiveViewId}
+        </p>
+      </div>
+    )
+  }
 
   return (
-    <ViewSwitchProvider
-      strategy={strategy}
-      currentViewId={currentViewId}
-      onViewChange={setCurrentViewId}
-    >
-      <section className="space-y-6">
-        {currentView?.title && (
-          <h1 className="text-3xl font-semibold">
-            {currentView.title}
-          </h1>
+    <section className="space-y-6">
+      <div className="space-y-2">
+        {currentView.title && (
+          <h1 className="text-3xl font-semibold">{currentView.title}</h1>
         )}
+        {currentView.name && currentView.name !== currentView.title && (
+          <p className="text-sm text-muted-foreground">{currentView.name}</p>
+        )}
+      </div>
 
-        {currentView?.buttons && currentView.buttons.length > 0 && (
-          <div className="flex flex-wrap gap-3">
-            {currentView.buttons.map(button => (
-              <Button
-                key={button.label}
-                onClick={() => {
-                  if (button.action?.startsWith('switchView:')) {
-                    const viewId = button.action.replace('switchView:', '')
-                    setCurrentViewId(viewId)
-                  }
-                  else if (button.href) {
-                    window.location.href = button.href
-                  }
-                }}
-              >
-                {button.label}
-              </Button>
-            ))}
-          </div>
-        )}
-      </section>
-    </ViewSwitchProvider>
+      <div className="flex flex-wrap gap-3">
+        {currentView.buttons.map((button, index) => (
+          <Button
+            key={index}
+            onClick={() => handleButtonClick(button.action, button.href)}
+          >
+            {button.label}
+          </Button>
+        ))}
+      </div>
+    </section>
   )
 }

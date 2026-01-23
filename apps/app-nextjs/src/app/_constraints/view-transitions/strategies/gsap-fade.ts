@@ -40,18 +40,18 @@ export function createFadeStrategy(options?: FadeStrategyOptions): ViewTransitio
     })
 
   return {
-    beforeNavigate: async ({ element, navigate }) => {
-      await animate(element, 0)
-      navigate()
+    beforeTransition: async (context, metadata) => {
+      // フェードアウト（共通）
+      await animate(context.element, 0)
+
+      // ページ遷移の場合のみnavigate実行
+      if (metadata.type === 'navigate') {
+        metadata.navigate()
+      }
     },
-    afterEnter: async ({ element }) => {
-      await animate(element, 1)
-    },
-    beforeSwitchView: async ({ container }) => {
-      await animate(container, 0)
-    },
-    afterSwitchView: async ({ container }) => {
-      await animate(container, 1)
+    afterTransition: async (context, _metadata) => {
+      // フェードイン（共通）
+      await animate(context.element, 1)
     },
     cleanup: () => {
       killTween()

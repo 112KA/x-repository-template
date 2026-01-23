@@ -1,38 +1,48 @@
-# Project overview
+# Project Overview
 
-Name: x-repository-template
+## プロジェクト目的
 
-Purpose:
-- Monorepo template using pnpm workspaces, intended as multi-frontend templates (Astro, Vite, Next.js) and shared TypeScript libraries. Provides standard build/test/lint tooling and workspace structure to bootstrap new projects.
+x-repository-template は pnpm を用いたモノレポ向けのテンプレートリポジトリです。主にフロントエンドの Web Framework (Astro, Vite, Nuxt, Next.js) の template と共通パッケージを同一ワークスペースで管理するためのベース構成を提供します。新規プロジェクトの立ち上げや内部テンプレートとして利用することを想定しています。
 
-Tech stack:
-- Node.js >= 24.12, pnpm >= 10
-- TypeScript 5.x targeting ES2020 (per repo instructions)
-- ESLint, Vitest, Vite, tsdown for building packages
-- Frontend frameworks: Astro, Next.js, Vite (vanilla)
-- Husky, lint-staged for Git hooks
+## 技術スタック
 
-Repo structure:
-- apps/: frontend apps (app-astro, app-nextjs, app-vite-vanilla)
-- packages/: reusable libraries (@112ka/x, x-lib, x3)
-- scripts/: helper scripts for git and repo setup
+- **パッケージマネージャー**: pnpm (>= 10)
+- **Node.js**: >= 24.12
+- **言語**: TypeScript 5.9.3
+- **フレームワーク**: Next.js 16, Astro, Vite
+- **リンティング**: ESLint 9 + @antfu/eslint-config
+- **テスティング**: Vitest + @testing-library/react
+- **Git Hooks**: simple-git-hooks + lint-staged
+- **UI**: Tailwind CSS, Radix UI, shadcn/ui
+- **アニメーション**: GSAP
 
-Key scripts (root `package.json`):
-- pnpm install (setup)
-- pnpm dev (starts watch for packages and app-astro dev by default)
-- pnpm build (builds packages)
-- pnpm lint (runs eslint --fix across workspace)
-- pnpm prepare (runs husky setup)
-- pnpm postinstall (runs pnpm build)
+## プロジェクト構造
 
-Notes:
-- Packages use `tsdown` for build and `vitest` for tests
-- `pnpm --filter` is used to target individual packages/apps
-- `.npmrc.org` provided as a template; users must set `.npmrc` for tokens locally
-- The repo is Linux-targeted development environment
+```
+/
+├── apps/              # アプリケーション
+│   ├── app-astro/    # Astro ベースのアプリ
+│   ├── app-nextjs/   # Next.js ベースのアプリ
+│   └── app-vite-vanilla/  # Vite vanilla アプリ
+├── packages/          # 再利用可能なライブラリ
+│   ├── x/            # @112ka/x コアライブラリ
+│   ├── x3/           # @112ka/x3 3D 関連ライブラリ
+│   └── x-lib/        # その他共通ライブラリ
+├── docs/             # ドキュメント
+├── schemas/          # スキーマ定義
+└── scripts/          # スクリプト
+```
 
-How to develop (short):
-1. Copy `.npmrc.org` to `.npmrc` and add credentials if needed
-2. pnpm install
-3. pnpm dev: start local development (e.g., `pnpm dev:astro`)
+## 主要コンポーネント
 
+### アプリケーション (apps/)
+
+- **app-nextjs**: Next.js 16 App Router ベース、Tailwind CSS、shadcn/ui、Vitest でテスト
+- **app-astro**: Astro ベース
+- **app-vite-vanilla**: Vite vanilla ベース
+
+### パッケージ (packages/)
+
+- **@112ka/x**: コアライブラリ (TypeScript + tsdown でビルド)
+- **@112ka/x3**: 3D 関連ライブラリ
+- **x-lib**: その他共通ライブラリ

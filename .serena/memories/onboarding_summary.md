@@ -1,20 +1,42 @@
-# Onboarding summary
+# オンボーディング概要
 
-I collected and saved onboarding memories for this repository:
+このプロジェクトは **x-repository-template** という pnpm モノレポテンプレートです。
 
-- project_overview.md: high-level purpose, tech stack, structure, key scripts
-- suggested_commands.md: common development commands (install, dev, build, test, lint)
-- style_conventions.md: TypeScript/ESLint/testing/style guidance
-- task_completion.md: pre-PR checklist and commands to run
+## クイックスタート
 
-Development environment:
-- OS: Linux
-- Node: >=24.12
-- Package manager: pnpm >=10
+1. **セットアップ**: [docs/CONTRIBUTING.md](../../docs/CONTRIBUTING.md) を参照
+2. **プロジェクト概要**: [docs/PRODUCT.md](../../docs/PRODUCT.md) を参照
+3. **アーキテクチャ**: [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) を参照
 
-Next steps for new contributors:
-1. Copy `.npmrc.org` to `.npmrc` and insert credentials if needed
-2. pnpm install
-3. pnpm dev to start watch + app-astro
+## 重要なポイント
 
-Saved to memories for quick access.
+- **パッケージマネージャー**: `pnpm` のみ使用
+- **コードスタイル**: @antfu/eslint-config に従う
+- **日本語対応**: GitHub Copilot は日本語で回答
+- **質問を推奨**: 不明点があれば必ず質問して明確化する
+
+## メモリファイル
+
+以下のメモリファイルが利用可能:
+- `project_overview.md` - プロジェクト構造と技術スタック
+- `style_conventions.md` - コーディング規約
+- `suggested_commands.md` - よく使うコマンド一覧
+- `task_completion.md` - タスク完了時のチェックリスト
+
+## ディレクトリ構成
+
+```
+apps/       - アプリケーション (Next.js, Astro, Vite)
+packages/   - 共通ライブラリ (@112ka/x, @112ka/x3, x-lib)
+docs/       - ドキュメント
+schemas/    - スキーマ定義
+scripts/    - スクリプト
+```
+
+## 開発の基本フロー
+
+1. `pnpm dev:nextjs` で開発サーバー起動
+2. コード編集 (保存時に自動リンティング)
+3. `pnpm lint:fix` でコード整形
+4. `pnpm test` でテスト実行
+5. `git commit -m "feat: ..."` でコミット (Conventional Commits)

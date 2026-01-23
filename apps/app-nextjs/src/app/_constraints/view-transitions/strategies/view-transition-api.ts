@@ -16,30 +16,39 @@ function isViewTransitionSupported(): boolean {
  */
 export function createViewTransitionApiStrategy(): ViewTransitionStrategy {
   return {
-    beforeNavigate: async ({ navigate }) => {
+    beforeTransition: async (context, metadata) => {
       if (!isViewTransitionSupported()) {
-        navigate()
+        if (metadata.type === 'navigate') {
+          metadata.navigate()
+        }
         return
       }
 
       try {
         const transition = document.startViewTransition?.(() => {
-          navigate()
+          if (metadata.type === 'navigate') {
+            metadata.navigate()
+          }
+          // ビュー切り替えの場合は、DOM更新はsetStateで行われる
         })
 
         if (!transition) {
-          navigate()
+          if (metadata.type === 'navigate') {
+            metadata.navigate()
+          }
           return
         }
 
         await transition.finished
       }
       catch {
-        navigate()
+        if (metadata.type === 'navigate') {
+          metadata.navigate()
+        }
       }
     },
-    afterEnter: async () => {
-      // View Transitions API は beforeNavigate 内でアニメーション完了を待つため、ここは空
+    afterTransition: async () => {
+      // View Transitions API は beforeTransition 内でアニメーション完了を待つため、ここは空
     },
     cleanup: () => {},
   }
