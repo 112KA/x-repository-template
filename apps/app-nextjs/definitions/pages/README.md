@@ -84,8 +84,8 @@ export default function Page() {
 カスタムトランザクション戦略を実装可能：
 
 ```tsx
-import type { ViewTransitionStrategy } from '@constraints/view-transitions'
-import { ViewSwitchProvider } from '@constraints/view-transitions'
+import type { ViewTransitionStrategy } from '@constraints/transitions'
+import { ViewSwitchProvider } from '@constraints/transitions'
 
 const customStrategy: ViewTransitionStrategy = {
   beforeSwitchView: async ({ container }) => {

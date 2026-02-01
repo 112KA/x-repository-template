@@ -1,12 +1,13 @@
 import type { RenderOptions } from '@testing-library/react'
 import type { ReactElement } from 'react'
-import type { ViewTransitionStrategy } from '../types'
+import type { ViewTransitionStrategy } from '../providers/shared'
 import { render } from '@testing-library/react'
-import { ViewTransitionProvider } from '../provider'
+import { CombinedTransitionProvider } from '../providers/combined-provider'
 import { createFadeStrategy } from '../strategies/gsap-fade'
 
 /**
- * ViewTransitionProvider でラップしたカスタムレンダー関数
+ * CombinedTransitionProvider でラップしたカスタムレンダー関数
+ * ページ遷移とビュー切り替えの両方をサポート
  */
 export function renderWithTransition(
   ui: ReactElement,
@@ -18,9 +19,9 @@ export function renderWithTransition(
   const { strategy = createFadeStrategy(), renderOptions } = options ?? {}
 
   return render(
-    <ViewTransitionProvider strategy={strategy}>
+    <CombinedTransitionProvider strategy={strategy}>
       {ui}
-    </ViewTransitionProvider>,
+    </CombinedTransitionProvider>,
     renderOptions,
   )
 }

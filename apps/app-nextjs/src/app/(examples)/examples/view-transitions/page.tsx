@@ -1,6 +1,6 @@
 'use client'
 
-import { TransitionLink } from '@constraints/view-transitions/transition-link'
+import { TransitionLink } from '@constraints/transitions/components/transition-link'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 

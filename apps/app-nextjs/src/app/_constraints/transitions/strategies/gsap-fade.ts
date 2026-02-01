@@ -40,16 +40,13 @@ export function createFadeStrategy(options?: FadeStrategyOptions): ViewTransitio
     })
 
   return {
-    beforeTransition: async (context, metadata) => {
+    beforeTransition: async (context) => {
       // フェードアウト（共通）
+      // Strategy はアニメーション処理のみを行う
+      // navigate処理はProvider側で実行
       await animate(context.element, 0)
-
-      // ページ遷移の場合のみnavigate実行
-      if (metadata.type === 'navigate') {
-        metadata.navigate()
-      }
     },
-    afterTransition: async (context, _metadata) => {
+    afterTransition: async (context) => {
       // フェードイン（共通）
       await animate(context.element, 1)
     },

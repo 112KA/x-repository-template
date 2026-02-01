@@ -136,7 +136,7 @@ export function MyCard() {
 #### GSAP を使ったスライドトランザクション
 
 ```typescript
-// src/app/_constraints/view-transitions/strategies/slide.ts
+// src/app/_constraints/transitions/strategies/slide.ts
 import type { ViewTransitionStrategy } from '../types'
 import gsap from 'gsap'
 
@@ -181,7 +181,7 @@ export function createSlideStrategy(): ViewTransitionStrategy {
 #### View Transitions API を使った例
 
 ```typescript
-// src/app/_constraints/view-transitions/strategies/view-transition-api.ts
+// src/app/_constraints/transitions/strategies/view-transition-api.ts
 import type { ViewTransitionStrategy } from '../types'
 
 export function createViewTransitionApiStrategy(): ViewTransitionStrategy {
@@ -487,7 +487,7 @@ export function LazyLoadedPage() {
 ## 参考実装
 
 - **Multi-View Page**: [src/components/multi-view-page.tsx](src/components/multi-view-page.tsx)
-- **View Transitions**: [src/app/\_constraints/view-transitions/](src/app/_constraints/view-transitions/)
+- **View Transitions**: [src/app/\_constraints/transitions/](src/app/_constraints/transitions/)
 - **Example Pages**: [src/app/(examples)/examples/](<src/app/(examples)/examples/>)
 - **Page Definitions**: [definitions/pages/definition.xml](definitions/pages/definition.xml)
 
@@ -496,7 +496,7 @@ export function LazyLoadedPage() {
 - [開発ガイドライン (Instructions)](../../.github/instructions/app-nextjs.instructions.md) - コーディング規約とアーキテクチャパターン
 - [プロジェクト仕様 (PRODUCT.md)](../../docs/PRODUCT.md) - プロジェクト全体の仕様
 - [貢献ガイド (CONTRIBUTING.md)](../../docs/CONTRIBUTING.md) - セットアップと開発フロー
-- [View Transitions README](src/app/_constraints/view-transitions/README.md) - View Transitions の詳細
+- [View Transitions README](src/app/_constraints/transitions/README.md) - View Transitions の詳細
 - [Page Definitions README](definitions/pages/README.md) - ページ定義の詳細
 
 ---

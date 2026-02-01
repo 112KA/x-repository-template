@@ -33,7 +33,7 @@ apps/app-nextjs/
 │   │   ├── page.tsx            # ホームページ
 │   │   ├── globals.css         # グローバルスタイル
 │   │   ├── _constraints/       # 制約・共通ロジック
-│   │   │   └── view-transitions/ # ビュートランジション
+│   │   │   └── transitions/ # ビュートランジション
 │   │   └── (examples)/         # 例示ページ（ルートグループ）
 │   ├── components/              # React コンポーネント
 │   │   ├── multi-view-page.tsx # マルチビューページ
@@ -161,7 +161,7 @@ export function Card({ isActive }: { isActive: boolean }) {
 ```typescript
 import { Button } from '@/components/ui/button'           // コンポーネント
 import { cn } from '@/lib/utils'                          // ユーティリティ
-import { createFadeStrategy } from '@constraints/view-transitions' // 制約
+import { createFadeStrategy } from '@constraints/transitions' // 制約
 import { someUtility } from 'x/utils'                     // 外部パッケージ
 ```
 
@@ -221,7 +221,7 @@ export default function ExamplePage() {
 #### 実装例
 
 ```typescript
-import type { ViewTransitionStrategy } from '@constraints/view-transitions'
+import type { ViewTransitionStrategy } from '@constraints/transitions'
 
 const customStrategy: ViewTransitionStrategy = {
   beforeSwitchView: async ({ container, fromViewId, toViewId }) => {

@@ -16,35 +16,27 @@ function isViewTransitionSupported(): boolean {
  */
 export function createViewTransitionApiStrategy(): ViewTransitionStrategy {
   return {
-    beforeTransition: async (context, metadata) => {
+    beforeTransition: async (_context) => {
       if (!isViewTransitionSupported()) {
-        if (metadata.type === 'navigate') {
-          metadata.navigate()
-        }
+        // Strategyはアニメーション処理のみ
+        // navigate処理はProvider側で実行
         return
       }
 
       try {
         const transition = document.startViewTransition?.(() => {
-          if (metadata.type === 'navigate') {
-            metadata.navigate()
-          }
-          // ビュー切り替えの場合は、DOM更新はsetStateで行われる
+          // ビュー切り替え時はDOM更新がsetStateで行われる
+          // ページ遷移時の実際の遷移はProvider側で実行
         })
 
         if (!transition) {
-          if (metadata.type === 'navigate') {
-            metadata.navigate()
-          }
           return
         }
 
         await transition.finished
       }
       catch {
-        if (metadata.type === 'navigate') {
-          metadata.navigate()
-        }
+        // エラー時もNavigationはProvider側で処理
       }
     },
     afterTransition: async () => {

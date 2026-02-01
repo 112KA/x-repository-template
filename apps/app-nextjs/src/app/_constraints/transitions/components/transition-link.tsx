@@ -4,7 +4,7 @@ import type { LinkProps } from 'next/link'
 import type { MouseEvent, ReactNode } from 'react'
 import Link from 'next/link'
 import { forwardRef, useCallback } from 'react'
-import { useViewTransitionRouter } from './hook'
+import { useViewTransitionRouter } from '../hook'
 
 type TransitionLinkProps = Omit<LinkProps, 'href'> & {
   href: string

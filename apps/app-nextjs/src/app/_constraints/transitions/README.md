@@ -1,4 +1,4 @@
-## view-transitions
+## transitions
 
 Router 遷移時のエフェクト制御を行う実験的なフィーチャーです。
 
@@ -14,7 +14,7 @@ import type { ReactNode } from 'react'
 import {
   createViewTransitionApiStrategy,
   ViewTransitionProvider,
-} from '@constraints/view-transitions'
+} from '@constraints/transitions'
 
 function Layout({ children }: { children: ReactNode }) {
   return (
@@ -35,7 +35,7 @@ function Layout({ children }: { children: ReactNode }) {
 `ViewTransitionStrategy` を実装すると独自エフェクトを注入できます。`beforeNavigate` で遷移前処理を行い、必要に応じて `afterEnter` で遷移後処理を実装します。
 
 ```ts
-import type { ViewTransitionStrategy } from '@constraints/view-transitions'
+import type { ViewTransitionStrategy } from '@constraints/transitions'
 
 const slideStrategy: ViewTransitionStrategy = {
   beforeNavigate: async ({ element, navigate }) => {
@@ -50,7 +50,7 @@ const slideStrategy: ViewTransitionStrategy = {
 }
 ```
 
-`apps/app-nextjs/src/app/(examples)/view-transitions` にサンプルページを配置しているので、挙動を確認しながらエフェクトを調整してください。
+`apps/app-nextjs/src/app/(examples)/transitions` にサンプルページを配置しているので、挙動を確認しながらエフェクトを調整してください。
 
 ## View Transitions Enhancement Plan
 
@@ -67,9 +67,9 @@ const slideStrategy: ViewTransitionStrategy = {
 
 - ページ遷移のベースラインを先に作成し、その上でフェード戦略の挙動を検証します。
 - 追加したテスト:
-  - [**tests**/provider-and-hook.test.tsx](src/app/_constraints/view-transitions/__tests__/provider-and-hook.test.tsx): `push`/`replace`の単一起動と完了後ナビゲーション。
-  - [**tests**/transition-link.test.tsx](src/app/_constraints/view-transitions/__tests__/transition-link.test.tsx): クリック→演出→`router.push`、修飾キー時は演出を起動しない。
-  - [**tests**/fade-strategy.test.ts](src/app/_constraints/view-transitions/__tests__/fade-strategy.test.ts): `createFadeStrategy`の`beforeNavigate`/`afterEnter`が正しく解決すること。
+  - [**tests**/provider-and-hook.test.tsx](src/app/_constraints/transitions/__tests__/provider-and-hook.test.tsx): `push`/`replace`の単一起動と完了後ナビゲーション。
+  - [**tests**/transition-link.test.tsx](src/app/_constraints/transitions/__tests__/transition-link.test.tsx): クリック→演出→`router.push`、修飾キー時は演出を起動しない。
+  - [**tests**/fade-strategy.test.ts](src/app/_constraints/transitions/__tests__/fade-strategy.test.ts): `createFadeStrategy`の`beforeNavigate`/`afterEnter`が正しく解決すること。
 - モック: `next/navigation`（`useRouter`/`usePathname`）、`gsap`（`to`）、`document.startViewTransition`（存在・非存在切替は後続）。
 - 設定: [vitest.config.ts](vitest.config.ts)（`environment: jsdom`、PostCSS無効化）、[vitest.setup.ts](vitest.setup.ts)（`jest-dom`/DOMギャップ）。
 
