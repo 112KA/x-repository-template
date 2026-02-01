@@ -2,7 +2,8 @@
 
 import type { ReactNode } from 'react'
 import type { ViewTransitionStrategy } from './shared'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
+import { useAfterTransition } from '../hooks/use-transition-provider'
 import { ViewTransitionContext } from './shared'
 
 export interface ViewTransitionProviderProps {
@@ -18,17 +19,12 @@ export interface ViewTransitionProviderProps {
 export function ViewTransitionProvider({ children, strategy, initialViewId }: ViewTransitionProviderProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const isAnimatingRef = useRef(false)
-
   const strategyRef = useRef<ViewTransitionStrategy>(strategy)
-  strategyRef.current = strategy
 
   const [currentViewId, setCurrentViewId] = useState<string | null>(initialViewId ?? null)
 
-  useEffect(() => {
-    return () => {
-      strategy.cleanup()
-    }
-  }, [strategy])
+  // strategy の更新
+  strategyRef.current = strategy
 
   const switchView = useCallback(
     async (toViewId: string) => {
@@ -39,9 +35,9 @@ export function ViewTransitionProvider({ children, strategy, initialViewId }: Vi
 
       try {
         // アニメーション開始
-        await strategyRef.current?.beforeTransition(
-          { element: containerRef.current },
-        )
+        await strategyRef.current?.beforeTransition({
+          element: containerRef.current,
+        })
 
         // ビュー切り替え
         setCurrentViewId(toViewId)
@@ -54,32 +50,8 @@ export function ViewTransitionProvider({ children, strategy, initialViewId }: Vi
     [currentViewId],
   )
 
-  // ビュー切り替え後のアニメーション完了処理
-  useEffect(() => {
-    if (!currentViewId)
-      return
-
-    let isCancelled = false
-
-    const run = async () => {
-      try {
-        await strategyRef.current?.afterTransition(
-          { element: containerRef.current },
-        )
-      }
-      finally {
-        if (!isCancelled) {
-          isAnimatingRef.current = false
-        }
-      }
-    }
-
-    run()
-
-    return () => {
-      isCancelled = true
-    }
-  }, [currentViewId])
+  // currentViewId 変更時に afterTransition を実行
+  useAfterTransition(strategyRef, containerRef, currentViewId, isAnimatingRef)
 
   const viewSwitchValue = useMemo(
     () => ({

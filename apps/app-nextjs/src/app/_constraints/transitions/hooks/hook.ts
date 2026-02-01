@@ -1,8 +1,8 @@
 'use client'
 
-import type { PageTransitionRouterValue, ViewTransitionContextValue } from './providers/shared'
+import type { PageTransitionRouterValue, ViewTransitionContextValue } from '../providers/shared'
 import { useContext } from 'react'
-import { PageTransitionContext, ViewTransitionContext } from './providers/shared'
+import { PageTransitionContext, ViewTransitionContext } from '../providers/shared'
 
 export function useViewTransitionRouter(): PageTransitionRouterValue {
   const context = useContext(PageTransitionContext)

@@ -20,12 +20,12 @@ function ViewTransitionsIndex({ className }: Props) {
       <ul className="flex gap-2">
         <li>
           <Button asChild>
-            <TransitionLink href="/examples/view-transitions/page1/">Page 1</TransitionLink>
+            <TransitionLink href="/examples/transitions/page1/">Page 1</TransitionLink>
           </Button>
         </li>
         <li>
           <Button asChild>
-            <TransitionLink href="/examples/view-transitions/page2/">Page 2</TransitionLink>
+            <TransitionLink href="/examples/transitions/page2/">Page 2</TransitionLink>
           </Button>
         </li>
       </ul>

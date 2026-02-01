@@ -1,10 +1,8 @@
 // UI コンポーネント
 export { View } from './components/view'
 export type { ViewProps } from './components/view'
-export { useViewSwitch, useViewTransitionRouter } from './hook'
+export { useViewSwitch, useViewTransitionRouter } from './hooks/hook'
 // 個別プロバイダー
-export { CombinedTransitionProvider } from './providers/combined-provider'
-export type { CombinedTransitionProviderProps } from './providers/combined-provider'
 export { PageTransitionProvider } from './providers/page-transition-provider'
 export type { PageTransitionProviderProps } from './providers/page-transition-provider'
 // 型とコンテキスト

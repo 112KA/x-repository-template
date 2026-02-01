@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { useViewSwitch } from '../hook'
+import { useViewSwitch } from '../hooks/hook'
 
 export interface ViewProps {
   /** ビューID */

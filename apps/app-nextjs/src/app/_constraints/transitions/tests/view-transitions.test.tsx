@@ -19,7 +19,7 @@ import { describe, it } from 'vitest'
 // eslint-disable-next-line import/first
 import { TransitionLink } from '../components/transition-link'
 // eslint-disable-next-line import/first
-import { useViewTransitionRouter } from '../hook'
+import { useViewTransitionRouter } from '../hooks/hook'
 // eslint-disable-next-line import/first
 import { renderWithTransition, waitForAnimation } from './test-utils'
 

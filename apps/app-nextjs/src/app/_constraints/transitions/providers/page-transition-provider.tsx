@@ -3,7 +3,8 @@
 import type { ReactNode } from 'react'
 import type { ViewTransitionStrategy } from './shared'
 import { usePathname, useRouter } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useMemo } from 'react'
+import { useAfterTransition, useTransitionProvider } from '../hooks/use-transition-provider'
 import { PageTransitionContext } from './shared'
 
 export interface PageTransitionProviderProps {
@@ -18,65 +19,41 @@ export interface PageTransitionProviderProps {
 export function PageTransitionProvider({ children, strategy }: PageTransitionProviderProps) {
   const router = useRouter()
   const pathname = usePathname()
-  const containerRef = useRef<HTMLDivElement>(null)
-  const isAnimatingRef = useRef(false)
 
-  const strategyRef = useRef<ViewTransitionStrategy>(strategy)
-  strategyRef.current = strategy
+  // 遷移先URL を保持する ref（useCallback で参照するため）
+  const hrefRef = React.useRef<string | null>(null)
+  const isReplaceRef = React.useRef<boolean>(false)
 
-  useEffect(() => {
-    return () => {
-      strategy.cleanup()
+  const shouldSkip = useCallback(
+    () => hrefRef.current === pathname,
+    [pathname],
+  )
+
+  const onExecute = useCallback(async () => {
+    if (hrefRef.current) {
+      isReplaceRef.current
+        ? router.replace(hrefRef.current)
+        : router.push(hrefRef.current)
     }
-  }, [strategy])
+  }, [router])
+
+  const { containerRef, execute, isAnimatingRef, strategyRef } = useTransitionProvider(
+    strategy,
+    onExecute,
+    shouldSkip,
+  )
+
+  // pathname 変更時に afterTransition を実行
+  useAfterTransition(strategyRef, containerRef, pathname, isAnimatingRef)
 
   const transitionTo = useCallback(
     async (href: string, replace: boolean = false) => {
-      if (href === pathname || isAnimatingRef.current)
-        return
-
-      isAnimatingRef.current = true
-
-      try {
-        // アニメーション開始
-        await strategyRef.current?.beforeTransition(
-          { element: containerRef.current },
-        )
-
-        // ページ遷移を実行
-        replace ? router.replace(href) : router.push(href)
-      }
-      catch (error) {
-        isAnimatingRef.current = false
-        throw error
-      }
+      hrefRef.current = href
+      isReplaceRef.current = replace
+      await execute()
     },
-    [pathname, router],
+    [execute],
   )
-
-  // ページ遷移後のアニメーション完了処理
-  useEffect(() => {
-    let isCancelled = false
-
-    const run = async () => {
-      try {
-        await strategyRef.current?.afterTransition(
-          { element: containerRef.current },
-        )
-      }
-      finally {
-        if (!isCancelled) {
-          isAnimatingRef.current = false
-        }
-      }
-    }
-
-    run()
-
-    return () => {
-      isCancelled = true
-    }
-  }, [pathname])
 
   const routerValue = useMemo(
     () => ({
