@@ -11,10 +11,10 @@
 - パッケージ管理: pnpm を推奨
 
 ## セットアップ
-1. 必要に応じて `.npmrc` を復元してください（リポジトリに `.npmrc.org` がある場合）。
+1. 必要に応じて `.npmrc` を復元してください（リポジトリに `.npmrc.example` がある場合）。
 
 ```bash
-mv .npmrc.org .npmrc   # 必要なら
+mv .npmrc.example .npmrc   # 必要なら
 # %%PERSONAL_ACCESS_TOKEN%%を自身のtokenで置換する
 pnpm i
 ```

@@ -2,6 +2,10 @@
 
 ## 1. Tech Stack
 
+[全体に関わる技術スタックを記載]
+
+例: 
+```markdown
 ### Core
 - **Package Manager**: pnpm (>= 10) - モノレポ管理
 - **Node.js**: >= 24.12
@@ -11,18 +15,17 @@
 - **Build Tools**: tsdown (パッケージビルド), Turbopack (Next.js)
 - **Linting**: ESLint 9 + @antfu/eslint-config
 - **Testing**: Vitest + @testing-library/react
-- **UI Frameworks**: Tailwind CSS 4、Radix UI、shadcn/ui、GSAP
+```
 
 ## 2. Project Structure
 
-```
+[全体構造を記載]
+
+例: 
+``` markdown
 /
 ├── apps/                      # アプリケーション層
 │   ├── app-nextjs/           # Next.js アプリ (メイン)
-│   │   ├── src/app/          # App Router ページ
-│   │   ├── src/components/   # React コンポーネント
-│   │   ├── src/lib/          # ユーティリティ
-│   │   └── definitions/      # ページ定義 (XML)
 │   ├── app-astro/            # Astro アプリ
 │   └── app-vite-vanilla/     # Vite vanilla アプリ
 │
@@ -33,8 +36,9 @@
 │
 ├── docs/                      # ドキュメント
 │   ├── PRODUCT.md            # 製品仕様
-│   ├── ARCHITECTURE.md       # アーキテクチャ (本ドキュメント)
-│   └── CONTRIBUTING.md       # 開発ガイド
+│   └── CONTRIBUTING.md         # プロジェクト参加ガイド
+│   └── codemap/                # コードマップ
+│   └── guides/                # 機能ガイド、tutorial
 │
 ├── schemas/                   # スキーマ定義 (XSD)
 └── scripts/                   # Git subtree 管理スクリプト
@@ -59,7 +63,11 @@
 ## 4. Package Dependencies
 
 ### 内部依存関係
-```
+
+[内部依存関係を記載]
+
+例: 
+``` markdown
 app-nextjs → @112ka/x (workspace:*)
 app-astro  → (独立)
 app-vite   → (独立)
@@ -69,10 +77,12 @@ app-vite   → (独立)
 ```
 
 ### 外部パッケージポリシー
+
+[外部パッケージポリシーを記載]
+
+例: 
+``` markdown
 - **認証**: `.npmrc` に Personal Access Token を設定
 - **プライベートパッケージ**: `@112ka/x` はアクセス権限が必要
-- **セキュリティ**: トークンをリポジトリにコミットしない (`.npmrc.org` をテンプレート化)
-
-## 開発・テストの詳細
-
-開発環境のセットアップ、ビルド・テスト手順については [CONTRIBUTING.md](./CONTRIBUTING.md) を参照してください。
+- **セキュリティ**: トークンをリポジトリにコミットしない (`.npmrc.example` をテンプレート化)
+```

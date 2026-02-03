@@ -4,7 +4,7 @@
 
 ```bash
 # .npmrc ファイルのコピー
-cp .npmrc.org .npmrc
+cp .npmrc.example .npmrc
 
 # 依存関係のインストール (自動的に pnpm build も実行される)
 pnpm install

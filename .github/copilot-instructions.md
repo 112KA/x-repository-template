@@ -5,8 +5,8 @@
 ## Quick Navigation
 
 - **Product Vision**: [PRODUCT.md](../docs/PRODUCT.md) - pnpm monorepository for unified frontend framework management
-- **Architecture**: [ARCHITECTURE.md](../docs/ARCHITECTURE.md) - Workspace structure, tech stack, design principles
-- **Development**: [CONTRIBUTING.md](../docs/CONTRIBUTING.md) - Setup, development commands, testing procedures
+- **Architecture**: [codemaps/index.md](../docs/codemaps/index.md) - Workspace structure, tech stack, design principles
+- **Development**: [guides/development.md](../docs/guides/development.md) - Setup, development commands, testing procedures
 
 ## Conversation Context
 

@@ -27,8 +27,7 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "build": "tsdown",
-    "watch": "tsdown --watch",
-    "test": "vitest --run --coverage"
+    "watch": "tsdown --watch"
   },
   "peerDependencies": {
     "@112ka/x": "0.0.10",

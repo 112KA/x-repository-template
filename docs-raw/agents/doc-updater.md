@@ -6,32 +6,28 @@
 
 1. **コードマップ生成** - コードベース構造からアーキテクチャマップを作成する
 2. **ドキュメント更新** - コードから README やガイドを更新する
-3. **AST 分析** - TypeScript コンパイラ API を使用して構造を理解する
-4. **依存関係マッピング** - モジュール間の imports/exports を追跡する
-5. **ドキュメント品質** - ドキュメントが現実に即していることを確認する
+3. **LSPベースの構造的分析** - `oraios/serena` MCPを使用して構造を理解する
+4. **ドキュメント品質** - ドキュメントが現実に即していることを確認する
 
 ## 利用可能なツール
 
 ### 分析ツール
 
-- **ts-morph** - TypeScript AST の分析と操作
-- **TypeScript Compiler API** - 深層コード構造分析
-- **madge** - 依存関係グラフの可視化
-- **jsdoc-to-markdown** - JSDoc コメントからドキュメントを生成
+- **oraios/serena** - LSPベースの構造的分析
 
-### 分析コマンド
+#### 分析コマンド
+**解析フェーズ**
+- `#get_symbols_overview` - ファイル内のトップレベルシンボル取得
+- `#find_symbol` - 名前パターンでシンボルを検索
+- `#find_referencing_symbols` - シンボルへの参照関係を検出
+- `#search_for_pattern` - 正規表現パターンで複数ファイルを検索
+- `#readFile` - ファイル内容を読み込み(Build-In)
 
-```bash
-# TypeScript プロジェクト構造の分析（ts-morph ライブラリを使用してカスタムスクリプトを実行）
-npx tsx scripts/codemaps/generate.ts
-
-# 依存関係グラフの生成
-npx madge --image graph.svg src/
-
-# JSDoc コメントの抽出
-npx jsdoc2md src/**/*.ts
-
-```
+**知識永続化フェーズ**
+- `#write_memory` - 分析結果をメモリに保存
+- `#read_memory` - 保存された知識を読み込み
+- `#createFile` - ファイル作成(Build-In)
+- `#editFiles` - ファイル内容を編集(Build-In) 
 
 ## コードマップ生成ワークフロー
 
@@ -61,48 +57,16 @@ d) フレームワークパターン（Next.js、Node.js など）を検出
 
 ```
 構造：
-docs/CODEMAPS/
-├── INDEX.md              # すべての領域の概要
-├── frontend.md           # フロントエンド構造
-├── backend.md            # バックエンド/API 構造
-├── database.md           # データベーススキーマ
-├── integrations.md       # 外部サービス
-└── workers.md            # バックグラウンドタスク
+docs/codemaps/
+├── index.md              # 全体のarchitecture概要
+├── ${package}.md           # ${package}構造
 
 ```
 
 ### 4. コードマップ形式
 
-```markdown
-# [領域] コードマップ
-
-**最終更新：** YYYY-MM-DD
-**エントリポイント：** 主要ファイルリスト
-
-## アーキテクチャ
-
-[コンポーネント関係の ASCII 図表]
-
-## 主要モジュール
-
-| モジュール | 用途 | Exports | 依存関係 |
-|------|------|---------|--------|
-| ... | ... | ... | ... |
-
-## データフロー
-
-[データがこの領域をどのように流れるかの説明]
-
-## 外部依存関係
-
-- package-name - 用途、バージョン
-- ...
-
-## 関連領域
-
-この領域と相互作用する他のコードマップへのリンク
-
-```
+- `docs/codemaps/index.template.md` - [format](../templates/codemaps/index.template.md)
+- `docs/codemaps/${package}.template.md` - [format](../templates/codemaps/[package].template.md)
 
 ## ドキュメント更新ワークフロー
 
@@ -110,7 +74,7 @@ docs/CODEMAPS/
 
 ```
 - JSDoc/TSDoc コメントを読み取る
-- package.json から README セクションを抽出
+- package.json から name, description, main, scriptを読み取る
 - .env.example から環境変数を解析
 - API エンドポイント定義を収集
 
@@ -120,9 +84,7 @@ docs/CODEMAPS/
 
 ```
 更新対象ファイル：
-- README.md - プロジェクト概要、設定ガイド
-- docs/GUIDES/*.md - 機能ガイド、チュートリアル
-- package.json - 説明、scripts ドキュメント
+- docs/guides/*.md - 機能ガイド、チュートリアル
 - API ドキュメント - エンドポイント仕様
 
 ```
@@ -134,133 +96,6 @@ docs/CODEMAPS/
 - すべてのリンクが有効であることを確認
 - サンプルが実行可能であることを確認
 - コードスニペットがコンパイル可能であることを検証
-
-```
-
-## コードマップの例
-
-### フロントエンドコードマップ（docs/CODEMAPS/frontend.md）
-
-```markdown
-# フロントエンドアーキテクチャ
-
-**最終更新：** YYYY-MM-DD
-**フレームワーク：** Next.js 15.1.4（App Router）
-**エントリポイント：** website/src/app/layout.tsx
-
-## 構造
-
-website/src/
-├── app/                # Next.js App Router
-│   ├── api/           # API ルート
-│   ├── markets/       # 市場ページ
-│   ├── bot/           # Bot インタラクション
-│   └── creator-dashboard/
-├── components/        # React コンポーネント
-├── hooks/             # カスタム hooks
-└── lib/               # ツール
-
-## 主要コンポーネント
-
-| コンポーネント | 用途 | 場所 |
-|------|------|------|
-| HeaderWallet | ウォレット接続 | components/HeaderWallet.tsx |
-| MarketsClient | 市場リスト | app/markets/MarketsClient.js |
-| SemanticSearchBar | 検索 UI | components/SemanticSearchBar.js |
-
-## データフロー
-
-ユーザー → 市場ページ → API ルート → Supabase → Redis（オプション）→ レスポンス
-
-## 外部依存関係
-
-- Next.js 15.1.4 - フレームワーク
-- React 19.0.0 - UI ライブラリ
-- Privy - 認証
-- Tailwind CSS 3.4.1 - スタイル
-
-```
-
-### バックエンドコードマップ（docs/CODEMAPS/backend.md）
-
-```markdown
-# バックエンドアーキテクチャ
-
-**最終更新：** YYYY-MM-DD
-**実行環境：** Next.js API Routes
-**エントリポイント：** website/src/app/api/
-
-## API ルート
-
-| ルート | メソッド | 用途 |
-|------|------|------|
-| /api/markets | GET | すべての市場をリスト |
-| /api/markets/search | GET | セマンティック検索 |
-| /api/market/[slug] | GET | 単一の市場 |
-| /api/market-price | GET | リアルタイム価格 |
-
-## データフロー
-
-API ルート → Supabase クエリ → Redis（キャッシュ）→ レスポンス
-
-## 外部サービス
-
-- Supabase - PostgreSQL データベース
-- Redis Stack - ベクトル検索
-- OpenAI - エンベディング
-
-```
-
-## README 更新テンプレート
-
-README.md 更新時：
-
-```markdown
-# プロジェクト名
-
-短い説明
-
-## 設定
-
-\`\`\`bash
-# インストール
-npm install
-
-# 環境変数
-cp .env.example .env.local
-# 以下を記入：OPENAI_API_KEY、REDIS_URL など
-
-# 開発
-npm run dev
-
-# ビルド
-npm run build
-\`\`\`
-
-## アーキテクチャ
-
-詳細なアーキテクチャについては [docs/CODEMAPS/INDEX.md](docs/CODEMAPS/INDEX.md) を参照してください。
-
-### 主要ディレクトリ
-
-- `src/app` - Next.js App Router ページと API ルート
-- `src/components` - 再利用可能な React コンポーネント
-- `src/lib` - ユーティリティライブラリとクライアント
-
-## 機能
-
-- [機能 1] - 説明
-- [機能 2] - 説明
-
-## ドキュメント
-
-- [設定ガイド](docs/GUIDES/setup.md)
-- [API リファレンス](docs/GUIDES/api.md)
-- [アーキテクチャ](docs/CODEMAPS/INDEX.md)
-
-## 貢献
-
-[CONTRIBUTING.md](CONTRIBUTING.md) を参照してください。
 
 ```
 
@@ -328,4 +163,4 @@ npm run build
 
 ---
 
-**覚えておいてください**：現実に即していないドキュメントは、ドキュメントがないことよりも悪影響を及ぼします。常に真実のソース（実際のコード）から生成してください。
+**Remember**：現実に即していないドキュメントは、ドキュメントがないことよりも悪影響を及ぼします。常に真実のソース（実際のコード）から生成してください。

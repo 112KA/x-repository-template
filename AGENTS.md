@@ -232,7 +232,7 @@ pnpm dev:nextjs
 
 ```bash
 # .npmrc をコピーして編集
-cp .npmrc.org .npmrc
+cp .npmrc.example .npmrc
 
 # エディタで .npmrc を開き、%%PERSONAL_ACCESS_TOKEN%% を置き換える
 # 飯塚に @112ka/x のアクセス権限登録を依頼
