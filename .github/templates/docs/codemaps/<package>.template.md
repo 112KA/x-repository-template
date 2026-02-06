@@ -8,7 +8,7 @@
 
 ## 構造
 
-[packageのディレクトリ構造を記載]
+[packageの主要ディレクトリの構造を記載]
 
 ## Key Modules
 

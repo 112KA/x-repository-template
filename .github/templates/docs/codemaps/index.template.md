@@ -86,3 +86,33 @@ app-vite   → (独立)
 - **プライベートパッケージ**: `@112ka/x` はアクセス権限が必要
 - **セキュリティ**: トークンをリポジトリにコミットしない (`.npmrc.example` をテンプレート化)
 ```
+
+## 5. Applications Overview
+
+[アプリケーション概要を記載]
+
+例: 
+``` markdown
+### app-nextjs (Next.js 16.1.4)
+- **Build**: Turbopack (`--turbopack` フラグ)
+- **Export Mode**: Static Export (output: 'export')
+- **Key Features**: View Transitions API, GSAP fallback transitions
+- **詳細構造**: [app-nextjs.md](app-nextjs.md)
+```
+
+## 6. Common Scripts
+
+[主要なscriptを記載]
+
+例: 
+``` markdown
+| Script | Purpose |
+|--------|---------|
+| `pnpm build` | 全パッケージをビルド |
+| `pnpm watch` | @112ka/x, @112ka/x3 を監視ビルド |
+| `pnpm dev:nextjs` | Next.js アプリを開発モード起動 |
+| `pnpm dev:astro` | Astro アプリを開発モード起動 |
+| `pnpm dev:vite` | Vite アプリを開発モード起動 |
+| `pnpm lint:fix` | 全パッケージ・アプリをリント・自動修正 |
+| `pnpm testAll` | 全パッケージ・アプリのテスト実行 |
+```
