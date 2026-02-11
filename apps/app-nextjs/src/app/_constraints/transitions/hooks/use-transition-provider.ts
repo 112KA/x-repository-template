@@ -1,20 +1,9 @@
 'use client'
 
+import type { RefObject } from 'react'
 import type { ViewTransitionStrategy } from '../providers/shared'
 import { useCallback, useEffect, useRef } from 'react'
 
-/**
- * ページ遷移またはビュー切り替え時のアニメーション管理フック
- * 共通ロジックをここに集約
- *
- * @param strategy - アニメーション戦略
- * @param onExecute - 実際の遷移処理（router.push または setCurrentViewId）
- * @param shouldSkip - 実行をスキップすべきかを判定する関数
- * @returns 以下のプロパティを持つオブジェクト
- * @returns {RefObject} containerRef - アニメーション対象のコンテナ参照
- * @returns {Function} execute - アニメーション実行関数
- * @returns {MutableRefObject} isAnimatingRef - アニメーション中フラグ
- */
 export function useTransitionProvider(
   strategy: ViewTransitionStrategy,
   onExecute: () => Promise<void> | void,
@@ -97,10 +86,10 @@ export function useTransitionProvider(
  * @param isAnimatingRef - isAnimatingRef（親フックから返却される）
  */
 export function useAfterTransition(
-  strategyRef: React.MutableRefObject<ViewTransitionStrategy>,
-  containerRef: React.MutableRefObject<HTMLDivElement | null>,
+  strategyRef: RefObject<ViewTransitionStrategy>,
+  containerRef: RefObject<HTMLDivElement | null>,
   dependency: any,
-  isAnimatingRef: React.MutableRefObject<boolean>,
+  isAnimatingRef: RefObject<boolean>,
 ) {
   useEffect(() => {
     let isCancelled = false

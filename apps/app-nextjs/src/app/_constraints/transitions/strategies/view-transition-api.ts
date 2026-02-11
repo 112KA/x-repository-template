@@ -1,4 +1,4 @@
-import type { ViewTransitionStrategy } from '../types'
+import type { ViewTransitionStrategy } from '../providers/shared'
 
 function isViewTransitionSupported(): boolean {
   return typeof document !== 'undefined' && 'startViewTransition' in document

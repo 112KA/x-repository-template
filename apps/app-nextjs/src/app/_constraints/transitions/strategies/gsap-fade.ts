@@ -1,4 +1,4 @@
-import type { ViewTransitionStrategy } from '../types'
+import type { ViewTransitionStrategy } from '../providers/shared'
 import gsap from 'gsap'
 
 export interface FadeStrategyOptions {

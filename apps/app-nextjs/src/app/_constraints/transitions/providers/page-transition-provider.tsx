@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react'
 import type { ViewTransitionStrategy } from './shared'
 import { usePathname, useRouter } from 'next/navigation'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 import { useAfterTransition, useTransitionProvider } from '../hooks/use-transition-provider'
 import { PageTransitionContext } from './shared'
 
@@ -21,8 +21,8 @@ export function PageTransitionProvider({ children, strategy }: PageTransitionPro
   const pathname = usePathname()
 
   // 遷移先URL を保持する ref（useCallback で参照するため）
-  const hrefRef = React.useRef<string | null>(null)
-  const isReplaceRef = React.useRef<boolean>(false)
+  const hrefRef = useRef<string | null>(null)
+  const isReplaceRef = useRef<boolean>(false)
 
   const shouldSkip = useCallback(
     () => hrefRef.current === pathname,

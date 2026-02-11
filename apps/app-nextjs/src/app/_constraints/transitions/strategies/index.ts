@@ -1,4 +1,4 @@
-import type { ViewTransitionStrategy } from '../types'
+import type { ViewTransitionStrategy } from '../providers/shared'
 import { createFadeStrategy } from './gsap-fade'
 import { createViewTransitionApiStrategy } from './view-transition-api'
 
