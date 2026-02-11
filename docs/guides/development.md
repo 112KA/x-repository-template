@@ -382,8 +382,4 @@ pnpm watch                    # = watch:x + watch:x3
 ## リソース
 
 - [PRODUCT.md](../PRODUCT.md) - プロダクト仕様
-- [codemaps/index.md](../codemaps/index.md) - アーキテクチャ概要
-- [codemaps/app-nextjs.md](../codemaps/app-nextjs.md) - Next.js アプリ詳細
-- [codemaps/packages-x.md](../codemaps/packages-x.md) - @112ka/x ライブラリ詳細
-- [codemaps/packages-x3.md](../codemaps/packages-x3.md) - @112ka/x3 ライブラリ詳細
 - [AGENTS.md](../../AGENTS.md) - モノレポ開発パターン

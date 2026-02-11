@@ -2,6 +2,7 @@
   "name": "@112ka/x",
   "type": "module",
   "version": "0.0.10",
+  "description": "軽量でモジュール化された TypeScript ユーティリティライブラリ。複数の小さなモジュール群を ES モジュールとして提供し、必要な機能を選択的にインポート可能な設計。",
   "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "repository": {
     "type": "git",

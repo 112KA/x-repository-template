@@ -3,37 +3,29 @@
 # and so on. The (templates for) outputs of these tools are contained here.
 prompts:
   onboarding_prompt: |
-    You are viewing the project for the first time.
-    Your task is to assemble relevant high-level information about the project which
-    will be saved to memory files in the following steps.
-    The information should be sufficient to understand what the project is about,
-    and the most important commands for developing code.
-    The project is being developed on the system: {{ system }}.
+    You are viewing the monorepo project for the first time.
+    The goal is to gather high-level information sufficient to understand the entire project and the commands used in the monorepo root.
+    The target system is running on {{ system }}.
+    Collected information will be saved in memory files.
+    The information must be at a practical level, as it will be used for subsequent development and command execution decisions.
 
-    You need to identify at least the following information:
-    * the project's purpose
-    * the tech stack used
-    * the code style and conventions used (including naming, type hints, docstrings, etc.)
-    * which commands to run when a task is completed (linting, formatting, testing, etc.)
-    * the rough structure of the codebase
-    * the commands for testing, formatting, and linting
-    * the commands for running the entrypoints of the project
-    * the util commands for the system, like `git`, `ls`, `cd`, `grep`, `find`, etc. Keep in mind that the system is {{ system }},
-      so the commands might be different than on a regular unix system.
-    * whether there are particular guidelines, styles, design patterns, etc. that one should know about
+    Identify at least the following information:
+    * Project purpose
+    * Technology stack used across all packages
+    * Rough structure of the codebase
+    * Test, formatting, and linting commands defined in the root package.json
+    * Commands to execute the project entry point
+    * Utility commands available on {{ system }} (git, ls, cd, grep, find, etc.; may differ from Unix)
 
-    This list is not exhaustive, you can add more information if you think it is relevant.
+    This list is the minimum; add relevant information as needed.
+    Focus on information necessary for understanding the monorepo as a whole, as details for each package will be collected separately.
+    Investigate files and directories using available tools to obtain information.
+    Read only what is necessary to avoid wasting memory.
+    If information is insufficient within the project, ask the user to supplement it.
+    Once all information is gathered, use write_memory to save it into multiple memory files.
+    Specifically, suggested_commands.md is mandatory and must include a list of commands necessary for developing in this project.
+    **Important**: Upon completion of onboarding, always call write_memory to save the collected results.
 
-    For doing that, you will need to acquire information about the project with the corresponding tools.
-    Read only the necessary files and directories to avoid loading too much data into memory.
-    If you cannot find everything you need from the project itself, you should ask the user for more information.
-
-    After collecting all the information, you will use the `write_memory` tool (in multiple calls) to save it to various memory files.
-    A particularly important memory file will be the `suggested_commands.md` file, which should contain
-    a list of commands that the user should know about to develop code in this project.
-    Moreover, you should create memory files for the style and conventions and a dedicated memory file for
-    what should be done when a task is completed.
-    **Important**: after done with the onboarding task, remember to call the `write_memory` to save the collected information!
 
   think_about_collected_information: |
     Have you collected all the information you need for solving the current task? If not, can the missing information be acquired by using the available tools,
