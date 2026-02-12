@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react'
 import type { ViewTransitionStrategy } from './shared'
 import { useCallback, useMemo, useRef, useState } from 'react'
-import { useAfterTransition } from '../hooks/use-transition-provider'
+import { useAfterTransition, useTransitionProvider } from '../hooks/use-transition-provider'
 import { ViewTransitionContext } from './shared'
 
 export interface ViewTransitionProviderProps {
@@ -17,43 +17,40 @@ export interface ViewTransitionProviderProps {
  * ページ遷移なしで複数ビューを切り替える際に使用
  */
 export function ViewTransitionProvider({ children, strategy, initialViewId }: ViewTransitionProviderProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const isAnimatingRef = useRef(false)
-  const strategyRef = useRef<ViewTransitionStrategy>(strategy)
-
   const [currentViewId, setCurrentViewId] = useState<string | null>(initialViewId ?? null)
+  const strategyRef = useRef<ViewTransitionStrategy>(strategy)
+  const pendingViewRef = useRef<string | null>(null)
 
-  // strategy の更新
-  strategyRef.current = strategy
+  const onExecute = useCallback(async () => {
+    const next = pendingViewRef.current
+    if (!next)
+      return
+
+    setCurrentViewId(next)
+
+    pendingViewRef.current = null
+  }, [])
+
+  const { containerRef, execute, isAnimatingRef } = useTransitionProvider(
+    strategy,
+    onExecute,
+  )
+
+  useAfterTransition(strategyRef, containerRef, currentViewId, isAnimatingRef)
 
   const switchView = useCallback(
     async (toViewId: string) => {
       if (toViewId === currentViewId || isAnimatingRef.current)
         return
 
-      isAnimatingRef.current = true
+      pendingViewRef.current = toViewId
 
-      try {
-        // アニメーション開始
-        await strategyRef.current?.beforeTransition({
-          element: containerRef.current,
-        })
-
-        // ビュー切り替え
-        setCurrentViewId(toViewId)
-      }
-      catch (error) {
-        isAnimatingRef.current = false
-        throw error
-      }
+      await execute()
     },
-    [currentViewId],
+    [currentViewId, execute],
   )
 
-  // currentViewId 変更時に afterTransition を実行
-  useAfterTransition(strategyRef, containerRef, currentViewId, isAnimatingRef)
-
-  const viewSwitchValue = useMemo(
+  const value = useMemo(
     () => ({
       switchView,
       currentViewId,
@@ -62,7 +59,7 @@ export function ViewTransitionProvider({ children, strategy, initialViewId }: Vi
   )
 
   return (
-    <ViewTransitionContext.Provider value={viewSwitchValue}>
+    <ViewTransitionContext.Provider value={value}>
       <div ref={containerRef} className="h-full">
         {children}
       </div>

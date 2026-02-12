@@ -80,8 +80,7 @@ pnpm dlx shadcn@latest add {component-name}
 1. `src/app/_constraints/transitions/strategies/{strategy-name}.ts` を新規作成
 2. `ViewTransitionStrategy` インターフェース実装
 3. `src/app/_constraints/transitions/strategies/index.ts` にエクスポート追加
-4. `src/app/_constraints/transitions/providers/shared.ts` の `resolveStrategy()` に文字列マッピング追加（該当する場合）
-5. テスト追加：`src/app/_constraints/transitions/tests/{strategy-name}.test.ts`
+4. テスト追加：`src/app/_constraints/transitions/tests/{strategy-name}.test.ts`
 
 ## バージョン・設定
 

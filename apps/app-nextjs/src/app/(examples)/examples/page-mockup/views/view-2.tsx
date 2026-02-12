@@ -11,10 +11,10 @@ export function View2() {
       <h2 className="text-2xl font-bold">View 2</h2>
       <p>これはビュー2です。</p>
       <div className="flex gap-2">
-        <Button onClick={() => viewSwitch?.switchView('view-1')} className="w-fit">
+        <Button onClick={() => viewSwitch.switchView('view-1')} className="w-fit">
           View 1へ戻る
         </Button>
-        <Button onClick={() => viewSwitch?.switchView('view-3')} className="w-fit" variant="outline">
+        <Button onClick={() => viewSwitch.switchView('view-3')} className="w-fit" variant="outline">
           View 3へ移動
         </Button>
       </div>

@@ -30,7 +30,7 @@ export function View({ id, children }: ViewProps) {
   const viewSwitch = useViewSwitch()
 
   // 自分のidが現在のviewIdと一致したら表示
-  if (viewSwitch?.currentViewId !== id) {
+  if (viewSwitch.currentViewId !== id) {
     return null
   }
 

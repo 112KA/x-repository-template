@@ -7,7 +7,6 @@ import { useCallback, useEffect, useRef } from 'react'
 export function useTransitionProvider(
   strategy: ViewTransitionStrategy,
   onExecute: () => Promise<void> | void,
-  shouldSkip: () => boolean,
 ) {
   const containerRef = useRef<HTMLDivElement>(null)
   const isAnimatingRef = useRef(false)
@@ -26,14 +25,14 @@ export function useTransitionProvider(
   // 実行関数（共通）
   const execute = useCallback(
     async () => {
-      if (shouldSkip() || isAnimatingRef.current)
+      if (isAnimatingRef.current)
         return
 
       isAnimatingRef.current = true
 
       try {
         // アニメーション開始
-        await strategyRef.current?.beforeTransition({
+        await strategyRef.current.beforeTransition({
           element: containerRef.current,
         })
 
@@ -45,33 +44,8 @@ export function useTransitionProvider(
         throw error
       }
     },
-    [onExecute, shouldSkip],
+    [onExecute],
   )
-
-  // 後処理用 useEffect フック
-  // 呼び出し側で依存性を管理して呼び出すこと
-  useEffect(() => {
-    let isCancelled = false
-
-    const run = async () => {
-      try {
-        await strategyRef.current?.afterTransition({
-          element: containerRef.current,
-        })
-      }
-      finally {
-        if (!isCancelled) {
-          isAnimatingRef.current = false
-        }
-      }
-    }
-
-    run()
-
-    return () => {
-      isCancelled = true
-    }
-  }, []) // 注：呼び出し側で setupAfterTransition を通じて依存性を管理
 
   return { containerRef, execute, isAnimatingRef, strategyRef }
 }
@@ -96,7 +70,7 @@ export function useAfterTransition(
 
     const run = async () => {
       try {
-        await strategyRef.current?.afterTransition({
+        await strategyRef.current.afterTransition({
           element: containerRef.current,
         })
       }
