@@ -19,6 +19,7 @@ export interface ViewTransitionProviderProps {
 export function ViewTransitionProvider({ children, strategy, initialViewId }: ViewTransitionProviderProps) {
   const [currentViewId, setCurrentViewId] = useState<string | null>(initialViewId ?? null)
   const strategyRef = useRef<ViewTransitionStrategy>(strategy)
+  const isAnimatingRef = useRef(false)
   const pendingViewRef = useRef<string | null>(null)
 
   const onExecute = useCallback(async () => {
@@ -31,7 +32,7 @@ export function ViewTransitionProvider({ children, strategy, initialViewId }: Vi
     pendingViewRef.current = null
   }, [])
 
-  const { containerRef, execute, isAnimatingRef } = useTransitionProvider(
+  const { containerRef, execute } = useTransitionProvider(
     strategy,
     onExecute,
   )
@@ -40,14 +41,21 @@ export function ViewTransitionProvider({ children, strategy, initialViewId }: Vi
 
   const switchView = useCallback(
     async (toViewId: string) => {
-      if (toViewId === currentViewId || isAnimatingRef.current)
+      if (toViewId === pendingViewRef.current || isAnimatingRef.current)
         return
 
+      isAnimatingRef.current = true
       pendingViewRef.current = toViewId
 
-      await execute()
+      try {
+        await execute()
+      }
+      catch (error) {
+        isAnimatingRef.current = false
+        throw error
+      }
     },
-    [currentViewId, execute],
+    [execute],
   )
 
   const value = useMemo(

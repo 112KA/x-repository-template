@@ -9,7 +9,6 @@ export function useTransitionProvider(
   onExecute: () => Promise<void> | void,
 ) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const isAnimatingRef = useRef(false)
   const strategyRef = useRef<ViewTransitionStrategy>(strategy)
 
   // strategy の更新
@@ -25,29 +24,18 @@ export function useTransitionProvider(
   // 実行関数（共通）
   const execute = useCallback(
     async () => {
-      if (isAnimatingRef.current)
-        return
+      // アニメーション開始
+      await strategyRef.current.beforeTransition({
+        element: containerRef.current,
+      })
 
-      isAnimatingRef.current = true
-
-      try {
-        // アニメーション開始
-        await strategyRef.current.beforeTransition({
-          element: containerRef.current,
-        })
-
-        // 実際の遷移処理を実行
-        await onExecute()
-      }
-      catch (error) {
-        isAnimatingRef.current = false
-        throw error
-      }
+      // 実際の遷移処理を実行
+      await onExecute()
     },
     [onExecute],
   )
 
-  return { containerRef, execute, isAnimatingRef, strategyRef }
+  return { containerRef, execute, strategyRef }
 }
 
 /**

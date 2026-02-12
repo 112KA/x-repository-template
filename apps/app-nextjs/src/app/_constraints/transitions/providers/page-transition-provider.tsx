@@ -19,10 +19,9 @@ export interface PageTransitionProviderProps {
 export function PageTransitionProvider({ children, strategy }: PageTransitionProviderProps) {
   const router = useRouter()
   const pathname = usePathname()
-
-  // 遷移先URL を保持する ref（useCallback で参照するため）
   const hrefRef = useRef<string | null>(null)
   const isReplaceRef = useRef<boolean>(false)
+  const isAnimatingRef = useRef(false)
 
   const onExecute = useCallback(async () => {
     if (hrefRef.current) {
@@ -32,7 +31,7 @@ export function PageTransitionProvider({ children, strategy }: PageTransitionPro
     }
   }, [router])
 
-  const { containerRef, execute, isAnimatingRef, strategyRef } = useTransitionProvider(
+  const { containerRef, execute, strategyRef } = useTransitionProvider(
     strategy,
     onExecute,
   )
@@ -42,14 +41,22 @@ export function PageTransitionProvider({ children, strategy }: PageTransitionPro
 
   const transitionTo = useCallback(
     async (href: string, replace: boolean = false) => {
-      if (href === pathname)
+      if (href === hrefRef.current || isAnimatingRef.current)
         return
 
+      isAnimatingRef.current = true
       hrefRef.current = href
       isReplaceRef.current = replace
-      await execute()
+
+      try {
+        await execute()
+      }
+      catch (error) {
+        isAnimatingRef.current = false
+        throw error
+      }
     },
-    [execute, pathname],
+    [execute],
   )
 
   const routerValue = useMemo(
