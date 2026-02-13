@@ -1,11 +1,24 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import type { ViewTransitionStrategy } from './shared'
+import type { ViewTransitionStrategy } from '../strategies/types'
 import { usePathname, useRouter } from 'next/navigation'
-import { useCallback, useMemo, useRef } from 'react'
-import { useAfterTransition, useTransitionProvider } from '../hooks/use-transition-provider'
-import { PageTransitionContext } from './shared'
+import { createContext, useCallback, useMemo, useRef } from 'react'
+import { useAfterTransition, useBeforeTransition, useTransitionSetup } from '../hooks/use-transition'
+
+/**
+ * ページ遷移用Context値
+ * router.push/replace を実行する
+ */
+export interface PageTransitionRouterValue {
+  push: (href: string) => Promise<void>
+  replace: (href: string) => Promise<void>
+}
+
+/**
+ * PageTransitionProvider用Context
+ */
+export const PageTransitionContext = createContext<PageTransitionRouterValue | null>(null)
 
 export interface PageTransitionProviderProps {
   children: ReactNode
@@ -19,33 +32,29 @@ export interface PageTransitionProviderProps {
 export function PageTransitionProvider({ children, strategy }: PageTransitionProviderProps) {
   const router = useRouter()
   const pathname = usePathname()
-  const hrefRef = useRef<string | null>(null)
   const isReplaceRef = useRef<boolean>(false)
-  const isAnimatingRef = useRef(false)
+
+  const { pendingToRef, containerRef, strategyRef, isAnimatingRef } = useTransitionSetup(strategy, pathname)
 
   const onExecute = useCallback(async () => {
-    if (hrefRef.current) {
+    if (pendingToRef.current) {
       isReplaceRef.current
-        ? router.replace(hrefRef.current)
-        : router.push(hrefRef.current)
+        ? router.replace(pendingToRef.current)
+        : router.push(pendingToRef.current)
     }
   }, [router])
 
-  const { containerRef, execute, strategyRef } = useTransitionProvider(
-    strategy,
-    onExecute,
-  )
+  const execute = useBeforeTransition(strategyRef, containerRef, onExecute, isAnimatingRef)
 
   // pathname 変更時に afterTransition を実行
   useAfterTransition(strategyRef, containerRef, pathname, isAnimatingRef)
 
   const transitionTo = useCallback(
     async (href: string, replace: boolean = false) => {
-      if (href === hrefRef.current || isAnimatingRef.current)
+      if (href === pendingToRef.current || isAnimatingRef.current)
         return
 
-      isAnimatingRef.current = true
-      hrefRef.current = href
+      pendingToRef.current = href
       isReplaceRef.current = replace
 
       try {

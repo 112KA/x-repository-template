@@ -19,12 +19,12 @@ import { describe, it } from 'vitest'
 // eslint-disable-next-line import/first
 import { TransitionLink } from '../components/transition-link'
 // eslint-disable-next-line import/first
-import { useViewTransitionRouter } from '../hooks/hook'
+import { usePageTransitionRouter } from '../hooks/use-context'
 // eslint-disable-next-line import/first
 import { renderWithTransition, waitForAnimation } from './test-utils'
 
 function TestControls() {
-  const router = useViewTransitionRouter()
+  const router = usePageTransitionRouter()
   return <button onClick={() => router.push('/next')}>push</button>
 }
 

@@ -1,19 +1,17 @@
 // UI コンポーネント
 export { View } from './components/view'
 export type { ViewProps } from './components/view'
-export { useViewSwitch, useViewTransitionRouter } from './hooks/hook'
-// 個別プロバイダー
-export { PageTransitionProvider } from './providers/page-transition-provider'
-export type { PageTransitionProviderProps } from './providers/page-transition-provider'
+export { usePageTransitionRouter, useViewTransition } from './hooks/use-context'
 // 型とコンテキスト
 export {
   PageTransitionContext,
   type PageTransitionRouterValue,
-  type TransitionContext,
   ViewTransitionContext,
   type ViewTransitionContextValue,
-  type ViewTransitionStrategy,
-} from './providers/shared'
+} from './providers'
+// 個別プロバイダー
+export { PageTransitionProvider } from './providers/page-transition-provider'
+export type { PageTransitionProviderProps } from './providers/page-transition-provider'
 export { ViewTransitionProvider } from './providers/view-transition-provider'
 export type { ViewTransitionProviderProps } from './providers/view-transition-provider'
 // 戦略

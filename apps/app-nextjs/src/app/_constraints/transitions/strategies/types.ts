@@ -1,5 +1,3 @@
-import { createContext } from 'react'
-
 /**
  * 遷移アニメーション対象要素のコンテキスト
  */
@@ -30,31 +28,3 @@ export interface ViewTransitionStrategy {
    */
   cleanup: () => void
 }
-
-/**
- * ページ遷移用Context値
- * router.push/replace を実行する
- */
-export interface PageTransitionRouterValue {
-  push: (href: string) => Promise<void>
-  replace: (href: string) => Promise<void>
-}
-
-/**
- * ビュー切り替え用Context値
- * ページ遷移なしでビュー切り替え
- */
-export interface ViewTransitionContextValue {
-  switchView: (viewId: string) => Promise<void>
-  currentViewId: string | null
-}
-
-/**
- * PageTransitionProvider用Context
- */
-export const PageTransitionContext = createContext<PageTransitionRouterValue | null>(null)
-
-/**
- * ViewTransitionProvider用Context
- */
-export const ViewTransitionContext = createContext<ViewTransitionContextValue | null>(null)

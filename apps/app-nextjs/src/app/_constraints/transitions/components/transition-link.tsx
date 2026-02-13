@@ -4,7 +4,7 @@ import type { LinkProps } from 'next/link'
 import type { MouseEvent, ReactNode } from 'react'
 import Link from 'next/link'
 import { forwardRef, useCallback } from 'react'
-import { useViewTransitionRouter } from '../hooks/hook'
+import { usePageTransitionRouter } from '../hooks/use-context'
 
 type TransitionLinkProps = Omit<LinkProps, 'href'> & {
   href: string
@@ -13,7 +13,7 @@ type TransitionLinkProps = Omit<LinkProps, 'href'> & {
 
 export const TransitionLink = forwardRef<HTMLAnchorElement, TransitionLinkProps>(
   ({ href, onClick, prefetch = false, ...rest }, ref) => {
-    const router = useViewTransitionRouter()
+    const router = usePageTransitionRouter()
 
     const handleClick = useCallback(
       (event: MouseEvent<HTMLAnchorElement>) => {

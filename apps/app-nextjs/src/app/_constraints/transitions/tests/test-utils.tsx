@@ -1,6 +1,6 @@
 import type { RenderOptions } from '@testing-library/react'
 import type { ReactElement } from 'react'
-import type { ViewTransitionStrategy } from '../providers/shared'
+import type { ViewTransitionStrategy } from '../strategies/types'
 import { render } from '@testing-library/react'
 import { PageTransitionProvider } from '../providers/'
 import { createFadeStrategy } from '../strategies/gsap-fade'

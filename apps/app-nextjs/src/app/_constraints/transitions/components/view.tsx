@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { useViewSwitch } from '../hooks/hook'
+import { useViewTransition } from '../hooks/use-context'
 
 export interface ViewProps {
   /** ビューID */
@@ -27,10 +27,10 @@ export interface ViewProps {
  * ```
  */
 export function View({ id, children }: ViewProps) {
-  const viewSwitch = useViewSwitch()
+  const viewTransition = useViewTransition()
 
   // 自分のidが現在のviewIdと一致したら表示
-  if (viewSwitch.currentViewId !== id) {
+  if (viewTransition.currentViewId !== id) {
     return null
   }
 
