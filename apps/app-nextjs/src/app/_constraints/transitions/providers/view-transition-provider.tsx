@@ -35,11 +35,7 @@ export function ViewTransitionProvider({ children, strategy, initialViewId }: Vi
   const { pendingToRef, containerRef, strategyRef, isAnimatingRef } = useTransitionSetup(strategy, currentViewId)
 
   const onExecute = useCallback(async () => {
-    const next = pendingToRef.current
-    if (!next)
-      return
-
-    setCurrentViewId(next)
+    setCurrentViewId(pendingToRef.current)
   }, [])
 
   const execute = useBeforeTransition(strategyRef, containerRef, onExecute, isAnimatingRef)
@@ -53,18 +49,12 @@ export function ViewTransitionProvider({ children, strategy, initialViewId }: Vi
 
       pendingToRef.current = toViewId
 
-      try {
-        await execute()
-      }
-      catch (error) {
-        isAnimatingRef.current = false
-        throw error
-      }
+      await execute()
     },
     [execute],
   )
 
-  const value = useMemo(
+  const viewValue = useMemo(
     () => ({
       to,
       currentViewId,
@@ -73,7 +63,7 @@ export function ViewTransitionProvider({ children, strategy, initialViewId }: Vi
   )
 
   return (
-    <ViewTransitionContext.Provider value={value}>
+    <ViewTransitionContext.Provider value={viewValue}>
       <div ref={containerRef} className="h-full">
         {children}
       </div>

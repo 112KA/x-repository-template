@@ -48,12 +48,20 @@ export function useBeforeTransition(
     async () => {
       // アニメーション開始
       isAnimatingRef.current = true
+
       await strategyRef.current.beforeTransition({
         element: containerRef.current,
       })
 
       // 実際の遷移処理を実行
-      await onExecute()
+
+      try {
+        await onExecute()
+      }
+      catch (error) {
+        isAnimatingRef.current = false
+        throw error
+      }
     },
     [onExecute],
   )

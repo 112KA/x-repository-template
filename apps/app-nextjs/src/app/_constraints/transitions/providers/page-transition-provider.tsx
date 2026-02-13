@@ -1,5 +1,6 @@
 'use client'
 
+import type { NavigateOptions } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import type { ReactNode } from 'react'
 import type { ViewTransitionStrategy } from '../strategies/types'
 import { usePathname, useRouter } from 'next/navigation'
@@ -32,15 +33,13 @@ export interface PageTransitionProviderProps {
 export function PageTransitionProvider({ children, strategy }: PageTransitionProviderProps) {
   const router = useRouter()
   const pathname = usePathname()
-  const isReplaceRef = useRef<boolean>(false)
+  const routerFuncRef = useRef<(href: string, options?: NavigateOptions | undefined) => void>(router.push)
 
   const { pendingToRef, containerRef, strategyRef, isAnimatingRef } = useTransitionSetup(strategy, pathname)
 
   const onExecute = useCallback(async () => {
     if (pendingToRef.current) {
-      isReplaceRef.current
-        ? router.replace(pendingToRef.current)
-        : router.push(pendingToRef.current)
+      routerFuncRef.current(pendingToRef.current)
     }
   }, [router])
 
@@ -55,15 +54,9 @@ export function PageTransitionProvider({ children, strategy }: PageTransitionPro
         return
 
       pendingToRef.current = href
-      isReplaceRef.current = replace
+      routerFuncRef.current = replace ? router.replace : router.push
 
-      try {
-        await execute()
-      }
-      catch (error) {
-        isAnimatingRef.current = false
-        throw error
-      }
+      await execute()
     },
     [execute],
   )
