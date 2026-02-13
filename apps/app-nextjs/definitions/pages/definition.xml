@@ -2,29 +2,31 @@
 <pages version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../schemas/pages.xsd">
   <!-- Multi-view page with view transitions -->
   <page id="page-mockup" url="/examples/page-mockup/" title="Page Mockup" 
-        defaultView="index" viewTransition="fade">
-    <view id="index" name="Index" title="Page Mockup">
-      <button label="View 1" action="switchView:view1"/>
-      <button label="View 2" action="switchView:view2"/>
+        defaultView="view-index" viewTransition="fade">
+    <view id="view-index" title="Page Mockup">
+      <button label="View 1" action="to:view-1"/>
+      <button label="View 2" action="to:view-2"/>
       <button label="Page1" href="page1/"/>
       <button label="Page2" href="page2/"/>
     </view>
     
-    <view id="view1" name="View 1" title="View 1 Content">
-      <button label="Back" action="switchView:index"/>
+    <view id="view-1" title="View 1 Content">
+      <button label="Back" action="to:view-index"/>
     </view>
     
-    <view id="view2" name="View 2" title="View 2 Content">
-      <button label="Back" action="switchView:index"/>
+    <view id="view-2" title="View 2 Content">
+      <button label="Back" action="to:view-index"/>
     </view>
   </page>
 
   <!-- Traditional external navigation pages -->
   <page id="page1" url="/examples/page-mockup/page1/" title="Page 1">
+    <button label="Page2" href="./page2/"/>
     <button label="Back" href="../"/>
   </page>
   
   <page id="page2" url="/examples/page-mockup/page2/" title="Page 2">
+    <button label="Page1" href="./page1/"/>
     <button label="Back" href="../"/>
   </page>
 </pages>
