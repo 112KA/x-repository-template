@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pages version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../schemas/pages.xsd">
-  <!-- Multi-view page with view transitions -->
-  <page id="page-mockup" url="/examples/page-mockup/" title="Page Mockup" 
-        defaultView="view-index" viewTransition="fade">
-    <view id="view-index" title="Page Mockup">
-      <button label="View 1" action="to:view-1"/>
-      <button label="View 2" action="to:view-2"/>
-      <button label="Page1" href="page1/"/>
-      <button label="Page2" href="page2/"/>
-    </view>
-    
-    <view id="view-1" title="View 1 Content">
-      <button label="Back" action="to:view-index"/>
-    </view>
-    
-    <view id="view-2" title="View 2 Content">
-      <button label="Back" action="to:view-index"/>
-    </view>
+
+  <!-- Test Transitions page with multi-view and external pages -->
+  <page id="test-transitions" url="/examples/test-transitions/" title="Test Transitions index">
+    <views default="view-1" transition="fade">
+      <view id="view-1" title="View 1">
+        <button label="Go to View 2" action="to:view-2"/>
+        <button label="Page 1" href="page1/"/>
+        <button label="Page 2" href="page2/"/>
+      </view>
+      
+      <view id="view-2" title="View 2">
+        <button label="Back to View 1" action="to:view-1"/>
+      </view>
+    </views>
   </page>
 
-  <!-- Traditional external navigation pages -->
-  <page id="page1" url="/examples/page-mockup/page1/" title="Page 1">
-    <button label="Page2" href="./page2/"/>
+  <!-- Test Transitions sub-pages for external navigation -->
+  <page id="test-transitions-page1" url="/examples/test-transitions/page1/" title="Test Transitions Page 1">
+    <button label="Page 2" href="./page2/"/>
     <button label="Back" href="../"/>
   </page>
   
-  <page id="page2" url="/examples/page-mockup/page2/" title="Page 2">
-    <button label="Page1" href="./page1/"/>
+  <page id="test-transitions-page2" url="/examples/test-transitions/page2/" title="Test Transitions Page 2">
+    <button label="Page 1" href="./page1/"/>
     <button label="Back" href="../"/>
   </page>
 </pages>
