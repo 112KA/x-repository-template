@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pages version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="../../schemas/pages.xsd">
 
-  <!-- Test Transitions page with multi-view and external pages -->
-  <page id="test-transitions" url="/examples/test-transitions/" title="Test Transitions index">
+  <!-- Transitions page with multi-view -->
+  <page id="examples-test-transitions" url="/examples/test-transitions/" title="Transitions index">
     <views default="view-1" transition="fade">
       <view id="view-1" title="View 1">
         <button label="Go to View 2" action="to:view-2"/>
+        <button label="Go to View 3" action="to:view-3"/>
         <button label="Page 1" href="page1/"/>
         <button label="Page 2" href="page2/"/>
       </view>
       
       <view id="view-2" title="View 2">
         <button label="Back to View 1" action="to:view-1"/>
+        <button label="Go to View 3" action="to:view-3"/>
+      </view>
+
+      <view id="view-3" title="View 3">
+        <button label="Go to View 1" action="to:view-1"/>
+        <button label="Go to View 2" action="to:view-2"/>
       </view>
     </views>
   </page>
 
-  <!-- Test Transitions sub-pages for external navigation -->
-  <page id="test-transitions-page1" url="/examples/test-transitions/page1/" title="Test Transitions Page 1">
-    <button label="Page 2" href="./page2/"/>
-    <button label="Back" href="../"/>
+  <!-- Transitions sub-pages for external navigation -->
+  <page id="examples-test-transitions-page1" url="/examples/test-transitions/page1/" title="Transitions Page 1">
+    <button label="Go to Page 2" href="./page2/"/>
+    <button label="Back to index" href="../"/>
   </page>
   
-  <page id="test-transitions-page2" url="/examples/test-transitions/page2/" title="Test Transitions Page 2">
-    <button label="Page 1" href="./page1/"/>
-    <button label="Back" href="../"/>
+  <page id="examples-test-transitions-page2" url="/examples/test-transitions/page2/" title="Transitions Page 2">
+    <button label="Go to Page 1" href="./page1/"/>
+    <button label="Back to index" href="../"/>
   </page>
+
 </pages>
