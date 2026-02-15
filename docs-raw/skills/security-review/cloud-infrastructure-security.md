@@ -27,18 +27,19 @@
 # ✅ 正解: 最小限の権限
 iam_role:
   permissions:
-    - s3:GetObject  # 読み取りアクセスのみ
+    - s3:GetObject # 読み取りアクセスのみ
     - s3:ListBucket
   resources:
     - arn:aws:s3:::my-bucket/* # 特定のバケットのみ
+```
 
+```yaml
 # ❌ 誤り: 広すぎる権限
 iam_role:
   permissions:
     - s3:* # すべてのS3操作
   resources:
-    - "*"  # すべてのリソース
-
+    - '*' # すべてのリソース
 ```
 
 #### 多要素認証 (MFA)

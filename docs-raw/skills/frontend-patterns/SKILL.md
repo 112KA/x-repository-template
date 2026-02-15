@@ -11,7 +11,7 @@ React、Next.js、およびパフォーマンスの高いユーザーインタ�
 
 ### 継承より合成 (Composition Over Inheritance)
 
-```typescript
+```react
 // ✅ 良い例: コンポーネントの合成
 interface CardProps {
   children: React.ReactNode

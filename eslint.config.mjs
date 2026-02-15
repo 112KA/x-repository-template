@@ -2,16 +2,13 @@ import antfu from '@antfu/eslint-config'
 
 export default antfu(
   {
-    ignores: ['**/out/**/*', '**/*.md'],
+    ignores: ['**/out'],
+
+    gitignore: true,
 
     stylistic: true,
 
     formatters: {
-      /**
-       * Format Markdown files
-       * Supports Prettier and dprint
-       * By default uses Prettier
-       */
       markdown: 'prettier',
     },
   },
