@@ -9,13 +9,13 @@ description: Use this skill when adding authentication, handling user input, wor
 
 ## 有効化のタイミング
 
-* 認証または認可の実装時
-* ユーザー入力またはファイルアップロードの処理時
-* 新しいAPIエンドポイントの作成時
-* シークレットや認証情報の取り扱い時
-* 決済機能の実装時
-* 機密データの保存または送信時
-* サードパーティAPIの統合時
+- 認証または認可の実装時
+- ユーザー入力またはファイルアップロードの処理時
+- 新しいAPIエンドポイントの作成時
+- シークレットや認証情報の取り扱い時
+- 決済機能の実装時
+- 機密データの保存または送信時
+- サードパーティAPIの統合時
 
 ## セキュリティチェックリスト
 
@@ -24,9 +24,8 @@ description: Use this skill when adding authentication, handling user input, wor
 #### ❌ 禁止事項
 
 ```typescript
-const apiKey = "sk-proj-xxxxx"  // ハードコードされたシークレット
-const dbPassword = "password123" // ソースコード内のパスワード
-
+const apiKey = 'sk-proj-xxxxx' // ハードコードされたシークレット
+const dbPassword = 'password123' // ソースコード内のパスワード
 ```
 
 #### ✅ 推奨事項
@@ -39,16 +38,15 @@ const dbUrl = process.env.DATABASE_URL
 if (!apiKey) {
   throw new Error('OPENAI_API_KEYが設定されていません')
 }
-
 ```
 
 #### 検証ステップ
 
-* [ ] APIキー、トークン、パスワードがハードコードされていないか
-* [ ] すべてのシークレットが環境変数にあるか
-* [ ] `.env.local` が .gitignore に含まれているか
-* [ ] gitの履歴にシークレットが含まれていないか
-* [ ] 本番用シークレットがホスティングプラットフォーム（Vercel、Railwayなど）に設定されているか
+- [ ] APIキー、トークン、パスワードがハードコードされていないか
+- [ ] すべてのシークレットが環境変数にあるか
+- [ ] `.env.local` が .gitignore に含まれているか
+- [ ] gitの履歴にシークレットが含まれていないか
+- [ ] 本番用シークレットがホスティングプラットフォーム（Vercel、Railwayなど）に設定されているか
 
 ### 2. 入力バリデーション
 
@@ -69,14 +67,14 @@ export async function createUser(input: unknown) {
   try {
     const validated = CreateUserSchema.parse(input)
     return await db.users.create(validated)
-  } catch (error) {
+  }
+  catch (error) {
     if (error instanceof z.ZodError) {
       return { success: false, errors: error.errors }
     }
     throw error
   }
 }
-
 ```
 
 #### ファイルアップロードのバリデーション
@@ -104,16 +102,15 @@ function validateFileUpload(file: File) {
 
   return true
 }
-
 ```
 
 #### 検証ステップ
 
-* [ ] すべてのユーザー入力がスキーマで検証されているか
-* [ ] ファイルアップロードが制限されているか（サイズ、タイプ、拡張子）
-* [ ] クエリ内でユーザー入力が直接使用されていないか
-* [ ] ホワイトリスト形式のバリデーションを行っているか（ブラックリストではなく）
-* [ ] エラーメッセージに機密情報が漏洩していないか
+- [ ] すべてのユーザー入力がスキーマで検証されているか
+- [ ] ファイルアップロードが制限されているか（サイズ、タイプ、拡張子）
+- [ ] クエリ内でユーザー入力が直接使用されていないか
+- [ ] ホワイトリスト形式のバリデーションを行っているか（ブラックリストではなく）
+- [ ] エラーメッセージに機密情報が漏洩していないか
 
 ### 3. SQLインジェクション対策
 
@@ -123,7 +120,6 @@ function validateFileUpload(file: File) {
 // 危険 - SQLインジェクションの脆弱性
 const query = `SELECT * FROM users WHERE email = '${userEmail}'`
 await db.query(query)
-
 ```
 
 #### ✅ パラメータ化クエリを使用する
@@ -140,15 +136,14 @@ await db.query(
   'SELECT * FROM users WHERE email = $1',
   [userEmail]
 )
-
 ```
 
 #### 検証ステップ
 
-* [ ] すべてのデータベースクエリでパラメータ化クエリが使用されているか
-* [ ] SQL内での文字列結合がないか
-* [ ] ORM/クエリビルダーが正しく使用されているか
-* [ ] Supabaseのクエリが適切にサニタイズされているか
+- [ ] すべてのデータベースクエリでパラメータ化クエリが使用されているか
+- [ ] SQL内での文字列結合がないか
+- [ ] ORM/クエリビルダーが正しく使用されているか
+- [ ] Supabaseのクエリが適切にサニタイズされているか
 
 ### 4. 認証と認可
 
@@ -159,9 +154,7 @@ await db.query(
 localStorage.setItem('token', token)
 
 // ✅ 正解: httpOnly クッキー
-res.setHeader('Set-Cookie',
-  `token=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=3600`)
-
+res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=3600`)
 ```
 
 #### 認可チェック
@@ -183,7 +176,6 @@ export async function deleteUser(userId: string, requesterId: string) {
   // 削除処理へ進む
   await db.users.delete({ where: { id: userId } })
 }
-
 ```
 
 #### 行レベルセキュリティ (Supabase RLS)
@@ -206,11 +198,11 @@ CREATE POLICY "Users update own data"
 
 #### 検証ステップ
 
-* [ ] トークンが httpOnly クッキーに保存されているか（localStorage ではないか）
-* [ ] 機密性の高い操作の前に認可チェックが行われているか
-* [ ] SupabaseでRLSが有効になっているか
-* [ ] ロールベースのアクセス制御（RBAC）が実装されているか
-* [ ] セッション管理が安全か
+- [ ] トークンが httpOnly クッキーに保存されているか（localStorage ではないか）
+- [ ] 機密性の高い操作の前に認可チェックが行われているか
+- [ ] SupabaseでRLSが有効になっているか
+- [ ] ロールベースのアクセス制御（RBAC）が実装されているか
+- [ ] セッション管理が安全か
 
 ### 5. XSS対策
 
@@ -247,15 +239,14 @@ const securityHeaders = [
     `.replace(/\s{2,}/g, ' ').trim()
   }
 ]
-
 ```
 
 #### 検証ステップ
 
-* [ ] ユーザー提供のHTMLがサニタイズされているか
-* [ ] CSPヘッダーが設定されているか
-* [ ] 未検証の動的コンテンツレンダリングがないか
-* [ ] Reactの標準的なXSS保護機能が活用されているか
+- [ ] ユーザー提供のHTMLがサニタイズされているか
+- [ ] CSPヘッダーが設定されているか
+- [ ] 未検証の動的コンテンツレンダリングがないか
+- [ ] Reactの標準的なXSS保護機能が活用されているか
 
 ### 6. CSRF対策
 
@@ -276,22 +267,19 @@ export async function POST(request: Request) {
 
   // 処理を実行
 }
-
 ```
 
 #### SameSite クッキー
 
 ```typescript
-res.setHeader('Set-Cookie',
-  `session=${sessionId}; HttpOnly; Secure; SameSite=Strict`)
-
+res.setHeader('Set-Cookie', `session=${sessionId}; HttpOnly; Secure; SameSite=Strict`)
 ```
 
 #### 検証ステップ
 
-* [ ] 状態を変更する操作にCSRFトークンがあるか
-* [ ] すべてのクッキーに SameSite=Strict が設定されているか
-* [ ] 二重送信クッキーパターンなどが実装されているか
+- [ ] 状態を変更する操作にCSRFトークンがあるか
+- [ ] すべてのクッキーに SameSite=Strict が設定されているか
+- [ ] 二重送信クッキーパターンなどが実装されているか
 
 ### 7. レート制限
 
@@ -308,7 +296,6 @@ const limiter = rateLimit({
 
 // ルートに適用
 app.use('/api/', limiter)
-
 ```
 
 #### 高負荷な操作
@@ -322,15 +309,14 @@ const searchLimiter = rateLimit({
 })
 
 app.use('/api/search', searchLimiter)
-
 ```
 
 #### 検証ステップ
 
-* [ ] すべてのAPIエンドポイントにレート制限があるか
-* [ ] 負荷の高い操作に厳格な制限があるか
-* [ ] IPベースのレート制限があるか
-* [ ] 認証済みユーザーベースのレート制限があるか
+- [ ] すべてのAPIエンドポイントにレート制限があるか
+- [ ] 負荷の高い操作に厳格な制限があるか
+- [ ] IPベースのレート制限があるか
+- [ ] 認証済みユーザーベースのレート制限があるか
 
 ### 8. 機密データの露出
 
@@ -344,7 +330,6 @@ console.log('Payment:', { cardNumber, cvv })
 // ✅ 正解: 機密データの削除・マスク
 console.log('User login:', { email, userId })
 console.log('Payment:', { last4: card.last4, userId })
-
 ```
 
 #### エラーメッセージ
@@ -371,10 +356,10 @@ catch (error) {
 
 #### 検証ステップ
 
-* [ ] ログにパスワード、トークン、シークレットが含まれていないか
-* [ ] ユーザーへのエラーメッセージが汎用的か
-* [ ] 詳細なエラーはサーバーログのみに出力されているか
-* [ ] スタックトレースがユーザーに露出していないか
+- [ ] ログにパスワード、トークン、シークレットが含まれていないか
+- [ ] ユーザーへのエラーメッセージが汎用的か
+- [ ] 詳細なエラーはサーバーログのみに出力されているか
+- [ ] スタックトレースがユーザーに露出していないか
 
 ### 9. ブロックチェーンセキュリティ (Solana)
 
@@ -395,19 +380,19 @@ async function verifyWalletOwnership(
       Buffer.from(publicKey, 'base64')
     )
     return isValid
-  } catch (error) {
+  }
+  catch (error) {
     return false
   }
 }
-
 ```
 
 #### 検証ステップ
 
-* [ ] ウォレットの署名が検証されているか
-* [ ] トランザクションの詳細が妥当か
-* [ ] トランザクション前に残高チェックが行われているか
-* [ ] ブラインド署名（内容不明の署名）をさせていないか
+- [ ] ウォレットの署名が検証されているか
+- [ ] トランザクションの詳細が妥当か
+- [ ] トランザクション前に残高チェックが行われているか
+- [ ] ブラインド署名（内容不明の署名）をさせていないか
 
 ### 10. 依存関係のセキュリティ
 
@@ -427,10 +412,10 @@ npm update
 
 #### 検証ステップ
 
-* [ ] 依存関係が最新か
-* [ ] 既知の脆弱性がないか（npm audit clean）
-* [ ] ロックファイルがコミットされているか
-* [ ] GitHubのDependabotなどが有効か
+- [ ] 依存関係が最新か
+- [ ] 既知の脆弱性がないか（npm audit clean）
+- [ ] ロックファイルがコミットされているか
+- [ ] GitHubのDependabotなどが有効か
 
 ---
 

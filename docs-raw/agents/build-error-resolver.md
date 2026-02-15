@@ -111,7 +111,6 @@ function add(x, y) {
 function add(x: number, y: number): number {
   return x + y
 }
-
 ```
 
 **パターン 2：Null/Undefined エラー**
@@ -125,7 +124,6 @@ const name = user?.name?.toUpperCase()
 
 // ✅ または: Null チェック
 const name = user && user.name ? user.name.toUpperCase() : ''
-
 ```
 
 **パターン 3：プロパティの不足**
@@ -142,7 +140,6 @@ interface User {
   name: string
   age?: number // 常に存在しない場合はオプショナルにする
 }
-
 ```
 
 ## 最小差分戦略（Minimal Diff Strategy）
@@ -191,7 +188,6 @@ function processData(data) { // 45行目 - エラー: 'data' implicitly has 'any
 function processData(data: any[]) { // この行だけ変更
   return data.map(item => item.value)
 }
-
 ```
 
 ## ビルドエラー報告書フォーマット
@@ -208,6 +204,7 @@ function processData(data: any[]) { // この行だけ変更
 ## 修正されたエラー
 
 ### 1. [エラーカテゴリ - 例：型推論]
+
 **場所：** `src/components/MarketCard.tsx:45`
 **エラーメッセージ：**
 
@@ -215,7 +212,7 @@ function processData(data: any[]) { // この行だけ変更
 
 Parameter 'market' implicitly has an 'any' type.
 
-```
+````
 
 **根本原因：** 関数引数に型注釈が不足していたため
 
@@ -226,7 +223,7 @@ Parameter 'market' implicitly has an 'any' type.
     return market.name
   }
 
-```
+````
 
 **変更行数：** 1
 **影響：** なし - 型安全性の向上のみ
@@ -241,10 +238,10 @@ Parameter 'market' implicitly has an 'any' type.
 4. ✅ 新しいエラーの導入なし
 5. ✅ 開発サーバー起動確認：`npm run dev`
 
-
 ## このエージェントを使用するタイミング
 
 **以下の場合に使用してください：**
+
 - `npm run build` が失敗する
 - `npx tsc --noEmit` でエラーが表示される
 - 型エラーが開発をブロックしている

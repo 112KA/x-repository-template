@@ -1,4 +1,5 @@
 # Style and conventions
+
 - TypeScript: strict mode; avoid any; add explicit types for function params/returns; prefer inference for locals.
 - Error handling: extend custom errors from packages/x/src/errors/; avoid generic Error.
 - Modules: ESM only; no CommonJS.
@@ -7,6 +8,7 @@
 - Logging: do not use console.log for error handling.
 
 ## Next.js app conventions (apps/app-nextjs)
+
 - Components: named exports only (default exports allowed for Next.js route files like page.tsx/layout.tsx).
 - Client components: include 'use client' directive.
 - Props: define with interface.

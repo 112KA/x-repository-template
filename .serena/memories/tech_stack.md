@@ -1,4 +1,5 @@
 # Tech stack
+
 - Runtime: Node >= 24.12, pnpm >= 10, pnpm workspaces.
 - Language: TypeScript 5.x (strict mode), ES modules only.
 - Linting/formatting: ESLint 9 with @antfu/eslint-config (formatting on save).

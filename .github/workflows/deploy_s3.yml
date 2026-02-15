@@ -4,13 +4,13 @@ on:
     inputs:
       target:
         type: choice
-        description: "choice target environment"
+        description: choice target environment
         required: true
-        default: "develop"
+        default: develop
         options:
-          - "develop"
-          - "staging"
-          - "production"
+          - develop
+          - staging
+          - production
 #   push:
 #     branches:
 #       - 'develop'
@@ -45,7 +45,7 @@ jobs:
         with:
           ref: ${{ steps.config.outputs.deploy-branch }}
           token: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - run: git lfs pull
 
       - uses: pnpm/action-setup@v4
@@ -57,10 +57,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: package.json
-          cache: "pnpm"
+          cache: pnpm
 
       - run: pnpm install
-      
+
       - name: Remove develop directory for staging/production
         if: inputs.target == 'staging' || inputs.target == 'production'
         run: rm -rf './apps/app-nextjs/src/app/(examples)'

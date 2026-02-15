@@ -148,7 +148,7 @@ tests/
 
 ```typescript
 // pages/MarketsPage.ts
-import { Page, Locator } from '@playwright/test'
+import { Locator, Page } from '@playwright/test'
 
 export class MarketsPage {
   readonly page: Page
@@ -189,7 +189,6 @@ export class MarketsPage {
     await this.page.waitForLoadState('networkidle')
   }
 }
-
 ```
 
 ## 不安定なテスト（Flaky Test）の管理
@@ -221,7 +220,6 @@ test('market search with complex query', async ({ page }) => {
 
   // テストコード...
 })
-
 ```
 
 ### 一般的な不安定要因と修正
@@ -234,7 +232,6 @@ await page.click('[data-testid="button"]')
 
 // ✅ 安定：準備ができるまで待機する
 await page.locator('[data-testid="button"]').click() // 組み込みの自動待機を使用
-
 ```
 
 **2. ネットワークのタイミング**
@@ -245,7 +242,6 @@ await page.waitForTimeout(5000)
 
 // ✅ 安定：特定の条件を待つ
 await page.waitForResponse(resp => resp.url().includes('/api/markets'))
-
 ```
 
 **3. アニメーションのタイミング**
@@ -258,7 +254,6 @@ await page.click('[data-testid="menu-item"]')
 await page.locator('[data-testid="menu-item"]').waitFor({ state: 'visible' })
 await page.waitForLoadState('networkidle')
 await page.click('[data-testid="menu-item"]')
-
 ```
 
 ## 成果物管理
@@ -276,7 +271,6 @@ await page.screenshot({ path: 'artifacts/full-page.png', fullPage: true })
 await page.locator('[data-testid="chart"]').screenshot({
   path: 'artifacts/chart.png'
 })
-
 ```
 
 ### トレースの収集
@@ -293,7 +287,6 @@ await browser.startTracing(page, {
 
 // トレース停止
 await browser.stopTracing()
-
 ```
 
 ### ビデオ録画

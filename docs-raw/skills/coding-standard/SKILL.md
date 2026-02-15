@@ -11,31 +11,31 @@ description: Universal coding standards, best practices, and patterns for TypeSc
 
 ### 1. 読みやすさ優先
 
-* コードは書かれる時間よりも読まれる時間の方が長い。
-* 変数名と関数名を明確にする。
-* コメントよりも自己文書化されたコードを優先する。
-* 一貫したフォーマットを保つ。
+- コードは書かれる時間よりも読まれる時間の方が長い。
+- 変数名と関数名を明確にする。
+- コメントよりも自己文書化されたコードを優先する。
+- 一貫したフォーマットを保つ。
 
 ### 2. KISS (Keep It Simple, Stupid)
 
-* 動作する最も単純な解決策を選ぶ。
-* オーバーエンジニアリングを避ける。
-* 時期尚早な最適化を行わない。
-* 「賢いコード」よりも「理解しやすいコード」を優先する。
+- 動作する最も単純な解決策を選ぶ。
+- オーバーエンジニアリングを避ける。
+- 時期尚早な最適化を行わない。
+- 「賢いコード」よりも「理解しやすいコード」を優先する。
 
 ### 3. DRY (Don't Repeat Yourself)
 
-* 共通のロジックを関数に抽出する。
-* 再利用可能なコンポーネントを作成する。
-* モジュール間でユーティリティを共有する。
-* コピペによるプログラミングを避ける。
+- 共通のロジックを関数に抽出する。
+- 再利用可能なコンポーネントを作成する。
+- モジュール間でユーティリティを共有する。
+- コピペによるプログラミングを避ける。
 
 ### 4. YAGNI (You Aren't Gonna Need It)
 
-* 必要になるまで機能を構築しない。
-* 推測による汎用化を避ける。
-* 複雑さは必要な場合にのみ追加する。
-* シンプルに開始し、必要に応じてリファクタリングする。
+- 必要になるまで機能を構築しない。
+- 推測による汎用化を避ける。
+- 複雑さは必要な場合にのみ追加する。
+- シンプルに開始し、必要に応じてリファクタリングする。
 
 ## TypeScript/JavaScript 標準
 
@@ -51,7 +51,6 @@ const totalRevenue = 1000
 const q = 'election'
 const flag = true
 const x = 1000
-
 ```
 
 ### 関数名
@@ -66,7 +65,6 @@ function isValidEmail(email: string): boolean { }
 async function market(id: string) { }
 function similarity(a, b) { }
 function email(e) { }
-
 ```
 
 ### 不変性（イミュータビリティ）パターン (重要)
@@ -81,9 +79,8 @@ const updatedUser = {
 const updatedArray = [...items, newItem]
 
 // ❌ 直接変更（ミューテート）しない
-user.name = 'New Name'  // 悪い例
-items.push(newItem)     // 悪い例
-
+user.name = 'New Name' // 悪い例
+items.push(newItem) // 悪い例
 ```
 
 ### エラーハンドリング
@@ -99,7 +96,8 @@ async function fetchData(url: string) {
     }
 
     return await response.json()
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Fetch failed:', error)
     throw new Error('Failed to fetch data')
   }
@@ -110,7 +108,6 @@ async function fetchData(url) {
   const response = await fetch(url)
   return response.json()
 }
-
 ```
 
 ### Async/Await のベストプラクティス
@@ -127,7 +124,6 @@ const [users, markets, stats] = await Promise.all([
 const users = await fetchUsers()
 const markets = await fetchMarkets()
 const stats = await fetchStats()
-
 ```
 
 ### 型の安全性
@@ -149,7 +145,6 @@ function getMarket(id: string): Promise<Market> {
 function getMarket(id: any): Promise<any> {
   // 実装
 }
-
 ```
 
 ## React ベストプラクティス
@@ -209,7 +204,6 @@ export function useDebounce<T>(value: T, delay: number): T {
 
 // 使用例
 const debouncedQuery = useDebounce(searchQuery, 500)
-
 ```
 
 ### 状態管理
@@ -222,8 +216,7 @@ const [count, setCount] = useState(0)
 setCount(prev => prev + 1)
 
 // ❌ 悪い例: 状態の直接参照
-setCount(count + 1)  // 非同期シナリオで古い値になる可能性がある
-
+setCount(count + 1) // 非同期シナリオで古い値になる可能性がある
 ```
 
 ### 条件付きレンダリング
@@ -283,7 +276,6 @@ return NextResponse.json({
   success: false,
   error: 'Invalid request'
 }, { status: 400 })
-
 ```
 
 ### 入力バリデーション
@@ -305,7 +297,8 @@ export async function POST(request: Request) {
   try {
     const validated = CreateMarketSchema.parse(body)
     // バリデーション済みデータで処理を進める
-  } catch (error) {
+  }
+  catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({
         success: false,
@@ -315,7 +308,6 @@ export async function POST(request: Request) {
     }
   }
 }
-
 ```
 
 ## ファイル構成
@@ -359,7 +351,7 @@ types/market.types.ts         # .types サフィックス付きの camelCase
 ```typescript
 // ✅ 良い例: 「何」ではなく「なぜ」を説明する
 // 障害発生時に API に負荷をかけすぎないよう、エクスポネンシャルバックオフを使用する
-const delay = Math.min(1000 * Math.pow(2, retryCount), 30000)
+const delay = Math.min(1000 * 2 ** retryCount, 30000)
 
 // 巨大な配列に対するパフォーマンスのため、ここでは意図的にミューテーション（直接変更）を使用している
 items.push(newItem)
@@ -370,12 +362,11 @@ count++
 
 // 名前をユーザーの名前に設定する
 name = user.name
-
 ```
 
 ### パブリック API のための JSDoc
 
-```typescript
+````typescript
 /**
  * 意味的な類似性を使用してマーケットを検索します。
  *
@@ -396,15 +387,14 @@ export async function searchMarkets(
 ): Promise<Market[]> {
   // 実装
 }
-
-```
+````
 
 ## パフォーマンスのベストプラクティス
 
 ### メモ化
 
 ```typescript
-import { useMemo, useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 
 // ✅ 良い例: 高負荷な計算をメモ化する
 const sortedMarkets = useMemo(() => {
@@ -415,7 +405,6 @@ const sortedMarkets = useMemo(() => {
 const handleSearch = useCallback((query: string) => {
   setSearchQuery(query)
 }, [])
-
 ```
 
 ### 遅延読み込み (Lazy Loading)
@@ -449,7 +438,6 @@ const { data } = await supabase
 const { data } = await supabase
   .from('markets')
   .select('*')
-
 ```
 
 ## テスト標準
@@ -468,7 +456,6 @@ test('calculates similarity correctly', () => {
   // Assert (検証)
   expect(similarity).toBe(0)
 })
-
 ```
 
 ### テストの命名
@@ -482,7 +469,6 @@ test('falls back to substring search when Redis unavailable', () => { })
 // ❌ 悪い例: 曖昧なテスト名
 test('works', () => { })
 test('test search', () => { })
-
 ```
 
 ## コードの「不吉な臭い（Code Smell）」の検出
@@ -503,7 +489,6 @@ function processMarketData() {
   const transformed = transformData(validated)
   return saveData(transformed)
 }
-
 ```
 
 ### 2. 深いネスト
@@ -523,14 +508,18 @@ if (user) {
 }
 
 // ✅ 良い例: 早期リターン
-if (!user) return
-if (!user.isAdmin) return
-if (!market) return
-if (!market.isActive) return
-if (!hasPermission) return
+if (!user)
+  return
+if (!user.isAdmin)
+  return
+if (!market)
+  return
+if (!market.isActive)
+  return
+if (!hasPermission)
+  return
 
 // 何らかの処理
-
 ```
 
 ### 3. マジックナンバー
@@ -546,7 +535,6 @@ const DEBOUNCE_DELAY_MS = 500
 
 if (retryCount > MAX_RETRIES) { }
 setTimeout(callback, DEBOUNCE_DELAY_MS)
-
 ```
 
 **忘れないでください**: コードの品質に妥協の余地はありません。明確で保守しやすいコードこそが、迅速な開発と自信を持ったリファクタリングを可能にします。
