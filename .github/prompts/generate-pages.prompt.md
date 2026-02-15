@@ -6,9 +6,11 @@ description: definition.xmlの定義に基づいてNext.jsのページをシン�
 # generate pages
 
 ## 目的
+
 `apps/app-nextjs/definitions/pages/definition.xml`に定義されたページ構造に基づいて、実装されたページコンポーネントを生成する。
 
 ## 使用方法
+
 次のような短い指示でページ生成を実行：
 
 ```
@@ -16,6 +18,7 @@ definition.xmlに従ってpageをつくって
 ```
 
 ## 前提条件
+
 - `definition.xml`が既に存在し、ページの構造が定義されている
 - 生成対象のページIDが明記されている（指定がない場合は全ページ生成）
 - Next.js 15.x、TypeScript 5.xの開発環境が整備されている
@@ -40,6 +43,7 @@ definition.xmlに従ってpageをつくって
    - トランジション・アニメーション対応
 
 ## 注意点
+
 - Next.jsのAppRouterを使用した実装
 - TypeScript型安全性の確保
 - `.serena/memories/`の開発ガイドラインに従う

@@ -141,7 +141,6 @@ export function useToggle(initialValue = false): [boolean, () => void] {
 
 // 使用例
 const [isOpen, toggleOpen] = useToggle()
-
 ```
 
 ### 非同期データ取得フック
@@ -170,11 +169,13 @@ export function useQuery<T>(
       const result = await fetcher()
       setData(result)
       options?.onSuccess?.(result)
-    } catch (err) {
+    }
+    catch (err) {
       const error = err as Error
       setError(error)
       options?.onError?.(error)
-    } finally {
+    }
+    finally {
       setLoading(false)
     }
   }, [fetcher, options])
@@ -197,7 +198,6 @@ const { data: markets, loading, error, refetch } = useQuery(
     onError: err => console.error('Failed:', err)
   }
 )
-
 ```
 
 ### デバウンス (Debounce) フック
@@ -226,7 +226,6 @@ useEffect(() => {
     performSearch(debouncedQuery)
   }
 }, [debouncedQuery])
-
 ```
 
 ## 状態管理パターン

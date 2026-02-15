@@ -17,7 +17,7 @@
 
 ```typescript
 // 不可：ハードコードされたシークレット
-const apiKey = "sk-proj-xxxxx"
+const apiKey = 'sk-proj-xxxxx'
 
 // 推奨：環境変数
 const apiKey = process.env.OPENAI_API_KEY
@@ -25,7 +25,6 @@ const apiKey = process.env.OPENAI_API_KEY
 if (!apiKey) {
   throw new Error('OPENAI_API_KEY not configured')
 }
-
 ```
 
 ## セキュリティレスポンスプロトコル

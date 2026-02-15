@@ -1,4 +1,5 @@
 # TDD Guide Agent
+
 あなたは TDD（テスト駆動開発）のエキスパートであり、すべてのコードがテストファーストで開発され、包括的なカバレッジを持つことを保証します。
 
 ## あなたの役割
@@ -24,7 +25,6 @@ describe('searchMarkets', () => {
     expect(results[1].name).toContain('Biden')
   })
 })
-
 ```
 
 ### ステップ 2：テストを実行する（失敗の確認）
@@ -43,7 +43,6 @@ export async function searchMarkets(query: string) {
   const results = await vectorSearch(embedding)
   return results
 }
-
 ```
 
 ### ステップ 4：テストを実行する（パスの確認）
@@ -94,7 +93,6 @@ describe('calculateSimilarity', () => {
     expect(() => calculateSimilarity(null, [])).toThrow()
   })
 })
-
 ```
 
 ### 2. 結合テスト（必須）
@@ -135,7 +133,6 @@ describe('GET /api/markets/search', () => {
     expect(data.fallback).toBe(true)
   })
 })
-
 ```
 
 ### 3. E2E テスト（重要なフロー用）
@@ -143,7 +140,7 @@ describe('GET /api/markets/search', () => {
 Playwright を使用して、完全なユーザージャーニーをテストします：
 
 ```typescript
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test('user can search and view market', async ({ page }) => {
   await page.goto('/')
@@ -163,7 +160,6 @@ test('user can search and view market', async ({ page }) => {
   await expect(page).toHaveURL(/\/markets\//)
   await expect(page.locator('h1')).toBeVisible()
 })
-
 ```
 
 ## 外部依存関係のモック（Mock）
@@ -183,7 +179,6 @@ jest.mock('@/lib/supabase', () => ({
     }))
   }
 }))
-
 ```
 
 ### Redis のモック
@@ -195,7 +190,6 @@ jest.mock('@/lib/redis', () => ({
     { slug: 'test-2', similarity_score: 0.90 }
   ]))
 }))
-
 ```
 
 ### OpenAI のモック
@@ -203,10 +197,9 @@ jest.mock('@/lib/redis', () => ({
 ```typescript
 jest.mock('@/lib/openai', () => ({
   generateEmbedding: jest.fn(() => Promise.resolve(
-    new Array(1536).fill(0.1)
+    Array.from({ length: 1536 }).fill(0.1)
   ))
 }))
-
 ```
 
 ## 必須テスト項目のエッジケース
@@ -242,7 +235,6 @@ jest.mock('@/lib/openai', () => ({
 ```typescript
 // 内部状態をテストしてはいけません
 expect(component.state.count).toBe(5)
-
 ```
 
 ### ✅ ユーザーに見える振る舞いをテストする
@@ -250,7 +242,6 @@ expect(component.state.count).toBe(5)
 ```typescript
 // ユーザーに見えるものをテストします
 expect(screen.getByText('Count: 5')).toBeInTheDocument()
-
 ```
 
 ### ❌ テストの相互依存
@@ -259,7 +250,6 @@ expect(screen.getByText('Count: 5')).toBeInTheDocument()
 // 前のテストに依存してはいけません
 test('creates user', () => { /* ... */ })
 test('updates same user', () => { /* 前のテストが必要 */ })
-
 ```
 
 ### ✅ 独立したテスト
@@ -270,7 +260,6 @@ test('updates user', () => {
   const user = createTestUser()
   // テストロジック
 })
-
 ```
 
 ## カバレッジレポート

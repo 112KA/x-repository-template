@@ -17,9 +17,11 @@
 ## Dependencies
 
 ### Internal
+
 [内部パッケージ依存を記載]
 
 ### External
+
 [外部パッケージ依存を記載]
 
 ## Troubleshooting

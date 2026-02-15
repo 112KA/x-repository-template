@@ -153,34 +153,34 @@ const { data } = await supabase
   .from('users')
   .select('*')
   .eq('id', userId)
-
 ```
 
 ### 3. コマンド注入（致命的）
 
 ```javascript
 // ❌ 致命的：コマンド注入
-const { exec } = require('child_process')
+const { exec } = require('node:child_process')
+
 exec(`ping ${userInput}`, callback)
 
 // ✅ 正解：shell コマンドではなくライブラリを使用
-const dns = require('dns')
-dns.lookup(userInput, callback)
+const dns = require('node:dns')
 
+dns.lookup(userInput, callback)
 ```
 
 ### 4. クロスサイトスクリプティング XSS（高）
 
 ```javascript
 // ❌ 高：XSS の脆弱性
+// または
+import DOMPurify from 'dompurify'
+
 element.innerHTML = userInput
 
 // ✅ 正解：textContent を使用するかクリーンアップする
 element.textContent = userInput
-// または
-import DOMPurify from 'dompurify'
 element.innerHTML = DOMPurify.sanitize(userInput)
-
 ```
 
 ### 5. サーバーサイドリクエストフォージェリ SSRF（高）
@@ -203,12 +203,11 @@ const response = await fetch(url.toString())
 
 ```javascript
 // ❌ 致命的：プレーンテキストでのパスワード比較
-if (password === storedPassword) { /* login */ }
-
 // ✅ 正解：ハッシュ化されたパスワードの比較
 import bcrypt from 'bcrypt'
-const isValid = await bcrypt.compare(password, hashedPassword)
 
+if (password === storedPassword) { /* login */ }
+const isValid = await bcrypt.compare(password, hashedPassword)
 ```
 
 ### 7. 不十分な認可（致命的）
@@ -228,7 +227,6 @@ app.get('/api/user/:id', authenticateUser, async (req, res) => {
   const user = await getUser(req.params.id)
   res.json(user)
 })
-
 ```
 
 ### 8. 財務操作における競合状態（致命的）
@@ -254,20 +252,19 @@ await db.transaction(async (trx) => {
     .where({ user_id: userId })
     .decrement('amount', amount)
 })
-
 ```
 
 ### 9. 不十分なレート制限（高）
 
 ```javascript
 // ❌ 高：レート制限なし
+// ✅ 正解：レート制限の導入
+import rateLimit from 'express-rate-limit'
+
 app.post('/api/trade', async (req, res) => {
   await executeTrade(req.body)
   res.json({ success: true })
 })
-
-// ✅ 正解：レート制限の導入
-import rateLimit from 'express-rate-limit'
 
 const tradeLimiter = rateLimit({
   windowMs: 60 * 1000, // 1分間
@@ -279,7 +276,6 @@ app.post('/api/trade', tradeLimiter, async (req, res) => {
   await executeTrade(req.body)
   res.json({ success: true })
 })
-
 ```
 
 ### 10. 機密データのログ記録（中）
@@ -293,12 +289,11 @@ console.log('User login:', {
   email: email.replace(/(?<=.).(?=.*@)/g, '*'),
   passwordProvided: !!password
 })
-
 ```
 
 ## セキュリティレビュー報告書フォーマット
 
-```markdown
+````markdown
 # セキュリティレビュー報告書
 
 **ファイル/コンポーネント：** [path/to/file.ts]
@@ -316,6 +311,7 @@ console.log('User login:', {
 ## 致命的な問題（即時修正が必要）
 
 ### 1. [問題のタイトル]
+
 **深刻度：** 致命的
 **カテゴリ：** SQL 注入 / XSS / 認証 / など
 **場所：** `file.ts:123`
@@ -327,16 +323,17 @@ console.log('User login:', {
 [悪用された場合に起こり得ること]
 
 **コンセプト実証 (PoC)：**
+
 ```javascript
 // どのように悪用されるかの例
-
 ```
+
+````
 
 **修正案：**
 
 ```javascript
 // ✅ 安全な実装
-
 ```
 
 **参考資料：**
@@ -344,10 +341,10 @@ console.log('User login:', {
 - OWASP: [リンク]
 - CWE: [番号]
 
-
 ## セキュリティレビューを実施すべきタイミング
 
 **常にレビューが必要：**
+
 - 新しい API エンドポイントの追加時
 - 認証/認可コードの変更時
 - ユーザー入力処理の追加時
@@ -358,6 +355,7 @@ console.log('User login:', {
 - 依存関係の更新時
 
 **直ちにレビューが必要：**
+
 - 本番環境でインシデントが発生した時
 - 依存関係に既知の CVE が見つかった時
 - ユーザーからセキュリティ上の懸念が報告された時
@@ -378,6 +376,7 @@ console.log('User login:', {
 ## 成功の指標
 
 セキュリティレビュー後：
+
 - ✅ 致命的な問題が発見されていない
 - ✅ すべての優先度の高い問題が対処されている
 - ✅ セキュリティチェックリストが完了している

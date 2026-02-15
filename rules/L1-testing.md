@@ -28,5 +28,5 @@ Mandatory workflow:
 
 ## Agent Support
 
-* **tdd-guide** - Use proactively for new features to ensure a test-first approach
-* **e2e-runner** - Specialist for Playwright E2E tests
+- **tdd-guide** - Use proactively for new features to ensure a test-first approach
+- **e2e-runner** - Specialist for Playwright E2E tests

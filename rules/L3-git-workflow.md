@@ -9,26 +9,24 @@
 
 ```
 
-* Follow **Conventional Commits** format:
-* `feat:` - New feature
-* `fix:` - Bug fix
-* `refactor:` - Refactoring
-* `test:` - Adding or correcting tests
-* `docs:` - Documentation updates
-* `chore:` - Changes to build process or tools
-* `perf:` - Performance improvements
-* `ci:` - Changes to CI/CD pipelines
-* `style:` - Changes to code style
-* `build:` - Changes to build system
-* `release:` - Release changes
-* `security:` - Security changes
-
-
+- Follow **Conventional Commits** format:
+- `feat:` - New feature
+- `fix:` - Bug fix
+- `refactor:` - Refactoring
+- `test:` - Adding or correcting tests
+- `docs:` - Documentation updates
+- `chore:` - Changes to build process or tools
+- `perf:` - Performance improvements
+- `ci:` - Changes to CI/CD pipelines
+- `style:` - Changes to code style
+- `build:` - Changes to build system
+- `release:` - Release changes
+- `security:` - Security changes
 
 ## pre-commit hooks
 
-* `simple-git-hooks` automatically executes `lint-staged`
-* Linting is performed automatically before committing
+- `simple-git-hooks` automatically executes `lint-staged`
+- Linting is performed automatically before committing
 
 ## Pull Request Workflow
 

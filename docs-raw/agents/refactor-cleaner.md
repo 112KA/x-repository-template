@@ -100,28 +100,34 @@ e) テストが引き続き合格することを確認
 ## [YYYY-MM-DD] リファクタリングセッション
 
 ### 削除された未使用の依存関係
+
 - package-name@version - 最終使用：なし、サイズ：XX KB
 - another-package@version - 代替済み：better-package
 
 ### 削除された未使用のファイル
+
 - src/old-component.tsx - 代替済み：src/new-component.tsx
 - lib/deprecated-util.ts - 機能を移動：lib/utils.ts
 
 ### 統合された重複コード
+
 - src/components/Button1.tsx + Button2.tsx → Button.tsx
 - 理由：2つの実装が完全に同一
 
 ### 削除された未使用の Exports
+
 - src/utils/helpers.ts - 関数：foo()、bar()
 - 理由：コードベース内で参照が見つからない
 
 ### 影響
+
 - 削除ファイル数：15
 - 削除依存関係数：5
 - 削除行数：2,300
 - Bundle サイズ削減：~45 KB
 
 ### テスト
+
 - すべてのユニットテスト合格：✓
 - すべての統合テスト合格：✓
 - 手動テスト完了：✓
@@ -155,11 +161,10 @@ e) テストが引き続き合格することを確認
 
 ```typescript
 // ❌ 未使用の imports を削除
-import { useState, useEffect, useMemo } from 'react' // useState のみ使用されている場合
+import { useEffect, useMemo, useState } from 'react' // useState のみ使用されている場合
 
 // ✅ 使用されているもののみ残す
 import { useState } from 'react'
-
 ```
 
 ### 2. デッドコード分岐
@@ -175,7 +180,6 @@ if (false) {
 export function unusedHelper() {
   // コードベース内に参照がない
 }
-
 ```
 
 ### 3. 重複コンポーネント
@@ -197,11 +201,10 @@ components/Button.tsx（variant prop を使用）
 // ❌ インストールされているが import されていないパッケージ
 {
   "dependencies": {
-    "lodash": "^4.17.21",   // どこでも使用されていない
-    "moment": "^2.29.4"      // date-fns に置き換え済み
+    "lodash": "^4.17.21", // どこでも使用されていない
+    "moment": "^2.29.4" // date-fns に置き換え済み
   }
 }
-
 ```
 
 ## プロジェクト固有のルール
@@ -226,7 +229,7 @@ components/Button.tsx（variant prop を使用）
 **常に検証すべき項目：**
 
 - セマンティック検索機能（lib/redis.js、lib/openai.js）
-- 市場データ取得（api/markets/*、api/market/[slug]/）
+- 市場データ取得（api/markets/\*、api/market/[slug]/）
 - 認証フロー（HeaderWallet.tsx、UserMenu.tsx）
 - 取引機能（Meteora SDK 統合）
 
@@ -235,6 +238,7 @@ components/Button.tsx（variant prop を使用）
 削除後に問題が発生した場合：
 
 1. **即座にロールバック：**
+
 ```bash
 git revert HEAD
 npm install
@@ -243,25 +247,23 @@ npm test
 
 ```
 
-
 2. **調査：**
+
 - 何が失敗したか？
 - 動的 import だったか？
 - 検出ツールが漏らすような方法で使用されていたか？
 
-
 3. **修正して進める：**
+
 - メモに「削除禁止」とマークする
 - なぜ検出ツールが漏らしたのかを記録する
 - 必要に応じて明示的な型注釈を追加する
 
-
 4. **プロセスを更新：**
+
 - 「絶対に削除しない」リストに追加する
 - grep パターンを改善する
 - 検出方法を更新する
-
-
 
 ## ベストプラクティス
 

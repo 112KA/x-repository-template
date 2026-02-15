@@ -153,6 +153,7 @@ packages/
 ```
 
 このプロトコルにより：
+
 - 自動的にワークスペースバージョンに解決
 - npm publish 時に実バージョンに置換
 - シンボリックリンクで開発時の高速フィードバック
@@ -160,20 +161,20 @@ packages/
 ### パッケージのインポート
 
 ```typescript
+// @112ka/x3 からインポート
+import { ApplicationBase } from '@112ka/x3/application'
+import { OrbitControlsPlugin, StatsPlugin } from '@112ka/x3/application/plugins'
+import { AssetManager } from '@112ka/x3/asset'
+// x-lib からインポート
+import { someUtil } from 'x-lib'
+import { InteractiveObject, Stage } from 'x/application'
+
+import { arrayUtils, colorUtils } from 'x/data'
 // @112ka/x からインポート
 import { Clock, Modal, Scroll } from 'x/features'
 import { Vector2, Vector3 } from 'x/math'
-import { Stage, InteractiveObject } from 'x/application'
-import { arrayUtils, colorUtils } from 'x/data'
-import { db, net, mediaQuery } from 'x/web'
 
-// @112ka/x3 からインポート
-import { ApplicationBase } from '@112ka/x3/application'
-import { AssetManager } from '@112ka/x3/asset'
-import { StatsPlugin, OrbitControlsPlugin } from '@112ka/x3/application/plugins'
-
-// x-lib からインポート
-import { someUtil } from 'x-lib'
+import { db, mediaQuery, net } from 'x/web'
 ```
 
 ## 新機能の追加
@@ -199,7 +200,7 @@ pnpm x build
 
 ```typescript
 // packages/x/src/features/clock.test.ts
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { Clock } from './clock'
 
 describe('Clock', () => {
@@ -287,6 +288,7 @@ pnpm start
 ### ブラウザ DevTools
 
 Next.js:
+
 ```bash
 pnpm app:nextjs dev
 # ブラウザで http://localhost:3000 を開く
@@ -303,6 +305,7 @@ node --inspect-brk ./node_modules/.bin/vitest run
 ### Monorepo Debugging
 
 パッケージが正しくビルドされているか確認：
+
 ```bash
 ls -la packages/x/dist/
 ls -la packages/x3/dist/

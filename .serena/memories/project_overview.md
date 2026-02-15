@@ -1,4 +1,5 @@
 # Project overview
+
 - Purpose: pnpm monorepo template for managing multiple frontend apps (Next.js, Astro, Vite) and shared packages in one workspace.
 - Main apps live under apps/: app-nextjs (primary), app-astro, app-vite-vanilla.
 - Shared packages live under packages/: x (core utilities), x3 (3D/graphics), x-lib (general utilities).

@@ -20,7 +20,7 @@ jobs:
           ref: ${{ env.DEPLOY_BRANCH }}
           token: ${{ secrets.GITHUB_TOKEN }}
           # lfs: true
-      
+
       - run: git lfs pull
 
       - uses: pnpm/action-setup@v4
@@ -32,7 +32,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: package.json
-          cache: "pnpm"
+          cache: pnpm
 
       - run: pnpm install
 
@@ -52,5 +52,5 @@ jobs:
           localDir: ${{ env.DEPLOY_LOCAL_DIR }}
           remoteDir: ${{ env.DEPLOY_REMOTE_DIR }}
           reverse: true
-          ignoreFile: '.lftp_ignore'
-          options: '--verbose --delete'
+          ignoreFile: .lftp_ignore
+          options: --verbose --delete

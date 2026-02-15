@@ -15,12 +15,12 @@ TypeScript 5.9.3 Strict Mode、ESLint 9、Vitest などの標準設定が完備�
   - Tailwind CSS 4 + shadcn/ui + Radix UI
   - View Transitions API + GSAP によるページ遷移アニメーション
   - 実装済みの遷移システムと example ページ
-  
+
 - **Astro 5.16+**
   - 静的サイト生成（SSG）
   - Tailwind CSS 4 対応
   - @112ka/x 統合
-  
+
 - **Vite 7.3+** (Vanilla TypeScript)
   - シンプルな TypeScript アプリテンプレート
   - Tailwind CSS 4 対応
@@ -35,7 +35,7 @@ TypeScript 5.9.3 Strict Mode、ESLint 9、Vitest などの標準設定が完備�
   - 数学ユーティリティ（Vector2/3、Rectangle、Spline）
   - アプリケーション基盤（Stage、InteractiveObject）
   - テスト: Vitest + Autotag decorator
-  
+
 - **@112ka/x3** (v0.0.2)
   - 3D グラフィックス統合
   - Three.js ベースのレンダリング
@@ -43,7 +43,7 @@ TypeScript 5.9.3 Strict Mode、ESLint 9、Vitest などの標準設定が完備�
   - カメラコントロール（Orbit、Debug）
   - プラグインシステム（Stats、OrbitControls、Asset、DebugShader）
   - Noise 生成（Curl、Snoise3）
-  
+
 - **x-lib** (v1.0.0)
   - 汎用ユーティリティパッケージ（拡張予定）
 
@@ -75,6 +75,7 @@ x-repository-template/
 ```
 
 **特徴**:
+
 - `workspace:*` プロトコルで内部パッケージを自動参照
 - `postinstall` フックでパッケージを自動ビルド
 - pnpm の symlink 戦略による高速な依存関係解決
@@ -82,21 +83,25 @@ x-repository-template/
 ## Design Philosophy
 
 ### シンプルさ優先
+
 - 必要最小限の依存関係
 - わかりやすいディレクトリ構造
 - 過度な抽象化を避ける
 
 ### 開発体験重視
+
 - 自動化されたビルドパイプライン
 - 高速フィードバック（watch モード）
 - 統一された開発コマンド
 
 ### 柔軟性確保
+
 - 不要なアプリ・パッケージは削除可能
 - 新規アプリ・パッケージの追加が容易
 - フレームワーク・ツールの選択肢を制限しない
 
 ### 実用的なコスト管理
+
 - テストは必要最小限（ただし重要箇所はカバー）
 - 過度な最適化を避ける
 - 保守性とパフォーマンスのバランス

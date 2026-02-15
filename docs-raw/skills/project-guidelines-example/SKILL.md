@@ -2,6 +2,7 @@
 name: project-guidelines-example
 description: This is an example of a project-specific skill. Use this as a template for your own projects.
 ---
+
 実在するプロダクションアプリケーションに基づいています: [Zenith](https://zenith.chat) - AIを活用した顧客発見プラットフォーム。
 
 # Project Guidelines Skill (Example)
@@ -10,11 +11,11 @@ description: This is an example of a project-specific skill. Use this as a templ
 
 設計された特定のプロジェクトで作業する際に、このスキルを参照してください。プロジェクトスキルには以下が含まれます：
 
-* アーキテクチャの概要
-* ファイル構造
-* コードパターン
-* テスト要件
-* デプロイワークフロー
+- アーキテクチャの概要
+- ファイル構造
+- コードパターン
+- テスト要件
+- デプロイワークフロー
 
 ---
 
@@ -22,12 +23,12 @@ description: This is an example of a project-specific skill. Use this as a templ
 
 **技術スタック:**
 
-* **フロントエンド**: Next.js 15 (App Router), TypeScript, React
-* **バックエンド**: FastAPI (Python), Pydantic モデル
-* **データベース**: Supabase (PostgreSQL)
-* **AI**: Claude API (ツール呼び出しと構造化出力)
-* **デプロイ**: Google Cloud Run
-* **テスト**: Playwright (E2E), pytest (バックエンド), React Testing Library
+- **フロントエンド**: Next.js 15 (App Router), TypeScript, React
+- **バックエンド**: FastAPI (Python), Pydantic モデル
+- **データベース**: Supabase (PostgreSQL)
+- **AI**: Claude API (ツール呼び出しと構造化出力)
+- **デプロイ**: Google Cloud Run
+- **テスト**: Playwright (E2E), pytest (バックエンド), React Testing Library
 
 **サービス構成:**
 
@@ -144,11 +145,11 @@ async function fetchApi<T>(
     }
 
     return await response.json()
-  } catch (error) {
+  }
+  catch (error) {
     return { success: false, error: String(error) }
   }
 }
-
 ```
 
 ### Claude AI 統合 (構造化出力)
@@ -222,12 +223,12 @@ npm run test:e2e
 
 ### デプロイ前チェックリスト
 
-* [ ] ローカルですべてのテストがパスしている
-* [ ] `npm run build` が成功する（フロントエンド）
-* [ ] `poetry run pytest` がパスする（バックエンド）
-* [ ] シークレットがハードコードされていない
-* [ ] 環境変数がドキュメント化されている
-* [ ] データベースマイグレーションの準備ができている
+- [ ] ローカルですべてのテストがパスしている
+- [ ] `npm run build` が成功する（フロントエンド）
+- [ ] `poetry run pytest` がパスする（バックエンド）
+- [ ] シークレットがハードコードされていない
+- [ ] 環境変数がドキュメント化されている
+- [ ] データベースマイグレーションの準備ができている
 
 ### デプロイコマンド
 
@@ -259,8 +260,8 @@ gcloud run deploy backend --source .
 
 ## 関連スキル
 
-* `coding-standards.md` - 一般的なコーディングのベストプラクティス
-* `backend-patterns.md` - API とデータベースのパターン
-* `frontend-patterns.md` - React と Next.js のパターン
+- `coding-standards.md` - 一般的なコーディングのベストプラクティス
+- `backend-patterns.md` - API とデータベースのパターン
+- `frontend-patterns.md` - React と Next.js のパターン
 
 次は、あなたのプロジェクトに合わせてこのテンプレートをカスタマイズしましょうか？

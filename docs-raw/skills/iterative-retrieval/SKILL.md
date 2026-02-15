@@ -11,15 +11,15 @@ description: Pattern for progressively refining context retrieval to solve the s
 
 サブエージェントは限られたコンテキストで生成されます。そのため、以下の情報が不足しています：
 
-* どのファイルに関連するコードがあるか
-* プロジェクト内にどのようなパターンが存在するか
-* プロジェクトで使用されている用語（命名規則）
+- どのファイルに関連するコードがあるか
+- プロジェクト内にどのようなパターンが存在するか
+- プロジェクトで使用されている用語（命名規則）
 
 標準的なアプローチの限界：
 
-* **すべて送る**: コンテキスト制限を超過する
-* **何も送らない**: エージェントに必要な情報が欠落する
-* **必要そうなものを推測する**: 多くの場合、的外れになる
+- **すべて送る**: コンテキスト制限を超過する
+- **何も送らない**: エージェントに必要な情報が欠落する
+- **必要そうなものを推測する**: 多くの場合、的外れになる
 
 ## 解決策：反復的検索 (Iterative Retrieval)
 
@@ -35,11 +35,10 @@ const initialQuery = {
   patterns: ['src/**/*.ts', 'lib/**/*.ts'],
   keywords: ['authentication', 'user', 'session'],
   excludes: ['*.test.ts', '*.spec.ts']
-};
+}
 
 // 検索エージェントに配信
-const candidates = await retrieveFiles(initialQuery);
-
+const candidates = await retrieveFiles(initialQuery)
 ```
 
 ### フェーズ 2: 評価 (EVALUATE)
@@ -53,17 +52,16 @@ function evaluateRelevance(files, task) {
     relevance: scoreRelevance(file.content, task), // 関連性スコア
     reason: explainRelevance(file.content, task), // 理由
     missingContext: identifyGaps(file.content, task) // 不足しているコンテキストの特定
-  }));
+  }))
 }
-
 ```
 
 スコアリング基準：
 
-* **高 (0.8-1.0)**: 対象機能を直接実装している
-* **中 (0.5-0.7)**: 関連するパターンや型が含まれている
-* **低 (0.2-0.4)**: わずかに関連がある
-* **なし (0-0.2)**: 関連なし、除外対象
+- **高 (0.8-1.0)**: 対象機能を直接実装している
+- **中 (0.5-0.7)**: 関連するパターンや型が含まれている
+- **低 (0.2-0.4)**: わずかに関連がある
+- **なし (0-0.2)**: 関連なし、除外対象
 
 ### フェーズ 3: 洗練 (REFINE)
 
@@ -81,16 +79,14 @@ function refineQuery(evaluation, previousQuery) {
     // 関連性がないと確定したパスを除外
     excludes: [...previousQuery.excludes, ...evaluation
       .filter(e => e.relevance < 0.2)
-      .map(e => e.path)
-    ],
+      .map(e => e.path)],
 
     // 特定の不足部分に焦点を当てる
     focusAreas: evaluation
       .flatMap(e => e.missingContext)
       .filter(unique)
-  };
+  }
 }
-
 ```
 
 ### フェーズ 4: ループ (LOOP)
@@ -99,27 +95,26 @@ function refineQuery(evaluation, previousQuery) {
 
 ```javascript
 async function iterativeRetrieve(task, maxCycles = 3) {
-  let query = createInitialQuery(task);
-  let bestContext = [];
+  let query = createInitialQuery(task)
+  let bestContext = []
 
   for (let cycle = 0; cycle < maxCycles; cycle++) {
-    const candidates = await retrieveFiles(query);
-    const evaluation = evaluateRelevance(candidates, task);
+    const candidates = await retrieveFiles(query)
+    const evaluation = evaluateRelevance(candidates, task)
 
     // 十分なコンテキストがあるか確認
-    const highRelevance = evaluation.filter(e => e.relevance >= 0.7);
+    const highRelevance = evaluation.filter(e => e.relevance >= 0.7)
     if (highRelevance.length >= 3 && !hasCriticalGaps(evaluation)) {
-      return highRelevance;
+      return highRelevance
     }
 
     // 条件を洗練させて継続
-    query = refineQuery(evaluation, query);
-    bestContext = mergeContext(bestContext, highRelevance);
+    query = refineQuery(evaluation, query)
+    bestContext = mergeContext(bestContext, highRelevance)
   }
 
-  return bestContext;
+  return bestContext
 }
-
 ```
 
 ## 具体的な例
@@ -173,6 +168,7 @@ async function iterativeRetrieve(task, maxCycles = 3) {
 
 ```markdown
 このタスクのコンテキストを取得する際：
+
 1. まずは広範なキーワード検索から始めてください。
 2. 各ファイルの関連性を評価してください（0〜1 スケール）。
 3. まだ不足しているコンテキストを特定してください。

@@ -1,61 +1,67 @@
 {
-	"name": "x-repository-template",
-	"version": "1.0.0",
-	"description": "x-repository-template は pnpm を用いたモノレポ向けのテンプレートリポジトリです。主にフロントエンドの Web Framework (Astro, Vite, Nuxt, Next.js) の template と共通パッケージを同一ワークスペースで管理するためのベース構成を提供します。新規プロジェクトの立ち上げや内部テンプレートとして利用することを想定しています。",
-	"engines": {
-		"node": ">=24.12",
-		"pnpm": ">=10"
-	},
-	"devEngines": {
-		"runtime": {
-			"name": "node",
-			"onFail": "error"
-		},
-		"packageManager": {
-			"name": "pnpm",
-			"onFail": "error"
-		}
-	},
-	"scripts": {
-		"app": "pnpm app:nextjs",
-		"app:astro": "pnpm -F app-astro",
-		"app:nextjs": "pnpm -F app-nextjs",
-		"app:vite": "pnpm -F app-vite-vanilla",
-		"x": "pnpm -F @112ka/x",
-		"x3": "pnpm -F @112ka/x3",
-		"x-lib": "pnpm -F x-lib",
-		"lint": "pnpm -r lint",
-		"lint:fix": "pnpm -r lint:fix",
-		"watch:x": "pnpm x watch",
-		"watch:x3": "pnpm x3 watch",
-		"watch": "pnpm -r -F @112ka/x -F @112ka/x3 watch",
-		"dev": "pnpm dev:astro",
-		"dev:astro": "concurrently \"pnpm watch\" \"pnpm app:astro dev\"",
-		"dev:nextjs": "concurrently \"pnpm watch\" \"pnpm app:nextjs dev\"",
-		"dev:vite": "concurrently \"pnpm watch\" \"pnpm app:vite dev\"",
-		"build:x": "pnpm x build",
-		"build:x3": "pnpm x3 build",
-		"build": "pnpm -r -F @112ka/x -F @112ka/x3 build",
-		"testAll": "pnpm -r test",
-		"prepare": "simple-git-hooks",
-		"postinstall": "pnpm build"
-	},
-	"keywords": [],
-	"author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
-	"devDependencies": {
-		"@antfu/eslint-config": "7.0.1",
-		"@tsconfig/recommended": "1.0.13",
-		"@types/node": "25.0.9",
-		"concurrently": "9.2.1",
-		"eslint": "9.39.2",
-		"lint-staged": "16.2.7",
-		"simple-git-hooks": "2.13.1",
-		"typescript": "5.9.3"
-	},
-	"simple-git-hooks": {
-		"pre-commit": "pnpm lint-staged"
-	},
-	"lint-staged": {
-		"**/*.{js,ts,jsx,tsx,json,jsonc,html,vue,astro,md,yaml}": "pnpm lint"
-	}
+  "name": "x-repository-template",
+  "version": "1.0.0",
+  "description": "x-repository-template は pnpm を用いたモノレポ向けのテンプレートリポジトリです。主にフロントエンドの Web Framework (Astro, Vite, Nuxt, Next.js) の template と共通パッケージを同一ワークスペースで管理するためのベース構成を提供します。新規プロジェクトの立ち上げや内部テンプレートとして利用することを想定しています。",
+  "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
+  "keywords": [],
+  "engines": {
+    "node": ">=24.12",
+    "pnpm": ">=10"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "pnpm",
+      "onFail": "error"
+    }
+  },
+  "scripts": {
+    "app": "pnpm app:nextjs",
+    "app:astro": "pnpm -F app-astro",
+    "app:nextjs": "pnpm -F app-nextjs",
+    "app:vite": "pnpm -F app-vite-vanilla",
+    "x": "pnpm -F @112ka/x",
+    "x3": "pnpm -F @112ka/x3",
+    "x-lib": "pnpm -F x-lib",
+    "lint": "eslint && pnpm -r lint",
+    "lint:fix": "eslint --fix && pnpm -r lint:fix",
+    "watch:x": "pnpm x watch",
+    "watch:x3": "pnpm x3 watch",
+    "watch": "pnpm -r -F @112ka/x -F @112ka/x3 watch",
+    "dev": "pnpm dev:astro",
+    "dev:astro": "concurrently \"pnpm watch\" \"pnpm app:astro dev\"",
+    "dev:nextjs": "concurrently \"pnpm watch\" \"pnpm app:nextjs dev\"",
+    "dev:vite": "concurrently \"pnpm watch\" \"pnpm app:vite dev\"",
+    "build:x": "pnpm x build",
+    "build:x3": "pnpm x3 build",
+    "build": "pnpm -r -F @112ka/x -F @112ka/x3 build",
+    "testAll": "pnpm -r test",
+    "prepare": "simple-git-hooks",
+    "postinstall": "pnpm build"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "7.4.3",
+    "@tsconfig/recommended": "1.0.13",
+    "@types/node": "25.2.3",
+    "concurrently": "9.2.1",
+    "eslint": "10.0.0",
+    "lint-staged": "16.2.7",
+    "simple-git-hooks": "2.13.1",
+    "typescript": "5.9.3"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "packages/x/**/*.{js,ts,jsx,tsx}": "pnpm x lint --",
+    "packages/x-lib/**/*.{js,ts,jsx,tsx}": "pnpm x-lib lint --",
+    "packages/x3/**/*.{js,ts,jsx,tsx}": "pnpm x3 lint --",
+    "apps/app-nextjs/**/*.{js,ts,jsx,tsx}": "pnpm app:nextjs lint --",
+    "apps/app-astro/**/*.{js,ts,jsx,tsx}": "pnpm app:astro lint --",
+    "apps/app-vite/**/*.{js,ts,jsx,tsx}": "pnpm app:vite lint --",
+    "*.{json,yaml}": "eslint --fix"
+  }
 }
