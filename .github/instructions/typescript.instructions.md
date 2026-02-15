@@ -1,6 +1,6 @@
 ---
 description: 'Guidelines for TypeScript Development targeting TypeScript 5.x and ES2020 output'
-applyTo: '**/*.ts'
+applyTo: '**/*.{ts,tsx}'
 ---
 
 # TypeScript Coding Standards
@@ -26,3 +26,5 @@ applyTo: '**/*.ts'
 - Adding dependencies without approval.
 - Creating multiple files for single-responsibility tasks.
 - Using `console.log` for error handling.
+- Avoid fallback.
+  - **Why**: Leads to unpredictable behavior; complicates maintenance.

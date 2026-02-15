@@ -13,16 +13,38 @@
   <!-- Page type definition -->
   <xs:complexType name="pageType">
     <xs:sequence>
-      <xs:element name="url" type="xs:string"/>
+      <!-- Multi-view pages with views container -->
+      <xs:element name="views" type="viewsType" minOccurs="0" maxOccurs="1"/>
+      <!-- External navigation buttons -->
       <xs:element name="button" type="buttonType" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+    <xs:attribute name="url" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string"/>
+  </xs:complexType>
+
+  <!-- Views container type definition -->
+  <xs:complexType name="viewsType">
+    <xs:sequence>
+      <xs:element name="view" type="viewType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="default" type="xs:string"/>
+    <xs:attribute name="transition" type="xs:string" default="fade"/>
+  </xs:complexType>
+
+  <!-- View type definition (for multi-view pages) -->
+  <xs:complexType name="viewType">
+    <xs:sequence>
+      <xs:element name="button" type="buttonType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+    <xs:attribute name="title" type="xs:string"/>
   </xs:complexType>
 
   <!-- Button type definition -->
   <xs:complexType name="buttonType">
-    <xs:sequence>
-      <xs:element name="label" type="xs:string"/>
-      <xs:element name="href" type="xs:string"/>
-    </xs:sequence>
+    <xs:attribute name="label" type="xs:string" use="required"/>
+    <xs:attribute name="action" type="xs:string"/>
+    <xs:attribute name="href" type="xs:string"/>
   </xs:complexType>
 </xs:schema>

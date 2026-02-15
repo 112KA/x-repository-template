@@ -1,22 +1,15 @@
-# Style conventions
+# Style and conventions
+- TypeScript: strict mode; avoid any; add explicit types for function params/returns; prefer inference for locals.
+- Error handling: extend custom errors from packages/x/src/errors/; avoid generic Error.
+- Modules: ESM only; no CommonJS.
+- Shared code: put reusable utilities in packages/x/src/; avoid duplication in apps.
+- Dependencies: avoid adding deps without approval; keep abstractions minimal.
+- Logging: do not use console.log for error handling.
 
-Derived from repo files and TypeScript instructions:
-
-- Language: TypeScript 5.x targeting ES2020. Use ES modules.
-- Filenames: kebab-case for files, PascalCase for classes/types, camelCase for variables/functions.
-- No CommonJS; prefer `export` / `import` syntax.
-- Avoid `any`; prefer `unknown` and proper type narrowing.
-- Use ESLint with `@antfu/eslint-config` base. Run `pnpm lint` to autofix.
-- Tests: Vitest with node environment and coverage via V8 provider.
-- Build: `tsdown` for packages; packages are composite projects with `outDir: dist`.
-- Decorators: experimentalDecorators enabled where needed.
-- Keep public API documented with JSDoc; update `tsdown` outputs accordingly.
-
-Formatting and tooling:
-- Run `pnpm lint` and tests locally before PR.
-- Husky + lint-staged enforces pre-commit checks.
-
-Naming and architecture:
-- Reuse shared utilities and keep modules single-purpose.
-- Prefer immutable data and pure functions where practical.
-
+## Next.js app conventions (apps/app-nextjs)
+- Components: named exports only (default exports allowed for Next.js route files like page.tsx/layout.tsx).
+- Client components: include 'use client' directive.
+- Props: define with interface.
+- Naming: components PascalCase, utilities camelCase, constants UPPER_SNAKE_CASE.
+- Styling: Tailwind utilities; use cn() for conditional classes; use @apply for repeated patterns; global styles in globals.css.
+- Path aliases: @/components, @/lib, @constraints, etc.

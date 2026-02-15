@@ -2,6 +2,7 @@
   "name": "@112ka/x",
   "type": "module",
   "version": "0.0.10",
+  "description": "軽量でモジュール化された TypeScript ユーティリティライブラリ。複数の小さなモジュール群を ES モジュールとして提供し、必要な機能を選択的にインポート可能な設計。",
   "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "repository": {
     "type": "git",
@@ -37,9 +38,9 @@
     "@tsconfig/recommended": "1.0.13",
     "@types/webxr": "^0.5.22",
     "@types/youtube": "^0.1.2",
-    "@vitest/coverage-v8": "4.0.17",
+    "@vitest/coverage-v8": "4.0.18",
     "eslint": "9.39.2",
     "tsdown": "0.20.0-beta.3",
-    "vitest": "4.0.17"
+    "vitest": "4.0.18"
   }
 }

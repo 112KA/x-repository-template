@@ -1,50 +1,42 @@
-# Suggested commands
+# Suggested commands (Linux)
+## Setup
+- pnpm install
 
-Development setup:
-- Copy npmrc template:
-  - cp .npmrc.org .npmrc
-- Install dependencies:
-  - pnpm install
+## Dev servers
+- pnpm dev:nextjs
+- pnpm dev:astro
+- pnpm dev:vite
 
-Run apps (examples):
-- Start all dev (packages watch + astro app):
-  - pnpm dev
-- Start specific app:
-  - pnpm dev:astro
-  - pnpm dev:nextjs
-  - pnpm dev:vite
-- Run a specific package or app using filter:
-  - pnpm -F app-astro dev
-  - pnpm -F @112ka/x build
+## Watch/build packages
+- pnpm watch
+- pnpm watch:x
+- pnpm watch:x3
+- pnpm build
+- pnpm build:x
+- pnpm build:x3
 
-Build and watch packages:
-- Build all packages:
-  - pnpm build
-- Build specific package:
-  - pnpm build:x
-  - pnpm build:x3
-- Watch packages during development:
-  - pnpm watch
-  - pnpm watch:x
+## Lint/format
+- pnpm lint
+- pnpm lint:fix
 
-Linting / formatting / tests:
-- Run eslint with autofix across workspace:
-  - pnpm lint
-- Run package test (example for packages/x):
-  - pnpm -w -F @112ka/x test
-- Run vitest directly in package:
-  - pnpm -C packages/x test
+## Tests
+- pnpm testAll
+- pnpm x test
 
-Git hooks / prepare:
-- Set up husky hooks (normally run automatically during prepare):
-  - pnpm prepare
+## App-specific shortcuts
+- pnpm app:nextjs <command>
+- pnpm app:astro <command>
+- pnpm app:vite <command>
+- pnpm x <command>
+- pnpm x3 <command>
+- pnpm x-lib <command>
 
-Utilities:
-- Show changed files (git):
-  - git status
-- Run a single command in package's directory:
-  - pnpm -C packages/x run build
+## Next.js page definition tooling
+- pnpm app:nextjs generate:pages
 
-Notes:
-- Root `postinstall` triggers `pnpm build` so CI setups may call `pnpm install` and skip postinstall if desired.
-- Use `pnpm --filter` to target package subsets when building or running.
+## System utilities (Linux)
+- ls, cd, pwd
+- cat, less
+- grep, rg
+- find
+- git status, git diff, git log

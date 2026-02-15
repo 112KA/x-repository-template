@@ -1,7 +1,7 @@
 {
 	"name": "x-repository-template",
 	"version": "1.0.0",
-	"description": "",
+	"description": "x-repository-template は pnpm を用いたモノレポ向けのテンプレートリポジトリです。主にフロントエンドの Web Framework (Astro, Vite, Nuxt, Next.js) の template と共通パッケージを同一ワークスペースで管理するためのベース構成を提供します。新規プロジェクトの立ち上げや内部テンプレートとして利用することを想定しています。",
 	"engines": {
 		"node": ">=24.12",
 		"pnpm": ">=10"
@@ -17,7 +17,7 @@
 		}
 	},
 	"scripts": {
-		"app": "pnpm app:astro",
+		"app": "pnpm app:nextjs",
 		"app:astro": "pnpm -F app-astro",
 		"app:nextjs": "pnpm -F app-nextjs",
 		"app:vite": "pnpm -F app-vite-vanilla",
@@ -36,6 +36,7 @@
 		"build:x": "pnpm x build",
 		"build:x3": "pnpm x3 build",
 		"build": "pnpm -r -F @112ka/x -F @112ka/x3 build",
+		"testAll": "pnpm -r test",
 		"prepare": "simple-git-hooks",
 		"postinstall": "pnpm build"
 	},

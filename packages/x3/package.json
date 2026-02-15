@@ -2,6 +2,7 @@
   "name": "@112ka/x3",
   "type": "module",
   "version": "0.0.2",
+  "description": "Three.js ベースの 3D グラフィックレンダリングライブラリ。WebGL/WebGPU レンダラーの抽象化、シーン・カメラ・ビューポート管理、アセット管理、プラグイン拡張機構を提供。",
   "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "repository": {
     "type": "git",
@@ -27,8 +28,7 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "build": "tsdown",
-    "watch": "tsdown --watch",
-    "test": "vitest --run --coverage"
+    "watch": "tsdown --watch"
   },
   "peerDependencies": {
     "@112ka/x": "0.0.10",
