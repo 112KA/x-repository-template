@@ -208,7 +208,7 @@ CREATE POLICY "Users update own data"
 
 #### HTMLのサニタイズ
 
-```typescript
+```react
 import DOMPurify from 'isomorphic-dompurify'
 
 // ユーザー提供のHTMLは常にサニタイズする
