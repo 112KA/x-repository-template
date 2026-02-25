@@ -10,7 +10,6 @@
 
 - [プロジェクト概要](docs/PRODUCT.md)
 - [setupガイド](docs/guides/setup.md)
-- [Architecture](docs/codemaps/index.md)
 
 ## Contributing
 
