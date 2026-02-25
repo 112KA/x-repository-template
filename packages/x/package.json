@@ -33,13 +33,13 @@
     "test": "vitest --run --coverage"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "7.4.3",
-    "@eslint/eslintrc": "3.3.3",
+    "@antfu/eslint-config": "7.6.0",
+    "@eslint/eslintrc": "3.3.4",
     "@tsconfig/recommended": "1.0.13",
     "@types/webxr": "^0.5.22",
     "@types/youtube": "^0.1.2",
     "@vitest/coverage-v8": "4.0.18",
-    "eslint": "10.0.0",
+    "eslint": "10.0.2",
     "tsdown": "0.20.3",
     "vitest": "4.0.18"
   }
