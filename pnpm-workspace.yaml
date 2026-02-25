@@ -1,15 +1,15 @@
 engineStrict: true
-minimumReleaseAge: 2880
 saveExact: true
 shellEmulator: true
 trustPolicy: no-downgrade
+trustPolicyExclude:
+  - vite
 
 packages:
   - apps/*
   - packages/*
-
 catalog:
-  '@tailwindcss/vite': 4.1.18
+  '@tailwindcss/vite': 4.2.1
   '@vitejs/plugin-basic-ssl': 2.1.4
-  eslint-plugin-format: 1.4.0
-  tailwindcss: 4.1.18
+  eslint-plugin-format: 2.0.0
+  tailwindcss: 4.2.1
