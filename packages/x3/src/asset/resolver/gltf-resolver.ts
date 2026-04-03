@@ -11,6 +11,8 @@ import {
 
 } from 'three/examples/jsm/Addons.js'
 
+const HANDLER_REGEX = /\.(gltf|glb)$/i
+
 export class GLTFResolver implements IResolver {
   name = 'GLTFResolver'
   constructor(
@@ -26,7 +28,7 @@ export class GLTFResolver implements IResolver {
       .setDRACOLoader(dracoLoader)
       .setKTX2Loader(ktx2Loader)
 
-    loadingManager.addHandler(/\.(gltf|glb)$/i, gltfLoader)
+    loadingManager.addHandler(HANDLER_REGEX, gltfLoader)
   }
 
   check(loaded: unknown): boolean {

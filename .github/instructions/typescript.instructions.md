@@ -19,7 +19,7 @@ applyTo: '**/*.{ts,tsx}'
 
 - Use ES modules only - no CommonJS.
 - Shared utilities belong in `packages/x/src/` - do not duplicate in apps.
-- Keep implementations minimal - avoid unnecessary abstractions.
+- Use named imports instead of namespace imports.
 
 ## Avoid
 

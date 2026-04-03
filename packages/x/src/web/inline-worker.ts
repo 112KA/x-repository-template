@@ -1,4 +1,10 @@
 /**
+ * 文字列化したソースコードから、外側のブラケットを削除して本体のみを返す
+ */
+const OUTER_BRACES_START_REGEX = /^.+?\{/s
+const OUTER_BRACES_END_REGEX = /\}$/
+
+/**
  * 関数もしくは文字列ソースから Blob URL を生成し Worker を起動する簡易ラッパー。
  * terminate 時に URL を revoke。
  */
@@ -19,8 +25,8 @@ export class InlineWorker extends Worker {
         typeof src === 'function'
           ? src
               .toString()
-              .replace(/^.+?\{/s, '')
-              .replace(/\}$/, '')
+              .replace(OUTER_BRACES_START_REGEX, '')
+              .replace(OUTER_BRACES_END_REGEX, '')
           : src,
       ]),
     )

@@ -28,12 +28,6 @@ export default antfu(
     },
   },
   {
-    files: ['**/*.md'],
-    rules: {
-      'no-irregular-whitespace': 'warn',
-    },
-  },
-  {
     files: ['**/package.json'],
     rules: {
       'pnpm/json-enforce-catalog': ['warn', {

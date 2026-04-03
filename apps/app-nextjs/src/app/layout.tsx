@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ClientLayoutWrapper } from '@/components/client-layout-wrapper'
 import { notoSansJp } from '@/lib/font'
 import './globals.css'
 
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={notoSansJp.className}>
-        {children}
+        <ClientLayoutWrapper>
+          {children}
+        </ClientLayoutWrapper>
       </body>
     </html>
   )
