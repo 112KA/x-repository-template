@@ -1,4 +1,18 @@
+packages:
+  - apps/*
+  - packages/*
+
+catalog:
+  '@tailwindcss/vite': 4.2.2
+  '@vitejs/plugin-basic-ssl': 2.3.0
+  eslint-plugin-format: 2.0.1
+  tailwindcss: 4.2.2
+
 engineStrict: true
+
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
 
 saveExact: true
 
@@ -8,11 +22,3 @@ trustPolicy: no-downgrade
 
 trustPolicyExclude:
   - vite
-packages:
-  - apps/*
-  - packages/*
-catalog:
-  '@tailwindcss/vite': 4.2.2
-  '@vitejs/plugin-basic-ssl': 2.3.0
-  eslint-plugin-format: 2.0.1
-  tailwindcss: 4.2.2
