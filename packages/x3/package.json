@@ -41,6 +41,6 @@
     "@types/three": "0.182.0",
     "eslint": "^10.1.0",
     "stats-gl": "3.8.0",
-    "tsdown": "0.20.3"
+    "tsdown": "0.21.7"
   }
 }
