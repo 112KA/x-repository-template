@@ -1,3 +1,14 @@
+engineStrict: true
+
+saveExact: true
+
+shellEmulator: true
+
+trustPolicy: no-downgrade
+
+trustPolicyExclude:
+  - vite
+
 packages:
   - apps/*
   - packages/*
@@ -8,17 +19,6 @@ catalog:
   eslint-plugin-format: 2.0.1
   tailwindcss: 4.2.2
 
-engineStrict: true
-
 onlyBuiltDependencies:
   - esbuild
   - sharp
-
-saveExact: true
-
-shellEmulator: true
-
-trustPolicy: no-downgrade
-
-trustPolicyExclude:
-  - vite
