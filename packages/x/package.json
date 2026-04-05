@@ -39,7 +39,7 @@
     "@types/webxr": "^0.5.22",
     "@types/youtube": "^0.1.2",
     "@vitest/coverage-v8": "4.1.2",
-    "eslint": "10.1.0",
+    "eslint": "10.2.0",
     "tsdown": "0.21.7",
     "vitest": "4.1.2"
   }
