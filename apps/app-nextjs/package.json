@@ -20,7 +20,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "tailwind-merge": "3.5.0",
-    "x": "workspace:@112ka/x@*"
+    "@112ka/x": "workspace:@112ka/x@*"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "16.2.2",

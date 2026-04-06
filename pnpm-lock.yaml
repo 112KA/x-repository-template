@@ -50,7 +50,7 @@ importers:
 
   apps/app-astro:
     dependencies:
-      x:
+      '@112ka/x':
         specifier: workspace:@112ka/x@*
         version: link:../../packages/x
     devDependencies:
@@ -75,6 +75,9 @@ importers:
 
   apps/app-nextjs:
     dependencies:
+      '@112ka/x':
+        specifier: workspace:@112ka/x@*
+        version: link:../../packages/x
       '@radix-ui/react-slot':
         specifier: 1.2.4
         version: 1.2.4(@types/react@19.2.14)(react@19.2.4)
@@ -102,9 +105,6 @@ importers:
       tailwind-merge:
         specifier: 3.5.0
         version: 3.5.0
-      x:
-        specifier: workspace:@112ka/x@*
-        version: link:../../packages/x
     devDependencies:
       '@next/eslint-plugin-next':
         specifier: 16.2.2
@@ -145,7 +145,7 @@ importers:
 
   apps/app-vite-vanilla:
     dependencies:
-      x:
+      '@112ka/x':
         specifier: workspace:@112ka/x@*
         version: link:../../packages/x
     devDependencies:

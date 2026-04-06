@@ -14,7 +14,7 @@ export default defineConfig({
 
     resolve: {
       alias: {
-        x: resolve(__dirname, './node_modules/x/dist'),
+        '@112ka/x': resolve(__dirname, './node_modules/@112ka/x/dist'),
       },
     },
   },
