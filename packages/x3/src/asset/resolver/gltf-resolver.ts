@@ -18,8 +18,6 @@ export interface GLTFResolverOptions {
   loaderMode?: GLTFLoaderMode
 }
 
-const HANDLER_REGEX = /\.(gltf|glb)$/i
-
 export class GLTFResolver implements IResolver {
   name = 'GLTFResolver'
   constructor(
