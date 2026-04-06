@@ -11,7 +11,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "x": "workspace:@112ka/x@*"
+    "@112ka/x": "workspace:@112ka/x@*"
   },
   "devDependencies": {
     "@tailwindcss/vite": "catalog:",

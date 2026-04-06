@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      x: join(__dirname, '../../../packages/x/src/index.ts'),
+      '@112ka/x': join(__dirname, '../../../packages/x/src/index.ts'),
     }
   },
 }

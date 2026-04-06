@@ -10,7 +10,7 @@ export default defineConfig({
     ],
     coverage: { reporter: ['text'/* , 'lcov' */], provider: 'v8' },
     alias: {
-      'x': path.resolve(__dirname, '../x/src'),
+      '@112ka/x': path.resolve(__dirname, '../x/src'),
       'x3': path.resolve(__dirname, '../x3/src'),
       '@': path.resolve(__dirname, './src'),
     },

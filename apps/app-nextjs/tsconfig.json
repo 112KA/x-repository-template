@@ -14,8 +14,8 @@
       "@/*": [
         "./src/*"
       ],
-      "x/*": [
-        "./node_modules/x/dist/*"
+      "@112ka/x/*": [
+        "./node_modules/@112ka/x/dist/*"
       ],
       "@constraints/*": ["./src/app/_constraints/*"]
     },
