@@ -20,8 +20,8 @@
     "watch": "tsdown --watch"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "4.1.2",
+    "@vitest/coverage-v8": "4.1.4",
     "tsdown": "0.21.7",
-    "vitest": "4.1.2"
+    "vitest": "4.1.4"
   }
 }
