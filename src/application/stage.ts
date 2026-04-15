@@ -106,7 +106,7 @@ export class Stage extends InteractiveObject {
   ): void {
     super.removeEventListener(type, callback, options)
 
-    if (!Object.prototype.hasOwnProperty.call(this._listeners, type)) {
+    if (!Object.hasOwn(this._listeners, type)) {
       switch (type) {
         case 'tick':
           this._ticker.stop()
