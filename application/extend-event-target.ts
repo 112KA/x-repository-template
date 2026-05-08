@@ -76,7 +76,7 @@ export class ExtendEventTarget extends EventTarget {
 
     super.addEventListener(type, callback, options)
 
-    if (!Object.prototype.hasOwnProperty.call(this._listeners, type)) {
+    if (!Object.hasOwn(this._listeners, type)) {
       this._listeners[type] = []
     }
     this._listeners[type].push(callback)
@@ -101,7 +101,7 @@ export class ExtendEventTarget extends EventTarget {
     if (callback === null) {
       delete this._listeners[type]
     }
-    else if (Object.prototype.hasOwnProperty.call(this._listeners, type)) {
+    else if (Object.hasOwn(this._listeners, type)) {
       this._listeners[type] = this._listeners[type].filter(value => value !== callback)
       if (this._listeners[type].length === 0) {
         delete this._listeners[type]
