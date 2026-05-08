@@ -72,6 +72,10 @@ export function rgba2yuv420(rgba: number[], width: number, height: number): Uint
   return buffer
 }
 
+// モジュールスコープ（関数の外）に定義
+const NON_HEX_REGEX = /[^\da-f]/gi
+const HEX_EXPAND_REGEX = /^(.)(.)(.)$/
+
 /**
  * RGB値またはHEX文字列をHSV形式に変換する。
  * @param r0 赤成分 (0-255) またはHEX文字列 ("#ff0000" など)
@@ -89,8 +93,8 @@ export function rgb2hsv(r0: number, g0 = 0, b0 = 0): { h: number, s: number, v: 
     const cc = Number.parseInt(
       r0
         .toString()
-        .replace(/[^\da-f]/gi, '')
-        .replace(/^(.)(.)(.)$/, '$1$1$2$2$3$3'),
+        .replace(NON_HEX_REGEX, '')
+        .replace(HEX_EXPAND_REGEX, '$1$1$2$2$3$3'),
       16,
     )
     tmp = [(cc >> 16) & 0xFF, (cc >> 8) & 0xFF, cc & 0xFF]
