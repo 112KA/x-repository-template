@@ -1,5 +1,9 @@
 import { ua } from './ua.js'
 
+const LOCAL_PATTERNS = [/localhost|192.168|172.16/]
+const DEV_PATTERNS = [/dev/]
+const STG_PATTERNS = [/stg/]
+
 /**
  * 実行環境情報をホスト名等から判定するヘルパー。
  *
@@ -16,51 +20,77 @@ import { ua } from './ua.js'
  * if (env.prd) { console.log('Production environment') }
  */
 class Environment {
-  #localPatterns: RegExp[] = [/localhost|192.168|172.16/]
-  #devPatterns: RegExp[] = [/dev/]
-  #stgPatterns: RegExp[] = [/stg/]
+  #localPatterns: RegExp[] = LOCAL_PATTERNS
+  #devPatterns: RegExp[] = DEV_PATTERNS
+  #stgPatterns: RegExp[] = STG_PATTERNS
+
   #initialized = false
+
+  // 内部的な XR 保持用
+  #xrSupported = false
+
+  // サーバーサイドかチェックする共通ヘルパー
+  private get isServer(): boolean {
+    return typeof window === 'undefined'
+  }
 
   /** ローカルネットワーク/localhost 判定 */
   get local(): boolean {
+    if (this.isServer)
+      return false
     return this.#localPatterns.some(pattern => pattern.test(window.location.hostname))
   }
 
   /** 開発環境ドメイン判定 */
   get dev(): boolean {
+    if (this.isServer)
+      return false
     return this.#devPatterns.some(pattern => pattern.test(window.location.hostname))
   }
 
   /** ステージング環境ドメイン判定 */
   get stg(): boolean {
+    if (this.isServer)
+      return false
     return this.#stgPatterns.some(pattern => pattern.test(window.location.hostname))
   }
 
   /** 本番環境判定 */
   get prd(): boolean {
+    // サーバーサイドでは一律 false か、特定のデフォルト値を返すよう設計
+    if (this.isServer)
+      return false
     return !(this.local || this.dev || this.stg)
   }
 
   /** 機能サポート状況 */
-  support = {
-    /** タッチイベントサポート */
-    touch: 'ontouchstart' in window,
-    /** WebXR サポート (起動後非同期更新) */
-    xr: false,
+  get support(): { touch: boolean, xr: boolean } {
+    return {
+      /** タッチイベントサポート */
+      touch: this.isServer ? false : 'ontouchstart' in window,
+      /** WebXR サポート (initialize 実行後に確定) */
+      xr: this.#xrSupported,
+    }
   }
 
   /**
    * 環境判定を初期化し、WebXR サポート判定を実行します。
    * 必要に応じて事前に判定パターンを追加してください。
-   */
-  async initialize(): Promise<void> {
-    if (this.#initialized)
+   */async initialize(): Promise<void> {
+    // サーバーサイドでは何もしない
+    if (this.isServer || this.#initialized)
       return
 
     const { xr } = window.navigator
     if (xr !== undefined) {
-      const isSupported = await xr.isSessionSupported('immersive-vr')
-      this.support.xr = isSupported && ua.pc
+      try {
+        const isSupported = await xr.isSessionSupported('immersive-vr')
+        this.#xrSupported = isSupported && ua.pc
+      }
+      catch (e) {
+        console.warn('WebXR awareness failed:', e)
+        this.#xrSupported = false
+      }
     }
 
     this.#initialized = true
