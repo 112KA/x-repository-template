@@ -6,7 +6,7 @@
   "keywords": [],
   "engines": {
     "node": ">=24.12",
-    "pnpm": ">=10"
+    "pnpm": ">=11"
   },
   "devEngines": {
     "runtime": {
@@ -15,7 +15,8 @@
     },
     "packageManager": {
       "name": "pnpm",
-      "onFail": "error"
+      "onFail": "error",
+      "version": "11.0.8"
     }
   },
   "scripts": {
