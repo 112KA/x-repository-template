@@ -1,7 +1,7 @@
 {
   "name": "x-repository-template",
   "version": "1.0.0",
-  "packageManager": "pnpm@11.0.8",
+  "packageManager": "pnpm@11.3.0",
   "description": "x-repository-template は pnpm を用いたモノレポ向けのテンプレートリポジトリです。主にフロントエンドの Web Framework (Astro, Vite, Nuxt, Next.js) の template と共通パッケージを同一ワークスペースで管理するためのベース構成を提供します。新規プロジェクトの立ち上げや内部テンプレートとして利用することを想定しています。",
   "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "keywords": [],
