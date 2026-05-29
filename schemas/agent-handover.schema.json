@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AgentHandover",
+  "description": "AIエージェント間で作業コンテキストを引き渡すためのデータ構造定義",
+  "type": "object",
+  "required": [
+    "handover_id",
+    "timestamp",
+    "task",
+    "pipeline",
+    "execution_summary",
+    "context_memory",
+    "next_actions"
+  ],
+  "properties": {
+    "handover_id": {
+      "type": "string",
+      "description": "引き渡し処理の一意の識別子（例: ho_YYYYMMDD_fff）"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "引き渡しが実行された日時（ISO 8601形式）"
+    },
+    "task": {
+      "type": "object",
+      "required": ["id", "title", "final_goal"],
+      "properties": {
+        "id": { "type": "string", "description": "タスク管理上のID" },
+        "title": { "type": "string", "description": "タスクのタイトル" },
+        "final_goal": { "type": "string", "description": "最終的に達成すべきゴール" }
+      }
+    },
+    "pipeline": {
+      "type": "object",
+      "required": ["sender_agent", "receiver_agent"],
+      "properties": {
+        "sender_agent": {
+          "type": "object",
+          "required": ["id", "role"],
+          "properties": {
+            "id": { "type": "string", "description": "送信元エージェントのID" },
+            "role": { "type": "string", "description": "送信元エージェントの役割・ペルソナ" }
+          }
+        },
+        "receiver_agent": {
+          "type": "object",
+          "required": ["id", "role"],
+          "properties": {
+            "id": { "type": "string", "description": "送信先エージェントのID" },
+            "role": { "type": "string", "description": "送信先エージェントの役割・ペルソナ" }
+          }
+        }
+      }
+    },
+    "execution_summary": {
+      "type": "object",
+      "required": ["status", "completed_milestones", "artifacts"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "IN_PROGRESS",
+            "COMPLETED_PENDING_VERIFICATION",
+            "VERIFICATION_FAILED",
+            "SUCCESS"
+          ],
+          "description": "現在の作業ステータス"
+        },
+        "completed_milestones": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "このエージェントが完了した作業の箇条書き"
+        },
+        "artifacts": {
+          "type": "array",
+          "description": "作成・変更された成果物（ファイル）のリスト",
+          "items": {
+            "type": "object",
+            "required": ["file_path", "action", "description"],
+            "properties": {
+              "file_path": { "type": "string", "description": "プロジェクトルートからのファイルパス" },
+              "action": {
+                "type": "string",
+                "enum": ["CREATED", "MODIFIED", "DELETED"],
+                "description": "ファイルに対する操作"
+              },
+              "description": { "type": "string", "description": "そのファイルに加えた変更の概要" }
+            }
+          }
+        }
+      }
+    },
+    "context_memory": {
+      "type": "object",
+      "required": ["constraints_considered", "pending_issues"],
+      "properties": {
+        "constraints_considered": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "実装にあたって考慮した制約や設計判断の理由"
+        },
+        "pending_issues": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "未解決の課題や、次のエージェントに注意してほしい点"
+        }
+      }
+    },
+    "next_actions": {
+      "type": "object",
+      "required": ["requested_command", "instructions_for_receiver"],
+      "properties": {
+        "requested_command": {
+          "type": "string",
+          "description": "システムまたは次のエージェントに実行してほしいコマンド（例: pnpm ...）"
+        },
+        "instructions_for_receiver": {
+          "type": "string",
+          "description": "次のエージェントへの自然言語による具体的な指示文"
+        }
+      }
+    }
+  }
+}
