@@ -5,8 +5,8 @@ set -eu
 repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || { echo "Not a git repository" >&2; exit 1; }
 cd "$repo_root"
 
-ADD_SCRIPT="./scripts/git-add-remotes.sh"
-SUBTREE_SCRIPT="./scripts/git-subtree-setup.sh"
+ADD_SCRIPT="./scripts/_git-add-remotes.sh"
+SUBTREE_SCRIPT="./scripts/_git-subtree-setup.sh"
 
 [ -x "$ADD_SCRIPT" ] || { echo "missing or not executable: $ADD_SCRIPT" >&2; exit 1; }
 [ -x "$SUBTREE_SCRIPT" ] || { echo "missing or not executable: $SUBTREE_SCRIPT" >&2; exit 1; }
