@@ -1,7 +1,7 @@
 {
   "name": "x-repository-template",
   "version": "1.0.0",
-  "packageManager": "pnpm@11.3.0",
+  "packageManager": "pnpm@11.5.0",
   "description": "x-repository-template は pnpm を用いたモノレポ向けのテンプレートリポジトリです。主にフロントエンドの Web Framework (Astro, Vite, Nuxt, Next.js) の template と共通パッケージを同一ワークスペースで管理するためのベース構成を提供します。新規プロジェクトの立ち上げや内部テンプレートとして利用することを想定しています。",
   "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "keywords": [],
@@ -12,12 +12,12 @@
   "devEngines": {
     "runtime": {
       "name": "node",
-      "onFail": "error"
+      "version": ">=24.12"
     },
     "packageManager": {
       "name": "pnpm",
       "onFail": "error",
-      "version": "11.3.0"
+      "version": "11.5.0"
     }
   },
   "scripts": {
@@ -58,11 +58,11 @@
     "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
-    "packages/x/**/*.{js,ts,jsx,tsx}": "pnpm x lint --",
-    "packages/x-lib/**/*.{js,ts,jsx,tsx}": "pnpm x-lib lint --",
-    "packages/x3/**/*.{js,ts,jsx,tsx}": "pnpm x3 lint --",
-    "apps/app-nextjs/**/*.{js,ts,jsx,tsx}": "pnpm app:nextjs lint --",
-    "apps/app-astro/**/*.{js,ts,jsx,tsx}": "pnpm app:astro lint --",
-    "apps/app-vite/**/*.{js,ts,jsx,tsx}": "pnpm app:vite lint --"
+    "packages/x/**/*.{js,ts,jsx,tsx}": "pnpm x lint:fix --",
+    "packages/x-lib/**/*.{js,ts,jsx,tsx}": "pnpm x-lib lint:fix --",
+    "packages/x3/**/*.{js,ts,jsx,tsx}": "pnpm x3 lint:fix --",
+    "apps/app-nextjs/**/*.{js,ts,jsx,tsx}": "pnpm app:nextjs lint:fix --",
+    "apps/app-astro/**/*.{js,ts,jsx,tsx}": "pnpm app:astro lint:fix --",
+    "apps/app-vite/**/*.{js,ts,jsx,tsx}": "pnpm app:vite lint:fix --"
   }
 }
