@@ -34,6 +34,12 @@ export default antfu(
     },
   },
   {
+    files: ['**/*.ts'],
+    rules: {
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+    },
+  },
+  {
     ignores: ['public/**'],
   },
 )

@@ -33,6 +33,7 @@ export default antfu(
     files: ['**/*.{tsx,ts}'],
     rules: {
       'node/prefer-global/process': 'off', // Allow using `process.env`
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     },
   },
   {
