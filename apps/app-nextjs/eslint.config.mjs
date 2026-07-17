@@ -34,6 +34,15 @@ export default antfu(
     rules: {
       'node/prefer-global/process': 'off', // Allow using `process.env`
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      'unused-imports/no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          varsIgnorePattern: '^_', // 💡 先頭が _ の変数は無視
+          args: 'after-used',
+          argsIgnorePattern: '^_', // 💡 先頭が _ の引数は無視
+        },
+      ],
     },
   },
   {
