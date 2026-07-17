@@ -1,5 +1,9 @@
 import { ua } from './ua.js'
 
+const LOCAL_PATTERNS = [/localhost|192.168|172.16/]
+const DEV_PATTERNS = [/dev/]
+const STG_PATTERNS = [/stg/]
+
 /**
  * 実行環境情報をホスト名等から判定するヘルパー。
  *
@@ -16,9 +20,9 @@ import { ua } from './ua.js'
  * if (env.prd) { console.log('Production environment') }
  */
 class Environment {
-  #localPatterns: RegExp[] = [/localhost|192.168|172.16/]
-  #devPatterns: RegExp[] = [/dev/]
-  #stgPatterns: RegExp[] = [/stg/]
+  #localPatterns: RegExp[] = LOCAL_PATTERNS
+  #devPatterns: RegExp[] = DEV_PATTERNS
+  #stgPatterns: RegExp[] = STG_PATTERNS
 
   #initialized = false
 
