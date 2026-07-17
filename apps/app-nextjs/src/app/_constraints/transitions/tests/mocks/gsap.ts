@@ -1,6 +1,6 @@
 import { vi } from 'vitest'
 
-interface GsapToOptions {
+type GsapToOptions = {
   onComplete?: () => void
 }
 

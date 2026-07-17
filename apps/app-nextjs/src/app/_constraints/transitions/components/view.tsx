@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { useViewTransition } from '../hooks/use-context'
 
-export interface ViewProps {
+export type ViewProps = {
   /** ビューID */
   id: string
   /** ビューのコンテンツ */

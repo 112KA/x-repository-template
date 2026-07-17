@@ -1,4 +1,5 @@
 import antfu from '@antfu/eslint-config'
+import tailwindcss from 'eslint-plugin-tailwindcss'
 
 export default antfu(
   {
@@ -48,6 +49,20 @@ export default antfu(
           argsIgnorePattern: '^_', // 💡 先頭が _ の引数は無視
         },
       ],
+    },
+  },
+  {
+    files: ['**/*.astro'],
+    plugins: {
+      tailwindcss,
+    },
+    settings: {
+      tailwindcss: {
+        cssConfigPath: 'src/styles/global.css',
+      },
+    },
+    rules: {
+      ...tailwindcss.configs.recommended.rules,
     },
   },
   {

@@ -7,7 +7,7 @@ function Page1() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <p className="text-xs uppercase tracking-wide text-muted-foreground">
+        <p className="text-xs tracking-wide text-muted-foreground uppercase">
           View transitions demo
         </p>
       </div>

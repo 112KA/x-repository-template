@@ -1,4 +1,5 @@
 import antfu from '@antfu/eslint-config'
+import tailwindcss from 'eslint-plugin-tailwindcss'
 
 export default antfu(
   {
@@ -47,8 +48,17 @@ export default antfu(
   },
   {
     files: ['**/*.tsx'],
+    plugins: {
+      tailwindcss,
+    },
+    settings: {
+      tailwindcss: {
+        cssConfigPath: 'src/app/globals.css',
+      },
+    },
     rules: {
       '@next/next/no-img-element': 'off',
+      ...tailwindcss.configs.recommended.rules,
     },
   },
   {

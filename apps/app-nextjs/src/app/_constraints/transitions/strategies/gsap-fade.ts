@@ -1,7 +1,7 @@
 import type { ViewTransitionStrategy } from './types'
 import gsap from 'gsap'
 
-export interface FadeStrategyOptions {
+export type FadeStrategyOptions = {
   duration?: number
   ease?: string
 }
