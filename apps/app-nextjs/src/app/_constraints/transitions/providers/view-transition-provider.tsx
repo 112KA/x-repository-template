@@ -9,7 +9,7 @@ import { useAfterTransition, useBeforeTransition, useTransitionSetup } from '../
  * ビュー切り替え用Context値
  * ページ遷移なしでビュー切り替え
  */
-export interface ViewTransitionContextValue {
+export type ViewTransitionContextValue = {
   to: (viewId: string) => Promise<void>
   currentViewId: string | null
 }
@@ -19,7 +19,7 @@ export interface ViewTransitionContextValue {
  */
 export const ViewTransitionContext = createContext<ViewTransitionContextValue | null>(null)
 
-export interface ViewTransitionProviderProps {
+export type ViewTransitionProviderProps = {
   children: ReactNode
   strategy: ViewTransitionStrategy
   initialViewId: string

@@ -11,7 +11,7 @@ import { useAfterTransition, useBeforeTransition, useTransitionSetup } from '../
  * ページ遷移用Context値
  * router.push/replace を実行する
  */
-export interface PageTransitionRouterValue {
+export type PageTransitionRouterValue = {
   push: (href: string) => Promise<void>
   replace: (href: string) => Promise<void>
 }
@@ -21,7 +21,7 @@ export interface PageTransitionRouterValue {
  */
 export const PageTransitionContext = createContext<PageTransitionRouterValue | null>(null)
 
-export interface PageTransitionProviderProps {
+export type PageTransitionProviderProps = {
   children: ReactNode
   strategy: ViewTransitionStrategy
 }

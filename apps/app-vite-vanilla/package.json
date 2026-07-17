@@ -17,6 +17,7 @@
     "@tailwindcss/vite": "catalog:",
     "@vitejs/plugin-basic-ssl": "catalog:",
     "eslint-plugin-format": "catalog:",
+    "eslint-plugin-tailwindcss": "catalog:",
     "tailwindcss": "catalog:",
     "vite": "^8.0.14"
   }
