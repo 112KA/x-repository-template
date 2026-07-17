@@ -1,5 +1,5 @@
 allowBuilds:
-  esbuild: set this to true or false
+  esbuild: true
   sharp: set this to true or false
   simple-git-hooks: set this to true or false
 
@@ -17,11 +17,11 @@ packages:
   - apps/*
   - packages/*
 catalog:
-  '@tailwindcss/vite': 4.3.0
+  '@tailwindcss/vite': 4.3.2
   '@vitejs/plugin-basic-ssl': 2.3.0
   eslint-plugin-format: 2.0.1
   eslint-plugin-tailwindcss: 4.2.0
-  tailwindcss: 4.3.0
+  tailwindcss: 4.3.2
 onlyBuiltDependencies:
   - esbuild
   - sharp

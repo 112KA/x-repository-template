@@ -6,13 +6,13 @@
   "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "keywords": [],
   "engines": {
-    "node": ">=24.12",
+    "node": ">=24.18",
     "pnpm": ">=11"
   },
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": ">=24.12"
+      "version": ">=24.18"
     },
     "packageManager": {
       "name": "pnpm",
