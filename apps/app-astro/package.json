@@ -8,12 +8,14 @@
     "dev": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:e2e": "pnpm playwright test"
   },
   "dependencies": {
     "@112ka/x": "workspace:@112ka/x@*"
   },
   "devDependencies": {
+    "@playwright/test": "catalog:",
     "@tailwindcss/vite": "catalog:",
     "@vitejs/plugin-basic-ssl": "catalog:",
     "astro": "7.1.1",

@@ -8,7 +8,9 @@
     "dev": "next dev --turbopack --experimental-https",
     "build": "next build --turbopack",
     "start": "next start",
-    "test": "vitest --run --coverage"
+    "test": "pnpm test:unit",
+    "test:unit": "vitest --run --coverage",
+    "test:e2e": "pnpm playwright test"
   },
   "dependencies": {
     "@112ka/x": "workspace:@112ka/x@*",
@@ -24,10 +26,12 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "16.2.10",
+    "@playwright/test": "catalog:",
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "14.6.1",
+    "@types/node": "24.1.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitest/coverage-v8": "4.1.10",

@@ -8,12 +8,14 @@
     "lint:fix": "eslint --fix",
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "pnpm playwright test"
   },
   "dependencies": {
     "@112ka/x": "workspace:@112ka/x@*"
   },
   "devDependencies": {
+    "@playwright/test": "catalog:",
     "@tailwindcss/vite": "catalog:",
     "@vitejs/plugin-basic-ssl": "catalog:",
     "eslint-plugin-format": "catalog:",

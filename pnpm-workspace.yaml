@@ -17,6 +17,7 @@ packages:
   - apps/*
   - packages/*
 catalog:
+  '@playwright/test': 1.62.1
   '@tailwindcss/vite': 4.3.3
   '@vitejs/plugin-basic-ssl': 2.3.0
   eslint-plugin-format: 2.0.1
