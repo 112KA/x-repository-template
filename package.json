@@ -2,7 +2,7 @@
   "name": "x-repository-template",
   "version": "1.0.0",
   "packageManager": "pnpm@12.4.1",
-  "description": "x-repository-template は pnpm を用いたモノレポ向けのテンプレートリポジトリです。主にフロントエンドの Web Framework (Astro, Vite, Nuxt, Next.js) の template と共通パッケージを同一ワークスペースで管理するためのベース構成を提供します。新規プロジェクトの立ち上げや内部テンプレートとして利用することを想定しています。",
+  "description": "x-repository-template は pnpm を用いたモノレポ向けのテンプレートリポジトリです。主にフロントエンドの Web Framework (Vite, Next.js) の template と共通パッケージを同一ワークスペースで管理するためのベース構成を提供します。新規プロジェクトの立ち上げや内部テンプレートとして利用することを想定しています。",
   "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "keywords": [],
   "engines": {
@@ -22,7 +22,6 @@
   },
   "scripts": {
     "app": "pnpm app:nextjs",
-    "app:astro": "pnpm -F app-astro",
     "app:nextjs": "pnpm -F app-nextjs",
     "app:vite": "pnpm -F app-vite-vanilla",
     "x": "pnpm -F @112ka/x",
@@ -33,8 +32,7 @@
     "watch:x": "pnpm x watch",
     "watch:x3": "pnpm x3 watch",
     "watch": "pnpm -r -F @112ka/x -F @112ka/x3 watch",
-    "dev": "pnpm dev:astro",
-    "dev:astro": "concurrently \"pnpm watch\" \"pnpm app:astro dev\"",
+    "dev": "pnpm dev:nextjs",
     "dev:nextjs": "concurrently \"pnpm watch\" \"pnpm app:nextjs dev\"",
     "dev:vite": "concurrently \"pnpm watch\" \"pnpm app:vite dev\"",
     "build:x": "pnpm x build",
@@ -62,7 +60,6 @@
     "packages/x-lib/**/*.{js,ts,jsx,tsx}": "pnpm x-lib lint:fix --",
     "packages/x3/**/*.{js,ts,jsx,tsx}": "pnpm x3 lint:fix --",
     "apps/app-nextjs/**/*.{js,ts,jsx,tsx}": "pnpm app:nextjs lint:fix --",
-    "apps/app-astro/**/*.{js,ts,jsx,tsx}": "pnpm app:astro lint:fix --",
     "apps/app-vite/**/*.{js,ts,jsx,tsx}": "pnpm app:vite lint:fix --"
   }
 }

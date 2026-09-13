@@ -23,7 +23,6 @@ pnpm install
 
 ```bash
 pnpm dev:nextjs   # Next.js 開発サーバー
-pnpm dev:astro    # Astro 開発サーバー
 pnpm dev:vite     # Vite 開発サーバー
 ```
 

@@ -7,7 +7,6 @@
 ## Dev servers
 
 - pnpm dev:nextjs
-- pnpm dev:astro
 - pnpm dev:vite
 
 ## Watch/build packages
@@ -32,7 +31,6 @@
 ## App-specific shortcuts
 
 - pnpm app:nextjs <command>
-- pnpm app:astro <command>
 - pnpm app:vite <command>
 - pnpm x <command>
 - pnpm x3 <command>

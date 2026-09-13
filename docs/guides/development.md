@@ -17,7 +17,6 @@ pnpm watch
 
 # ターミナル 2: アプリケーションを開発モードで起動
 pnpm dev:nextjs        # Next.js
-# or: pnpm dev:astro
 # or: pnpm dev:vite
 ```
 
@@ -28,10 +27,6 @@ pnpm dev:nextjs        # Next.js
 ```bash
 # Next.js アプリ
 cd apps/app-nextjs
-pnpm dev
-
-# Astro アプリ
-cd apps/app-astro
 pnpm dev
 
 # Vite アプリ
@@ -83,7 +78,6 @@ pnpm x test
 ```bash
 # 特定のアプリ・パッケージで作業
 pnpm app:nextjs <command>    # Next.js
-pnpm app:astro <command>     # Astro
 pnpm app:vite <command>      # Vite
 pnpm x <command>             # @112ka/x
 pnpm x3 <command>            # @112ka/x3
@@ -105,9 +99,6 @@ apps/
 │   ├── src/components/  React コンポーネント
 │   ├── src/lib/         ユーティリティ関数
 │   └── public/          静的ファイル
-├── app-astro/           Astro 静的サイト
-│   ├── src/pages/       ページ
-│   └── src/components/  コンポーネント
 └── app-vite-vanilla/    Vite + Vanilla TypeScript
     ├── src/            TypeScript ソース
     └── public/         静的ファイル
@@ -280,7 +271,6 @@ pnpm start
 ### デプロイ対象
 
 - **Next.js**: `apps/app-nextjs/.next/` + `public/`
-- **Astro**: `apps/app-astro/dist/`
 - **Vite**: `apps/app-vite-vanilla/dist/`
 
 ## デバッグ

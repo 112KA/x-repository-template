@@ -2,7 +2,7 @@
 
 ## 概要
 
-**x-repository-template** は pnpm monorepo テンプレートです。複数フロントエンドフレームワーク（Next.js、Astro、Vite）と共有パッケージ（@112ka/x、@112ka/x3、x-lib）を一元管理し、即座に開発を開始できる統合開発環境を提供します。
+**x-repository-template** は pnpm monorepo テンプレートです。複数フロントエンドフレームワーク（Next.js、Vite）と共有パッケージ（@112ka/x、@112ka/x3、x-lib）を一元管理し、即座に開発を開始できる統合開発環境を提供します。
 
 TypeScript 5.9.3 Strict Mode、ESLint 9、Vitest などの標準設定が完備されており、エンタープライズ級のコードベース管理に対応しています。
 
@@ -15,11 +15,6 @@ TypeScript 5.9.3 Strict Mode、ESLint 9、Vitest などの標準設定が完備�
   - Tailwind CSS 4 + shadcn/ui + Radix UI
   - View Transitions API + GSAP によるページ遷移アニメーション
   - 実装済みの遷移システムと example ページ
-
-- **Astro 5.16+**
-  - 静的サイト生成（SSG）
-  - Tailwind CSS 4 対応
-  - @112ka/x 統合
 
 - **Vite 7.3+** (Vanilla TypeScript)
   - シンプルな TypeScript アプリテンプレート
@@ -65,7 +60,6 @@ TypeScript 5.9.3 Strict Mode、ESLint 9、Vitest などの標準設定が完備�
 x-repository-template/
 ├── apps/
 │   ├── app-nextjs/      # Next.js 16 メインアプリケーション
-│   ├── app-astro/       # Astro 静的サイト
 │   └── app-vite-vanilla/# Vite + Vanilla TypeScript
 ├── packages/
 │   ├── @112ka/x/        # コアライブラリ
