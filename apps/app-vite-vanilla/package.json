@@ -1,14 +1,14 @@
 {
   "name": "app-vite-vanilla",
-  "type": "module",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "lint": "vp lint",
+    "lint:fix": "vp lint --fix",
+    "dev": "vp dev",
+    "build": "tsc && vp build",
+    "preview": "vp preview",
     "test:e2e": "pnpm playwright test"
   },
   "dependencies": {
@@ -18,9 +18,8 @@
     "@playwright/test": "catalog:",
     "@tailwindcss/vite": "catalog:",
     "@vitejs/plugin-basic-ssl": "catalog:",
-    "eslint-plugin-format": "catalog:",
-    "eslint-plugin-tailwindcss": "catalog:",
     "tailwindcss": "catalog:",
-    "vite": "^8.2.1"
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
   }
 }

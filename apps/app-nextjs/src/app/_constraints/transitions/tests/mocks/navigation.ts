@@ -1,5 +1,5 @@
 import type { NavigateOptions } from 'next/dist/shared/lib/app-router-context.shared-runtime'
-import { vi } from 'vitest'
+import { vi } from 'vite-plus/test'
 
 export function getMocks() {
   const { pushSpy, replaceSpy, backSpy, forwardSpy, refreshSpy, prefetchSpy } = vi.hoisted(() => {

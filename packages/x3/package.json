@@ -1,15 +1,18 @@
 {
   "name": "@112ka/x3",
-  "type": "module",
   "version": "0.0.2",
   "description": "Three.js ベースの 3D グラフィックレンダリングライブラリ。WebGL/WebGPU レンダラーの抽象化、シーン・カメラ・ビューポート管理、アセット管理、プラグイン拡張機構を提供。",
+  "keywords": [],
   "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/112KA/x-monorepo.git",
     "directory": "packages/x3"
   },
-  "keywords": [],
+  "files": [
+    "dist"
+  ],
+  "type": "module",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -21,26 +24,22 @@
       "default": "./dist/*.mjs"
     }
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "build": "tsdown",
-    "watch": "tsdown --watch"
+    "lint": "vp lint",
+    "lint:fix": "vp lint --fix",
+    "build": "vp pack",
+    "watch": "vp pack --watch"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.13",
+    "@types/three": "0.182.0",
+    "stats-gl": "3.8.0",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
   },
   "peerDependencies": {
     "@112ka/x": "0.0.10",
     "stats-gl": "3.8.0",
     "three": "0.182.0"
-  },
-  "devDependencies": {
-    "@antfu/eslint-config": "^9.3.0",
-    "@tsconfig/recommended": "^1.0.13",
-    "@types/three": "0.182.0",
-    "eslint": "^10.8.1",
-    "stats-gl": "3.8.0",
-    "tsdown": "0.22.12"
   }
 }

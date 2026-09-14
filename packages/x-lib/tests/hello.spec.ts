@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vite-plus/test'
 
 describe('x-lib: mock example', () => {
   it('基本的なモック関数の動作確認', () => {

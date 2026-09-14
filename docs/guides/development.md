@@ -191,7 +191,7 @@ pnpm x build
 
 ```typescript
 // packages/x/src/features/clock.test.ts
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'vite-plus/test'
 import { Clock } from './clock'
 
 describe('Clock', () => {

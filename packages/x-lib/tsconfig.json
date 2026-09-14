@@ -4,19 +4,15 @@
     "composite": true,
     "target": "ES2020",
     "lib": ["ES2020"],
-    "baseUrl": "./",
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
       "x/*": ["../x/src/*"],
       "x3/*": ["../x3/src/*"],
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     "outDir": "dist"
   },
-  "references": [
-    { "path": "../x" },
-    { "path": "../x3" }
-  ],
+  "references": [{ "path": "../x" }, { "path": "../x3" }],
   "include": ["src/**/*.ts", "tests/**/*.ts"]
 }

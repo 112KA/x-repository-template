@@ -1,15 +1,20 @@
 {
   "name": "@112ka/x",
-  "type": "module",
   "version": "0.0.10",
   "description": "軽量でモジュール化された TypeScript ユーティリティライブラリ。複数の小さなモジュール群を ES モジュールとして提供し、必要な機能を選択的にインポート可能な設計。",
+  "keywords": [],
   "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/112KA/x.git"
   },
-  "keywords": [],
+  "files": [
+    "dist"
+  ],
+  "type": "module",
   "sideEffects": false,
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.mts",
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
@@ -20,27 +25,20 @@
       "default": "./dist/*.mjs"
     }
   },
-  "main": "dist/index.mjs",
-  "types": "dist/index.d.mts",
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "build": "tsdown",
-    "watch": "tsdown --watch",
-    "test": "vitest --run --coverage"
+    "lint": "vp lint",
+    "lint:fix": "vp lint --fix",
+    "build": "vp pack",
+    "watch": "vp pack --watch",
+    "test": "vp test --run --coverage"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "9.3.0",
-    "@eslint/eslintrc": "3.3.6",
     "@tsconfig/recommended": "1.0.13",
     "@types/webxr": "^0.5.22",
     "@types/youtube": "^0.1.2",
-    "@vitest/coverage-v8": "4.1.11",
-    "eslint": "10.8.1",
-    "tsdown": "0.22.12",
-    "vitest": "4.1.11"
+    "@vitest/coverage-v8": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
   }
 }

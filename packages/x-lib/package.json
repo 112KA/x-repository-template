@@ -1,27 +1,28 @@
 {
   "name": "x-lib",
   "version": "1.0.0",
-  "packageManager": "pnpm@10.19.0",
   "description": "",
-  "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
+  "keywords": [],
   "license": "MIT",
+  "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/112KA/x-repository-template",
     "directory": "packages/x-lib"
   },
-  "keywords": [],
   "main": "index.js",
   "scripts": {
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "test": "vitest --run --coverage",
-    "build": "tsdown",
-    "watch": "tsdown --watch"
+    "lint": "vp lint",
+    "lint:fix": "vp lint --fix",
+    "test": "vp test --run --coverage",
+    "build": "vp pack",
+    "watch": "vp pack --watch"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "4.1.11",
-    "tsdown": "0.22.12",
-    "vitest": "4.1.11"
-  }
+    "@vitest/coverage-v8": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
+  },
+  "packageManager": "pnpm@10.19.0"
 }
