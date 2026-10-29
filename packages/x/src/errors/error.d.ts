@@ -22,8 +22,8 @@ declare global {
      *                            指定しない場合は全フレームが含まれます。環境により型が異なるため unknown を許容します。
      * @returns void
      */
-    captureStackTrace(error: Error, constructorOption?: unknown): void
+    captureStackTrace(error: Error, constructorOption?: unknown): void;
   }
 }
 
-export {}
+export {};

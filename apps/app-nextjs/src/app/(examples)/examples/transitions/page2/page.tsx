@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { TransitionLink } from '@constraints/transitions/components/transition-link'
-import { Button } from '@/components/ui/button'
+import { TransitionLink } from "@constraints/transitions/components/transition-link";
+import { Button } from "@/components/ui/button";
 
 function Page2() {
   return (
@@ -26,7 +26,7 @@ function Page2() {
         </Button>
       </div>
     </section>
-  )
+  );
 }
 
-export default Page2
+export default Page2;

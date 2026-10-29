@@ -1,6 +1,6 @@
 ---
-description: 'Guidelines for TypeScript Development targeting TypeScript 5.x and ES2020 output'
-applyTo: '**/*.{ts,tsx}'
+description: "Guidelines for TypeScript Development targeting TypeScript 5.x and ES2020 output"
+applyTo: "**/*.{ts,tsx}"
 ---
 
 # TypeScript Coding Standards

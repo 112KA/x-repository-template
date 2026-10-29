@@ -23,6 +23,9 @@ export default defineConfig({
       browser: true,
       node: true,
     },
+    globals: {
+      YT: "readonly",
+    },
     ignorePatterns: [
       "**/node_modules",
       "**/.npmrc",
@@ -226,6 +229,7 @@ export default defineConfig({
           caughtErrors: "none",
           ignoreRestSiblings: true,
           vars: "all",
+          varsIgnorePattern: "^_",
         },
       ],
       "no-use-before-define": [

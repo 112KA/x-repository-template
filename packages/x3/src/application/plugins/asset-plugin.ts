@@ -1,21 +1,21 @@
-import type { ResourceItem } from 'x3/asset'
-import type { ApplicationBase } from '../application-base'
-import type { IPlugin } from './types'
-import { AssetManager } from 'x3/asset'
-import { PluginInitializationPhase } from './types'
+import type { ResourceItem } from "x3/asset/types";
+import type { ApplicationBase } from "../application-base";
+import type { IPlugin } from "./types";
+import { AssetManager } from "x3/asset/asset-manager";
+import { PluginInitializationPhase } from "./types";
 
 export class AssetPlugin implements IPlugin {
-  public name = 'asset'
-  public version = '1.0.0'
-  public initializationPhase = PluginInitializationPhase.BeforeScene
+  public name = "asset";
+  public version = "1.0.0";
+  public initializationPhase = PluginInitializationPhase.BeforeScene;
 
-  public assetManager: AssetManager = new AssetManager()
+  public assetManager: AssetManager = new AssetManager();
 
   constructor(private resources: ResourceItem[]) {}
 
   async initialize(app: ApplicationBase): Promise<void> {
     // AssetManagerの初期化や必要なアセットのロードを行う
-    await this.assetManager.load(this.resources, app.rendererAdapter.renderer)
+    await this.assetManager.load(this.resources, app.rendererAdapter.renderer);
   }
 
   update(): void {

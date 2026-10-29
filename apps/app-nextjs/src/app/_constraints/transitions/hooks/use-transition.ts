@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import type { RefObject } from 'react'
-import type { ViewTransitionStrategy } from '../strategies/types'
-import { useCallback, useEffect, useRef } from 'react'
+import type { RefObject } from "react";
+import type { ViewTransitionStrategy } from "../strategies/types";
+import { useCallback, useEffect, useRef } from "react";
 
 /**
  * トランジション用の Ref 管理と Cleanup 処理
@@ -11,22 +11,22 @@ import { useCallback, useEffect, useRef } from 'react'
  * @returns pendingToRef, containerRef, strategyRef, isAnimatingRef
  */
 export function useTransitionSetup(strategy: ViewTransitionStrategy, initialTo: string) {
-  const pendingToRef = useRef<string>(initialTo)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const strategyRef = useRef<ViewTransitionStrategy>(strategy)
-  const isAnimatingRef = useRef(false)
+  const pendingToRef = useRef<string>(initialTo);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const strategyRef = useRef<ViewTransitionStrategy>(strategy);
+  const isAnimatingRef = useRef(false);
 
   // strategy の更新
-  strategyRef.current = strategy
+  strategyRef.current = strategy;
 
   // Cleanup 処理
   useEffect(() => {
     return () => {
-      strategy.cleanup()
-    }
-  }, [strategy])
+      strategy.cleanup();
+    };
+  }, [strategy]);
 
-  return { pendingToRef, containerRef, strategyRef, isAnimatingRef }
+  return { pendingToRef, containerRef, strategyRef, isAnimatingRef };
 }
 
 /**
@@ -44,27 +44,23 @@ export function useBeforeTransition(
   onExecute: () => Promise<void> | void,
   isAnimatingRef: RefObject<boolean>,
 ) {
-  return useCallback(
-    async () => {
-      // アニメーション開始
-      isAnimatingRef.current = true
+  return useCallback(async () => {
+    // アニメーション開始
+    isAnimatingRef.current = true;
 
-      await strategyRef.current.beforeTransition({
-        element: containerRef.current,
-      })
+    await strategyRef.current.beforeTransition({
+      element: containerRef.current,
+    });
 
-      // 実際の遷移処理を実行
+    // 実際の遷移処理を実行
 
-      try {
-        await onExecute()
-      }
-      catch (error) {
-        isAnimatingRef.current = false
-        throw error
-      }
-    },
-    [onExecute],
-  )
+    try {
+      await onExecute();
+    } catch (error) {
+      isAnimatingRef.current = false;
+      throw error;
+    }
+  }, [onExecute]);
 }
 
 /**
@@ -83,25 +79,24 @@ export function useAfterTransition(
   isAnimatingRef: RefObject<boolean>,
 ) {
   useEffect(() => {
-    let isCancelled = false
+    let isCancelled = false;
 
     const run = async () => {
       try {
         await strategyRef.current.afterTransition({
           element: containerRef.current,
-        })
-      }
-      finally {
+        });
+      } finally {
         if (!isCancelled) {
-          isAnimatingRef.current = false
+          isAnimatingRef.current = false;
         }
       }
-    }
+    };
 
-    run()
+    run();
 
     return () => {
-      isCancelled = true
-    }
-  }, [dependency])
+      isCancelled = true;
+    };
+  }, [dependency]);
 }

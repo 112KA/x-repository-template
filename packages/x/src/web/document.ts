@@ -1,13 +1,13 @@
-import { assert, assertIsDefined } from '../data/assert.js'
+import { assert, assertIsDefined } from "x/data/assert";
 
 /**
  * 単一要素取得。存在しなければ例外。
  * @param selectors CSS セレクタ
  */
 export function qs<E extends Element = Element>(selectors: string): E {
-  const element = document.querySelector<E>(selectors)
-  assertIsDefined(element)
-  return element
+  const element = document.querySelector<E>(selectors);
+  assertIsDefined(element);
+  return element;
 }
 
 /**
@@ -15,7 +15,7 @@ export function qs<E extends Element = Element>(selectors: string): E {
  * @param selectors CSS セレクタ
  */
 export function qsAll<E extends Element = Element>(selectors: string): NodeListOf<E> {
-  const elements = document.querySelectorAll<E>(selectors)
-  assert(elements.length > 0, `no selected elements: ${selectors}`)
-  return elements
+  const elements = document.querySelectorAll<E>(selectors);
+  assert(elements.length > 0, `no selected elements: ${selectors}`);
+  return elements;
 }

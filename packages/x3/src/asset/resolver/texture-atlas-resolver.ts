@@ -1,35 +1,35 @@
-import type { Texture, WebGLRenderer } from 'three'
-import type { Renderer } from 'three/webgpu'
-import type { TexturePackerData } from 'x3/textures/texture-atlas.js'
-import type { AssetManager } from '../asset-manager.js'
-import type { ResourceItem } from '../types.js'
-import type { IResolver } from './types.js'
-import { JSONLoader } from 'x3/loaders/json-loader.js'
-import { TextureAtlas } from 'x3/textures/texture-atlas.js'
+import type { Texture, WebGLRenderer } from "three";
+import type { Renderer } from "three/webgpu";
+import type { TexturePackerData } from "x3/textures/texture-atlas.js";
+import type { AssetManager } from "../asset-manager.js";
+import type { ResourceItem } from "../types.js";
+import type { IResolver } from "./types.js";
+import { JSONLoader } from "x3/loaders/json-loader.js";
+import { TextureAtlas } from "x3/textures/texture-atlas.js";
 
-const JSON_HANDLER_REGEX = /\.json$/i
-const TEXTURE_ATLAS_APP_REGEX = /texturepacker/
+const JSON_HANDLER_REGEX = /\.json$/i;
+const TEXTURE_ATLAS_APP_REGEX = /texturepacker/;
 export class TextureAtlasResolver implements IResolver {
-  name = 'TextureAtlasResolver'
+  name = "TextureAtlasResolver";
   constructor(
     public manager: AssetManager,
-    _threeCDNPath = '',
+    _threeCDNPath = "",
   ) {
-    const { loadingManager } = manager
-    loadingManager.addHandler(JSON_HANDLER_REGEX, new JSONLoader(loadingManager))
+    const { loadingManager } = manager;
+    loadingManager.addHandler(JSON_HANDLER_REGEX, new JSONLoader(loadingManager));
   }
 
   check(_loaded: unknown): boolean {
-    return false // no check
+    return false; // no check
   }
 
   resolve(resource: ResourceItem, loaded: unknown, _renderer: Renderer | WebGLRenderer): void {
-    const [json, texture] = loaded as [TexturePackerData, Texture]
+    const [json, texture] = loaded as [TexturePackerData, Texture];
 
     if (!json.meta?.app && TEXTURE_ATLAS_APP_REGEX.test(json.meta?.app)) {
-      throw new Error('Invalid texture packer json')
+      throw new Error("Invalid texture packer json");
     }
 
-    this.manager.atlases[resource.id] = new TextureAtlas(json, texture)
+    this.manager.atlases[resource.id] = new TextureAtlas(json, texture);
   }
 }

@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react'
-import { useViewTransition } from '../hooks/use-context'
+import type { ReactNode } from "react";
+import { useViewTransition } from "../hooks/use-context";
 
 export type ViewProps = {
   /** ビューID */
-  id: string
+  id: string;
   /** ビューのコンテンツ */
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 /**
  * ビュー切り替えコンポーネント
@@ -27,12 +27,12 @@ export type ViewProps = {
  * ```
  */
 export function View({ id, children }: ViewProps) {
-  const viewTransition = useViewTransition()
+  const viewTransition = useViewTransition();
 
   // 自分のidが現在のviewIdと一致したら表示
   if (viewTransition.currentViewId !== id) {
-    return null
+    return null;
   }
 
-  return <>{children}</>
+  return <>{children}</>;
 }

@@ -1,7 +1,7 @@
-import type { ViewTransitionStrategy } from './types'
+import type { ViewTransitionStrategy } from "./types";
 
 function isViewTransitionSupported(): boolean {
-  return typeof document !== 'undefined' && 'startViewTransition' in document
+  return typeof document !== "undefined" && "startViewTransition" in document;
 }
 
 /**
@@ -20,22 +20,21 @@ export function createViewTransitionApiStrategy(): ViewTransitionStrategy {
       if (!isViewTransitionSupported()) {
         // Strategyはアニメーション処理のみ
         // navigate処理はProvider側で実行
-        return
+        return;
       }
 
       try {
         const transition = document.startViewTransition?.(() => {
           // ビュー切り替え時はDOM更新がsetStateで行われる
           // ページ遷移時の実際の遷移はProvider側で実行
-        })
+        });
 
         if (!transition) {
-          return
+          return;
         }
 
-        await transition.finished
-      }
-      catch {
+        await transition.finished;
+      } catch {
         // エラー時もNavigationはProvider側で処理
       }
     },
@@ -43,5 +42,5 @@ export function createViewTransitionApiStrategy(): ViewTransitionStrategy {
       // View Transitions API は beforeTransition 内でアニメーション完了を待つため、ここは空
     },
     cleanup: () => {},
-  }
+  };
 }

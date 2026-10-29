@@ -1,6 +1,6 @@
 ---
-description: 'Next.js アプリケーションの開発ガイドライン'
-applyTo: 'apps/app-nextjs/**/*'
+description: "Next.js アプリケーションの開発ガイドライン"
+applyTo: "apps/app-nextjs/**/*"
 ---
 
 - [パッケージの責務（Intent）](../../apps/app-nextjs/.serena/memories/apps-app-nextjs-base.md)

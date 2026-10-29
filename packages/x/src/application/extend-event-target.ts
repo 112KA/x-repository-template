@@ -1,5 +1,4 @@
-import { assertIsDefined } from 'x/data'
-import { autotag } from 'x/decorators'
+import { assertIsDefined } from "x/data/assert";
 
 /**
  * ExtendEventTarget
@@ -11,11 +10,10 @@ import { autotag } from 'x/decorators'
  * - set によるプロパティ変更時に detail に { value, value0 } を含む CustomEvent を発火。
  * - addEventListener / removeEventListener の呼び出しをラップし、登録済みリスナーを内部で追跡。
  */
-@autotag
 export class ExtendEventTarget extends EventTarget {
-  #properties: Record<string, unknown> = {}
+  #properties: Record<string, unknown> = {};
 
-  protected _listeners: Record<string, EventListenerOrEventListenerObject[]> = {}
+  protected _listeners: Record<string, EventListenerOrEventListenerObject[]> = {};
 
   /**
    * 指定したキーに対応する値を返します。
@@ -24,7 +22,7 @@ export class ExtendEventTarget extends EventTarget {
    * @returns キーに対応する値（存在しなければ undefined）
    */
   get(key: string): unknown {
-    return this.#properties[key]
+    return this.#properties[key];
   }
 
   /**
@@ -41,8 +39,8 @@ export class ExtendEventTarget extends EventTarget {
   set(properties: Record<string, unknown>): void {
     for (const [type, value] of Object.entries(properties)) {
       if (this.#properties[type] === undefined || this.#properties[type] !== value) {
-        const value0 = this.#properties[type]
-        this.#properties[type] = value
+        const value0 = this.#properties[type];
+        this.#properties[type] = value;
 
         this.dispatchEvent(
           new CustomEvent(type, {
@@ -51,7 +49,7 @@ export class ExtendEventTarget extends EventTarget {
               value0,
             },
           }),
-        )
+        );
       }
     }
   }
@@ -69,17 +67,17 @@ export class ExtendEventTarget extends EventTarget {
   public addEventListener(
     type: string,
     callback: EventListenerOrEventListenerObject | null,
-    options?: boolean | AddEventListenerOptions | undefined,
+    options?: boolean | AddEventListenerOptions,
   ): void {
     // callback が null のまま親に渡さないよう、先にチェックします
-    assertIsDefined(callback)
+    assertIsDefined(callback);
 
-    super.addEventListener(type, callback, options)
+    super.addEventListener(type, callback, options);
 
     if (!Object.hasOwn(this._listeners, type)) {
-      this._listeners[type] = []
+      this._listeners[type] = [];
     }
-    this._listeners[type].push(callback)
+    this._listeners[type].push(callback);
   }
 
   /**
@@ -94,17 +92,16 @@ export class ExtendEventTarget extends EventTarget {
   public removeEventListener(
     type: string,
     callback: EventListenerOrEventListenerObject | null,
-    options?: boolean | EventListenerOptions | undefined,
+    options?: boolean | EventListenerOptions,
   ): void {
-    super.removeEventListener(type, callback, options)
+    super.removeEventListener(type, callback, options);
 
     if (callback === null) {
-      delete this._listeners[type]
-    }
-    else if (Object.hasOwn(this._listeners, type)) {
-      this._listeners[type] = this._listeners[type].filter(value => value !== callback)
+      delete this._listeners[type];
+    } else if (Object.hasOwn(this._listeners, type)) {
+      this._listeners[type] = this._listeners[type].filter((value) => value !== callback);
       if (this._listeners[type].length === 0) {
-        delete this._listeners[type]
+        delete this._listeners[type];
       }
     }
   }

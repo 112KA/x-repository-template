@@ -63,7 +63,6 @@ description: Monorepo内の特定パッケージを解析し、AIエージェン
 ## 公開API
 
 - [公開APIの一覧、または「公開APIなし」と記載]
-
 ```
 
 ### ファイル2: {packages}-{package}-develop-common.md
@@ -90,7 +89,6 @@ description: Monorepo内の特定パッケージを解析し、AIエージェン
 ## 依存先
 
 - [内部パッケージ名、外部サービスなど]
-
 ```
 
 ### ファイル3: {packages}-{package}-develop-implement.md
@@ -105,7 +103,6 @@ description: Monorepo内の特定パッケージを解析し、AIエージェン
 ## タスク完了後のlint, test, buildのスクリプト処理
 
 - [完了時に実行すべきコマンドの連鎖]
-
 ```
 
 ## 8. Quality Criteria

@@ -21,21 +21,21 @@ export class Node<T> {
    *
    * Web Crypto API の randomUUID を利用して生成されます。サーバサイドや一部環境では crypto が利用できない場合があります。
    */
-  uuid = window.crypto.randomUUID()
+  uuid = window.crypto.randomUUID();
 
   /**
    * 親ノード（存在しない場合は undefined）
    *
    * このプロパティはノードがツリーに追加されたときに自動的に設定され、削除時に undefined に戻されます。
    */
-  parent?: Node<T>
+  parent?: Node<T>;
 
   /**
    * 子ノードの配列
    *
    * children の順序は追加順を保持します。
    */
-  children: Node<T>[] = []
+  children: Node<T>[] = [];
 
   /**
    * 新しいノードを生成します。
@@ -46,7 +46,7 @@ export class Node<T> {
    * - コンストラクタ内で UUID を再生成します（環境により crypto が必要）。
    */
   constructor(public data: T | null = null) {
-    this.uuid = crypto.randomUUID()
+    this.uuid = crypto.randomUUID();
   }
 
   /**
@@ -58,8 +58,8 @@ export class Node<T> {
    * - child を children に push し、child.parent をこのノードに設定します。
    */
   addChild(child: Node<T>): void {
-    this.children.push(child)
-    child.parent = this
+    this.children.push(child);
+    child.parent = this;
   }
 
   /**
@@ -71,10 +71,10 @@ export class Node<T> {
    * - children 配列から該当ノードを削除し、child.parent を undefined に戻します。
    */
   removeChild(child: Node<T>): void {
-    const index = this.children.indexOf(child)
+    const index = this.children.indexOf(child);
     if (index !== -1) {
-      this.children.splice(index, 1)
-      child.parent = undefined
+      this.children.splice(index, 1);
+      child.parent = undefined;
     }
   }
 
@@ -87,9 +87,9 @@ export class Node<T> {
    * - コールバック内で children を変更すると挙動が変わる可能性があります。
    */
   traverse(callback: (node: Node<T>) => void): void {
-    callback(this)
+    callback(this);
     for (const child of this.children) {
-      child.traverse(callback)
+      child.traverse(callback);
     }
   }
 }

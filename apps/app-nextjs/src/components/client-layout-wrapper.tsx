@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { useViewportHeight } from '@/hooks/use-viewport-height'
+import { useViewportHeight } from "@/hooks/use-viewport-height";
 
 export function ClientLayoutWrapper({ children }: { children: React.ReactNode }) {
-  useViewportHeight()
-  return <>{children}</>
+  useViewportHeight();
+  return <>{children}</>;
 }

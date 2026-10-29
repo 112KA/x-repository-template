@@ -1,25 +1,25 @@
-import { vi } from 'vite-plus/test'
+import { vi } from "vite-plus/test";
 
 type GsapToOptions = {
-  onComplete?: () => void
-}
+  onComplete?: () => void;
+};
 
 export function getMocks() {
   const { killSpy } = vi.hoisted(() => {
-    const killSpy = vi.fn()
-    return { killSpy }
-  })
+    const killSpy = vi.fn();
+    return { killSpy };
+  });
 
-  vi.mock('gsap', () => ({
+  vi.mock("gsap", () => ({
     default: {
       to: (_el: unknown, opts: GsapToOptions) => {
         setTimeout(() => {
-          opts.onComplete?.()
-        }, 0)
-        return { kill: killSpy }
+          opts.onComplete?.();
+        }, 0);
+        return { kill: killSpy };
       },
     },
-  }))
+  }));
 
-  return { killSpy }
+  return { killSpy };
 }

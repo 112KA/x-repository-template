@@ -153,19 +153,19 @@ packages/
 
 ```typescript
 // @112ka/x3 からインポート
-import { ApplicationBase } from '@112ka/x3/application'
-import { OrbitControlsPlugin, StatsPlugin } from '@112ka/x3/application/plugins'
-import { AssetManager } from '@112ka/x3/asset'
+import { ApplicationBase } from "@112ka/x3/application";
+import { OrbitControlsPlugin, StatsPlugin } from "@112ka/x3/application/plugins";
+import { AssetManager } from "@112ka/x3/asset";
 // x-lib からインポート
-import { someUtil } from 'x-lib'
-import { InteractiveObject, Stage } from 'x/application'
+import { someUtil } from "x-lib";
+import { InteractiveObject, Stage } from "x/application";
 
-import { arrayUtils, colorUtils } from 'x/data'
+import { arrayUtils, colorUtils } from "x/data";
 // @112ka/x からインポート
-import { Clock, Modal, Scroll } from 'x/features'
-import { Vector2, Vector3 } from 'x/math'
+import { Clock, Modal, Scroll } from "x/features";
+import { Vector2, Vector3 } from "x/math";
 
-import { db, mediaQuery, net } from 'x/web'
+import { db, mediaQuery, net } from "x/web";
 ```
 
 ## 新機能の追加
@@ -191,15 +191,15 @@ pnpm x build
 
 ```typescript
 // packages/x/src/features/clock.test.ts
-import { describe, expect, it } from 'vite-plus/test'
-import { Clock } from './clock'
+import { describe, expect, it } from "vite-plus/test";
+import { Clock } from "./clock";
 
-describe('Clock', () => {
-  it('should measure elapsed time', () => {
-    const clock = new Clock()
+describe("Clock", () => {
+  it("should measure elapsed time", () => {
+    const clock = new Clock();
     // テスト...
-  })
-})
+  });
+});
 ```
 
 ```bash

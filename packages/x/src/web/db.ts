@@ -1,9 +1,9 @@
 /** IndexedDB の ObjectStore 設定 */
 export interface Store {
   /** ストア名 */
-  name: string
+  name: string;
   /** createObjectStore 用パラメータ */
-  options: IDBObjectStoreParameters
+  options: IDBObjectStoreParameters;
 }
 
 /**
@@ -11,13 +11,13 @@ export interface Store {
  * 現状 onupgradeneeded で 'images' ストアのみ生成 (将来拡張余地あり)。
  */
 export class DB {
-  protected _storeMap = new Map<string, Store>()
+  protected _storeMap = new Map<string, Store>();
 
   constructor(protected _dbName: string) {}
 
   /** ストア情報を登録 (接続前に呼び出す) */
   public addStore(store: Store): void {
-    this._storeMap.set(store.name, store)
+    this._storeMap.set(store.name, store);
   }
 
   /**
@@ -25,27 +25,27 @@ export class DB {
    * @returns IDBDatabase
    */
   protected _connect(): Promise<IDBDatabase> {
-    const request = indexedDB.open(this._dbName, 1)
+    const request = indexedDB.open(this._dbName, 1);
     return new Promise((resolve, reject) => {
-      request.onerror = reject
+      request.onerror = reject;
       request.onsuccess = (e: Event) => {
         // console.log("_connect", "onsuccess", request.result);
-        resolve((e.target as IDBRequest<IDBDatabase>).result)
-      }
+        resolve((e.target as IDBRequest<IDBDatabase>).result);
+      };
       request.onupgradeneeded = (e) => {
         // console.log('_connect', 'onupgradeneeded', e, this._storeMap.get('images'))
-        const db = (e.target as IDBRequest<IDBDatabase>).result
-        const store = this._storeMap.get('images')
+        const db = (e.target as IDBRequest<IDBDatabase>).result;
+        const store = this._storeMap.get("images");
         if (store !== undefined) {
           // console.log("_connect", "onupgradeneeded", db);
-          db.createObjectStore(store.name, store.options)
+          db.createObjectStore(store.name, store.options);
         }
         // this._storeMap.forEach((store, key) => {
         //   console.log("_connect", "createObjectStore", key, store);
         //   db.createObjectStore(store.name, store.options);
         // });
-      }
-    })
+      };
+    });
   }
 
   /**
@@ -55,15 +55,15 @@ export class DB {
    * @returns request 成功イベント
    */
   public async add(storeName: string, object: unknown): Promise<Event> {
-    const db = await this._connect()
-    const transaction = db.transaction([storeName], 'readwrite')
-    const store = transaction.objectStore(storeName)
-    const request = store.add(object)
+    const db = await this._connect();
+    const transaction = db.transaction([storeName], "readwrite");
+    const store = transaction.objectStore(storeName);
+    const request = store.add(object);
 
     return new Promise((resolve, reject) => {
-      request.onerror = reject
-      request.onsuccess = resolve
-    })
+      request.onerror = reject;
+      request.onsuccess = resolve;
+    });
   }
 
   /**
@@ -73,16 +73,16 @@ export class DB {
    * @returns 取得結果
    */
   public async get(storeName: string, id: string): Promise<IDBDatabase> {
-    const db = await this._connect()
+    const db = await this._connect();
     const transaction = db
-      .transaction([storeName], 'readonly')
+      .transaction([storeName], "readonly")
       .objectStore(storeName)
-      .get(id) as IDBRequest<IDBDatabase>
+      .get(id) as IDBRequest<IDBDatabase>;
 
     return new Promise((resolve, reject) => {
-      transaction.onerror = reject
-      transaction.onsuccess = () => resolve(transaction.result)
-    })
+      transaction.onerror = reject;
+      transaction.onsuccess = () => resolve(transaction.result);
+    });
   }
 
   /**
@@ -91,14 +91,14 @@ export class DB {
    * @param id キー
    */
   public async delete(storeName: string, id: string): Promise<void> {
-    const db = await this._connect()
-    const transaction = db.transaction([storeName], 'readwrite')
-    const store = transaction.objectStore(storeName)
-    const request = store.delete(id)
+    const db = await this._connect();
+    const transaction = db.transaction([storeName], "readwrite");
+    const store = transaction.objectStore(storeName);
+    const request = store.delete(id);
 
     return new Promise((resolve, reject) => {
-      request.onerror = reject
-      request.onsuccess = () => resolve()
-    })
+      request.onerror = reject;
+      request.onsuccess = () => resolve();
+    });
   }
 }

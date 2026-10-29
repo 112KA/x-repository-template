@@ -1,58 +1,68 @@
-'use client'
+"use client";
 
-import type { ReactNode } from 'react'
-import type { ViewTransitionStrategy } from '../strategies/types'
-import { createContext, useCallback, useMemo, useState } from 'react'
-import { useAfterTransition, useBeforeTransition, useTransitionSetup } from '../hooks/use-transition'
+import type { ReactNode } from "react";
+import type { ViewTransitionStrategy } from "../strategies/types";
+import { createContext, useCallback, useMemo, useState } from "react";
+import {
+  useAfterTransition,
+  useBeforeTransition,
+  useTransitionSetup,
+} from "../hooks/use-transition";
 
 /**
  * ビュー切り替え用Context値
  * ページ遷移なしでビュー切り替え
  */
 export type ViewTransitionContextValue = {
-  to: (viewId: string) => Promise<void>
-  currentViewId: string | null
-}
+  to: (viewId: string) => Promise<void>;
+  currentViewId: string | null;
+};
 
 /**
  * ViewTransitionProvider用Context
  */
-export const ViewTransitionContext = createContext<ViewTransitionContextValue | null>(null)
+export const ViewTransitionContext = createContext<ViewTransitionContextValue | null>(null);
 
 export type ViewTransitionProviderProps = {
-  children: ReactNode
-  strategy: ViewTransitionStrategy
-  initialViewId: string
-}
+  children: ReactNode;
+  strategy: ViewTransitionStrategy;
+  initialViewId: string;
+};
 
 /**
  * ビュー切り替え（ページ遷移なし）アニメーション管理プロバイダー
  * ページ遷移なしで複数ビューを切り替える際に使用
  */
-export function ViewTransitionProvider({ children, strategy, initialViewId }: ViewTransitionProviderProps) {
-  const [currentViewId, setCurrentViewId] = useState<string>(initialViewId)
+export function ViewTransitionProvider({
+  children,
+  strategy,
+  initialViewId,
+}: ViewTransitionProviderProps) {
+  const [currentViewId, setCurrentViewId] = useState<string>(initialViewId);
 
-  const { pendingToRef, containerRef, strategyRef, isAnimatingRef } = useTransitionSetup(strategy, currentViewId)
+  const { pendingToRef, containerRef, strategyRef, isAnimatingRef } = useTransitionSetup(
+    strategy,
+    currentViewId,
+  );
 
   const onExecute = useCallback(async () => {
-    setCurrentViewId(pendingToRef.current)
-  }, [])
+    setCurrentViewId(pendingToRef.current);
+  }, []);
 
-  const execute = useBeforeTransition(strategyRef, containerRef, onExecute, isAnimatingRef)
+  const execute = useBeforeTransition(strategyRef, containerRef, onExecute, isAnimatingRef);
 
-  useAfterTransition(strategyRef, containerRef, currentViewId, isAnimatingRef)
+  useAfterTransition(strategyRef, containerRef, currentViewId, isAnimatingRef);
 
   const to = useCallback(
     async (toViewId: string) => {
-      if (toViewId === pendingToRef.current || isAnimatingRef.current)
-        return
+      if (toViewId === pendingToRef.current || isAnimatingRef.current) return;
 
-      pendingToRef.current = toViewId
+      pendingToRef.current = toViewId;
 
-      await execute()
+      await execute();
     },
     [execute],
-  )
+  );
 
   const viewValue = useMemo(
     () => ({
@@ -60,7 +70,7 @@ export function ViewTransitionProvider({ children, strategy, initialViewId }: Vi
       currentViewId,
     }),
     [to, currentViewId],
-  )
+  );
 
   return (
     <ViewTransitionContext.Provider value={viewValue}>
@@ -68,5 +78,5 @@ export function ViewTransitionProvider({ children, strategy, initialViewId }: Vi
         {children}
       </div>
     </ViewTransitionContext.Provider>
-  )
+  );
 }

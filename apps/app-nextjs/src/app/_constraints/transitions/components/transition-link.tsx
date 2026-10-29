@@ -1,53 +1,45 @@
-'use client'
+"use client";
 
-import type { LinkProps } from 'next/link'
-import type { MouseEvent, ReactNode } from 'react'
-import Link from 'next/link'
-import { forwardRef, useCallback } from 'react'
-import { usePageTransitionRouter } from '../hooks/use-context'
+import type { LinkProps } from "next/link";
+import type { MouseEvent, ReactNode } from "react";
+import Link from "next/link";
+import { forwardRef, useCallback } from "react";
+import { usePageTransitionRouter } from "../hooks/use-context";
 
-type TransitionLinkProps = Omit<LinkProps, 'href'> & {
-  href: string
-  children: ReactNode
-}
+type TransitionLinkProps = Omit<LinkProps, "href"> & {
+  href: string;
+  children: ReactNode;
+};
 
 export const TransitionLink = forwardRef<HTMLAnchorElement, TransitionLinkProps>(
   ({ href, onClick, prefetch = false, ...rest }, ref) => {
-    const router = usePageTransitionRouter()
+    const router = usePageTransitionRouter();
 
     const handleClick = useCallback(
       (event: MouseEvent<HTMLAnchorElement>) => {
         if (onClick) {
-          onClick(event)
+          onClick(event);
         }
 
         if (
-          event.defaultPrevented
-          || event.metaKey
-          || event.ctrlKey
-          || event.shiftKey
-          || event.altKey
-          || event.button !== 0
+          event.defaultPrevented ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey ||
+          event.button !== 0
         ) {
-          return
+          return;
         }
 
-        event.preventDefault()
-        router.push(href)
+        event.preventDefault();
+        router.push(href);
       },
       [href, onClick, router],
-    )
+    );
 
-    return (
-      <Link
-        ref={ref}
-        href={href}
-        prefetch={prefetch}
-        {...rest}
-        onClick={handleClick}
-      />
-    )
+    return <Link ref={ref} href={href} prefetch={prefetch} {...rest} onClick={handleClick} />;
   },
-)
+);
 
-TransitionLink.displayName = 'TransitionLink'
+TransitionLink.displayName = "TransitionLink";

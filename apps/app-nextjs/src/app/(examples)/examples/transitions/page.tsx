@@ -1,20 +1,20 @@
-'use client'
+"use client";
 
-import { TransitionLink } from '@constraints/transitions/components/transition-link'
-import { createFadeStrategy, View, ViewTransitionProvider } from '@/app/_constraints/transitions'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import { View1 } from './_views/view-1'
-import { View2 } from './_views/view-2'
-import { View3 } from './_views/view-3'
+import { TransitionLink } from "@constraints/transitions/components/transition-link";
+import { createFadeStrategy, View, ViewTransitionProvider } from "@/app/_constraints/transitions";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { View1 } from "./_views/view-1";
+import { View2 } from "./_views/view-2";
+import { View3 } from "./_views/view-3";
 
 type Props = {
-  className?: string
-}
+  className?: string;
+};
 
 function ViewTransitionsIndex({ className }: Props) {
   return (
-    <div className={cn('space-y-6', className)}>
+    <div className={cn("space-y-6", className)}>
       <div className="space-y-2">
         <p className="text-xs tracking-wide text-muted-foreground uppercase">
           View transitions demo
@@ -22,10 +22,7 @@ function ViewTransitionsIndex({ className }: Props) {
       </div>
       <h1 className="text-3xl font-semibold">Page List</h1>
 
-      <ViewTransitionProvider
-        strategy={createFadeStrategy()}
-        initialViewId="view-1"
-      >
+      <ViewTransitionProvider strategy={createFadeStrategy()} initialViewId="view-1">
         <View id="view-1">
           <View1 />
         </View>
@@ -50,7 +47,7 @@ function ViewTransitionsIndex({ className }: Props) {
         </li>
       </ul>
     </div>
-  )
+  );
 }
 
-export default ViewTransitionsIndex
+export default ViewTransitionsIndex;

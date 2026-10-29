@@ -6,21 +6,20 @@
  */
 export async function checkWebGPUSupport(): Promise<boolean> {
   if (!navigator.gpu) {
-    console.error('このブラウザではWebGPUがサポートされていません。')
-    return false
+    console.error("このブラウザではWebGPUがサポートされていません。");
+    return false;
   }
 
   try {
-    const adapter = await navigator.gpu.requestAdapter()
+    const adapter = await navigator.gpu.requestAdapter();
     if (!adapter) {
-      console.error('WebGPUアダプターの取得に失敗しました。')
-      return false
+      console.error("WebGPUアダプターの取得に失敗しました。");
+      return false;
     }
 
-    return true
-  }
-  catch (error) {
-    console.error('WebGPUのチェック中にエラーが発生しました:', error)
-    return false
+    return true;
+  } catch (error) {
+    console.error("WebGPUのチェック中にエラーが発生しました:", error);
+    return false;
   }
 }

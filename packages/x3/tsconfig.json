@@ -3,28 +3,17 @@
   "compilerOptions": {
     "composite": true,
     "target": "ES2022",
-    "lib": [
-      "ES2022",
-      "DOM"
-    ],
+    "lib": ["ES2022", "DOM"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
-      "x3/*": [
-        "./src/*"
-      ],
-      "@112ka/x": [
-        "./node_modules/@112ka/x"
-      ],
-      "three": [
-        "./node_modules/@types/three"
-      ]
+      "x3/*": ["./src/*"],
+      "@112ka/x": ["./node_modules/@112ka/x"],
+      "three": ["./node_modules/@types/three"]
     },
     "outDir": "dist"
   },
-  "include": [
-    "./src/**/*.ts"
-  ]
+  "include": ["./src/**/*.ts"]
 }

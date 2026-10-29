@@ -5,6 +5,7 @@
 **Documentation**:
 
 - Write README files, code comments, and other project documentation in Japanese.
+- When documentation conflicts with existing code, follow the existing code's conventions and list all discrepancies found in the final response.
 
 **Coding Rules**:
 

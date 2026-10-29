@@ -1,6 +1,5 @@
-import { autotag } from 'x/decorators/autotag.js'
-import { Ticker } from '../web/ticker.js'
-import { InteractiveObject } from './interactive-object.js'
+import { Ticker } from "x/web/ticker";
+import { InteractiveObject } from "./interactive-object";
 
 /**
  * Stage
@@ -13,11 +12,10 @@ import { InteractiveObject } from './interactive-object.js'
  * - Window をターゲットとしてグローバルイベント（resize/scroll/wheel）を監視し、内部でバブルします。
  * - stage はライブラリ全体のグローバルなイベント中継点として利用されます。
  */
-@autotag
 export class Stage extends InteractiveObject {
-  protected _ticker = new Ticker()
+  protected _ticker = new Ticker();
 
-  #scrollEnabled = true
+  #scrollEnabled = true;
 
   /**
    * コンストラクタ
@@ -25,9 +23,9 @@ export class Stage extends InteractiveObject {
    * Window をターゲットにして初期化し、pointer 系および window のグローバルイベント登録を行います。
    */
   constructor() {
-    super(window, false)
+    super(window, false);
 
-    this.addEventListeners(window)
+    this.addEventListeners(window);
   }
 
   // [Symbol.toStringTag] = 'Stage';
@@ -40,13 +38,13 @@ export class Stage extends InteractiveObject {
    * 親クラスの addEventListeners を呼び出した上で、内部の Ticker と window の resize/scroll/wheel を監視します。
    */
   protected addEventListeners(targetElement: HTMLElement | Window): void {
-    super.addEventListeners(targetElement)
+    super.addEventListeners(targetElement);
 
-    this._ticker.addEventListener('tick', this._bubble)
+    this._ticker.addEventListener("tick", this._bubble);
 
-    targetElement.addEventListener('resize', this._bubble)
-    targetElement.addEventListener('scroll', this._bubble)
-    targetElement.addEventListener('wheel', this._bubble)
+    targetElement.addEventListener("resize", this._bubble);
+    targetElement.addEventListener("scroll", this._bubble);
+    targetElement.addEventListener("wheel", this._bubble);
   }
 
   /**
@@ -56,12 +54,12 @@ export class Stage extends InteractiveObject {
    * 内部の Ticker と window のグローバルリスナーも解除します。
    */
   public dispose(): void {
-    super.dispose()
-    this._ticker.removeEventListener('tick', this._bubble)
-    const targetElement = this.get('targetElement') as HTMLElement | Window
-    targetElement.removeEventListener('resize', this._bubble)
-    targetElement.removeEventListener('scroll', this._bubble)
-    targetElement.removeEventListener('wheel', this._bubble)
+    super.dispose();
+    this._ticker.removeEventListener("tick", this._bubble);
+    const targetElement = this.get("targetElement") as HTMLElement | Window;
+    targetElement.removeEventListener("resize", this._bubble);
+    targetElement.removeEventListener("scroll", this._bubble);
+    targetElement.removeEventListener("wheel", this._bubble);
   }
 
   /**
@@ -76,15 +74,15 @@ export class Stage extends InteractiveObject {
   public addEventListener(
     type: string,
     callback: EventListenerOrEventListenerObject | null,
-    options?: boolean | AddEventListenerOptions | undefined,
+    options?: boolean | AddEventListenerOptions,
   ): void {
-    super.addEventListener(type, callback, options)
+    super.addEventListener(type, callback, options);
 
     if (this._listeners[type].length === 1) {
       switch (type) {
-        case 'tick':
-          this._ticker.start()
-          break
+        case "tick":
+          this._ticker.start();
+          break;
         default:
       }
     }
@@ -102,15 +100,15 @@ export class Stage extends InteractiveObject {
   public removeEventListener(
     type: string,
     callback: EventListenerOrEventListenerObject | null,
-    options?: boolean | EventListenerOptions | undefined,
+    options?: boolean | EventListenerOptions,
   ): void {
-    super.removeEventListener(type, callback, options)
+    super.removeEventListener(type, callback, options);
 
     if (!Object.hasOwn(this._listeners, type)) {
       switch (type) {
-        case 'tick':
-          this._ticker.stop()
-          break
+        case "tick":
+          this._ticker.stop();
+          break;
         default:
       }
     }
@@ -126,18 +124,17 @@ export class Stage extends InteractiveObject {
   static ready(): Promise<void> {
     return new Promise((resolve) => {
       const loaded = (): void => {
-        document.removeEventListener('DOMContentLoaded', loaded)
-        resolve()
-      }
+        document.removeEventListener("DOMContentLoaded", loaded);
+        resolve();
+      };
 
       // loading 以外なら既に DOMContentLoaded 相当とみなす
-      if (document.readyState !== 'loading') {
-        resolve()
+      if (document.readyState !== "loading") {
+        resolve();
+      } else {
+        document.addEventListener("DOMContentLoaded", loaded);
       }
-      else {
-        document.addEventListener('DOMContentLoaded', loaded)
-      }
-    })
+    });
   }
 
   /**
@@ -150,18 +147,17 @@ export class Stage extends InteractiveObject {
   static loaded(): Promise<void> {
     return new Promise((resolve) => {
       const loaded = (): void => {
-        window.removeEventListener('load', loaded)
-        resolve()
-      }
+        window.removeEventListener("load", loaded);
+        resolve();
+      };
 
       // 既に load 済みなら即時解決
-      if (document.readyState === 'complete') {
-        resolve()
+      if (document.readyState === "complete") {
+        resolve();
+      } else {
+        window.addEventListener("load", loaded);
       }
-      else {
-        window.addEventListener('load', loaded)
-      }
-    })
+    });
   }
 
   /**
@@ -170,7 +166,7 @@ export class Stage extends InteractiveObject {
    * @returns number - 現在の window.innerWidth（利用できない場合は 0）
    */
   static get width(): number {
-    return window.innerWidth ?? 0
+    return window.innerWidth ?? 0;
   }
 
   /**
@@ -179,7 +175,7 @@ export class Stage extends InteractiveObject {
    * @returns number - 現在の window.innerHeight（利用できない場合は 0）
    */
   static get height(): number {
-    return window.innerHeight ?? 0
+    return window.innerHeight ?? 0;
   }
 
   /**
@@ -190,19 +186,17 @@ export class Stage extends InteractiveObject {
    * 無効化時は passive: false を指定して preventDefault が動作するようにします。
    */
   set scrollEnabled(v: boolean) {
-    if (this.#scrollEnabled === v)
-      return
+    if (this.#scrollEnabled === v) return;
 
-    this.#scrollEnabled = v
+    this.#scrollEnabled = v;
     if (v) {
-      document.removeEventListener('wheel', this._discard)
-      document.removeEventListener('pointermove', this._discard)
-    }
-    else {
-      document.addEventListener('wheel', this._discard, { passive: false })
-      document.addEventListener('pointermove', this._discard, {
+      document.removeEventListener("wheel", this._discard);
+      document.removeEventListener("pointermove", this._discard);
+    } else {
+      document.addEventListener("wheel", this._discard, { passive: false });
+      document.addEventListener("pointermove", this._discard, {
         passive: false,
-      })
+      });
     }
   }
 
@@ -212,13 +206,8 @@ export class Stage extends InteractiveObject {
    * @returns boolean - スクロールが有効なら true
    */
   get scrollEnabled(): boolean {
-    return this.#scrollEnabled === true
+    return this.#scrollEnabled === true;
   }
 }
 
-/**
- * グローバルなステージインスタンス
- *
- * ライブラリ全体で共有される単一の Stage インスタンスです。
- */
-export const stage = /* #__PURE__ */ new Stage()
+export const stage = /* #__PURE__ */ new Stage();

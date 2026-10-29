@@ -66,6 +66,7 @@ src/
 ## ドメイン構造
 
 ### 初期化フロー
+
 1. `ApplicationBase` コンストラクタ：ラッパー要素、Scene, Camera, Viewport 初期化
 2. `initialize()` 呼び出し：
    - `setupRenderer()` - RendererFactory でレンダラー決定・生成
@@ -74,15 +75,18 @@ src/
    - `plugin.initializeAllAfterScene()` - Scene 後の初期化（カメラコントローラー等）
 
 ### アセット管理
+
 - **AssetManager**: LoadingManager を内部保持、複数リゾルバー統合管理
 - **リゾルバー型**：Font, Texture, GLTF, TextureAtlas
 - **キャッシュ**：textures, objects, atlases, fonts の Record で管理
 
 ### レンダラー選択戦略
+
 - `createBestAvailable()`: navigator.gpu チェック → WebGPU 優先 → WebGL フォールバック
 - WebGPU 初期化失敗時は自動的に WebGL へ降格（console.warn 記録）
 
 ### ビューポート管理
+
 - ResizeObserver による自動リサイズ検知
 - resize イベント発火（width, height, aspectRatio）
 
@@ -96,13 +100,16 @@ src/
 ## 依存先
 
 ### 内部パッケージ
+
 - **@112ka/x** 0.0.10 - ユーティリティ（`assertIsDefined` 等）
 
 ### 外部ライブラリ（peerDependencies）
+
 - **three** 0.182.0 - 3D エンジン（WebGLRenderer, WebGPURenderer, Scene, Camera 等）
 - **stats-gl** 3.8.0 - WebGPU/WebGL パフォーマンス統計表示
 
 ### DevDependencies
+
 - **@types/three** 0.182.0 - Three.js 型定義
 - **tsdown** - ビルドツール
 - **eslint**, **@antfu/eslint-config** - リント設定

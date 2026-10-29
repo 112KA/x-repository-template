@@ -35,26 +35,31 @@ src/
 ## ドメイン構造
 
 ### UI/イベント系
+
 - **Stage**: グローバルなウィンドウイベント監視点（resize, scroll, wheel）
 - **InteractiveObject**: pointer イベント受信・バブリング
 
 ### 時刻・タイマー系
+
 - **Clock**: 秒単位での時刻 tick イベント発火
 - **Ticker**: フレームレートベースのイベントジェネレータ
 - **Countdown**: カウントダウン
 
 ### 数学・物理系
+
 - **Vector2/Vector3**: 2D/3D ベクトル演算
 - **Rectangle**: 矩形領域計算
 - **Spline**: スプライン曲線補間
 
 ### Web API 抽象化
+
 - **db**: IndexedDB
 - **net**: Fetch ベース HTTP
 - **ua**: ユーザーエージェント判定
 - **environment**: 実行環境判定
 
 ### データ構造
+
 - **CompositeKeyMap**: JSON.stringify ベースの複合キー管理
 - **Node**: ツリー構造の基盤要素
 
@@ -67,9 +72,11 @@ src/
 ## 依存先
 
 ### 内部パッケージ
+
 - なし（単体ライブラリ）
 
 ### 外部ライブラリ
+
 - **Production**: なし（ゼロ依存）
 - **DevDependencies**:
   - `@tsconfig/recommended` - TypeScript 設定基盤

@@ -1,4 +1,4 @@
-import { AbstractError } from './abstract-error.js'
+import { AbstractError } from "./abstract-error";
 
 /**
  * AssertionError はアサーション（期待値と実際の値の検証）が失敗したことを表すエラーです。

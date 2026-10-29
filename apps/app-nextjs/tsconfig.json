@@ -3,20 +3,12 @@
     "incremental": true,
     "target": "ES2017",
     "jsx": "react-jsx",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@112ka/x/*": [
-        "./node_modules/@112ka/x/dist/*"
-      ],
+      "@/*": ["./src/*"],
+      "@112ka/x/*": ["./node_modules/@112ka/x/dist/*"],
       "@constraints/*": ["./src/app/_constraints/*"]
     },
     "resolveJsonModule": true,
@@ -39,9 +31,5 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "public",
-    "dist"
-  ]
+  "exclude": ["node_modules", "public", "dist"]
 }

@@ -1,15 +1,15 @@
-import type { NextConfig } from 'next'
-import { join } from 'node:path'
+import type { NextConfig } from "next";
+import { join } from "node:path";
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  output: "export",
   trailingSlash: true,
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@112ka/x': join(__dirname, '../../../packages/x/src/index.ts'),
-    }
+      "@112ka/x": join(__dirname, "../../../packages/x/src/index.ts"),
+    };
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

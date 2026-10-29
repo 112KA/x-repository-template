@@ -41,14 +41,12 @@ transitions/
 ページ遷移時（異なるURL間）のアニメーションを管理します。
 
 ```tsx
-import { createFadeStrategy, PageTransitionProvider } from '@/_constraints/transitions'
+import { createFadeStrategy, PageTransitionProvider } from "@/_constraints/transitions";
 
 export default function RootLayout({ children }) {
   return (
-    <PageTransitionProvider strategy={createFadeStrategy()}>
-      {children}
-    </PageTransitionProvider>
-  )
+    <PageTransitionProvider strategy={createFadeStrategy()}>{children}</PageTransitionProvider>
+  );
 }
 ```
 
@@ -57,7 +55,7 @@ export default function RootLayout({ children }) {
 同一ページ内での複数ビュー切り替えアニメーションを管理します。
 
 ```tsx
-import { View, ViewTransitionProvider } from '@/_constraints/transitions'
+import { View, ViewTransitionProvider } from "@/_constraints/transitions";
 
 export default function Page() {
   return (
@@ -69,7 +67,7 @@ export default function Page() {
         <h1>View 2</h1>
       </View>
     </ViewTransitionProvider>
-  )
+  );
 }
 ```
 
@@ -80,8 +78,8 @@ export default function Page() {
 ページ遷移を実行するルーター関数を取得します。
 
 ```tsx
-const { push, replace } = usePageTransitionRouter()
-await push('/new-page')
+const { push, replace } = usePageTransitionRouter();
+await push("/new-page");
 ```
 
 #### `useViewTransition`
@@ -89,8 +87,8 @@ await push('/new-page')
 ビュー遷移を実行します。
 
 ```tsx
-const { transitionTo, currentViewId } = useViewTransition()
-await transitionTo('view-2')
+const { transitionTo, currentViewId } = useViewTransition();
+await transitionTo("view-2");
 ```
 
 ### コンポーネント
@@ -110,9 +108,7 @@ await transitionTo('view-2')
 アニメーション付きのリンクコンポーネント。
 
 ```tsx
-<TransitionLink href="/next-page">
-  Next Page
-</TransitionLink>
+<TransitionLink href="/next-page">Next Page</TransitionLink>
 ```
 
 ## アニメーション戦略
@@ -124,12 +120,12 @@ await transitionTo('view-2')
 GSAPライブラリを使用したフェードアニメーション。
 
 ```tsx
-import { createFadeStrategy } from '@/_constraints/transitions'
+import { createFadeStrategy } from "@/_constraints/transitions";
 
 const strategy = createFadeStrategy({
   duration: 0.3,
-  ease: 'power2.inOut'
-})
+  ease: "power2.inOut",
+});
 ```
 
 #### View Transition API
@@ -137,9 +133,9 @@ const strategy = createFadeStrategy({
 ネイティブブラウザ API（対応ブラウザのみ）。
 
 ```tsx
-import { createViewTransitionStrategy } from '@/_constraints/transitions'
+import { createViewTransitionStrategy } from "@/_constraints/transitions";
 
-const strategy = createViewTransitionStrategy()
+const strategy = createViewTransitionStrategy();
 ```
 
 ### カスタム戦略の実装
@@ -147,7 +143,7 @@ const strategy = createViewTransitionStrategy()
 `ViewTransitionStrategy` インターフェースを実装することで、カスタムアニメーション戦略を作成できます。
 
 ```tsx
-import type { ViewTransitionStrategy } from '@/_constraints/transitions'
+import type { ViewTransitionStrategy } from "@/_constraints/transitions";
 
 class CustomStrategy implements ViewTransitionStrategy {
   async beforeTransition(context: TransitionContext): Promise<void> {

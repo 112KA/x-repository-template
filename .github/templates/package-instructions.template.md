@@ -1,6 +1,6 @@
 ---
-description: 'Guidelines for ${packageName}'
-applyTo: '${packageDir}/**/*'
+description: "Guidelines for ${packageName}"
+applyTo: "${packageDir}/**/*"
 ---
 
 # ${packageName} Instructions

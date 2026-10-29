@@ -1,25 +1,25 @@
-import type { Camera, Object3D, Scene, WebGPURenderer } from 'three/webgpu'
-import type { ApplicationBase } from '../application-base'
-import type { IPlugin } from './types.js'
-import { PluginInitializationPhase } from './types.js'
+import type { Camera, Object3D, Scene, WebGPURenderer } from "three/webgpu";
+import type { ApplicationBase } from "../application-base";
+import type { IPlugin } from "./types.js";
+import { PluginInitializationPhase } from "./types.js";
 
 export class DebugShaderPlugin implements IPlugin {
-  public name = 'debugShader'
-  public version = '1.0.0'
-  public initializationPhase = PluginInitializationPhase.AfterScene
+  public name = "debugShader";
+  public version = "1.0.0";
+  public initializationPhase = PluginInitializationPhase.AfterScene;
 
-  public renderer!: WebGPURenderer
-  public scene!: Scene
-  public camera!: Camera
+  public renderer!: WebGPURenderer;
+  public scene!: Scene;
+  public camera!: Camera;
 
   initialize(app: ApplicationBase): void {
-    const { scene, camera, rendererAdapter } = app
-    this.renderer = rendererAdapter.renderer as WebGPURenderer
+    const { scene, camera, rendererAdapter } = app;
+    this.renderer = rendererAdapter.renderer as WebGPURenderer;
     if (!this.renderer.isWebGPURenderer) {
-      throw new Error('DebugShaderPlugin requires WebGPURenderer.')
+      throw new Error("DebugShaderPlugin requires WebGPURenderer.");
     }
-    this.scene = scene
-    this.camera = camera
+    this.scene = scene;
+    this.camera = camera;
   }
 
   update(): void {}
@@ -33,14 +33,14 @@ export class DebugShaderPlugin implements IPlugin {
       this.scene,
       this.camera,
       targetObject,
-    )
+    );
 
-    const style
-      = 'background-color: #333; color: white; font-style: italic; border: 2px solid #777; font-size: 22px;'
+    const style =
+      "background-color: #333; color: white; font-style: italic; border: 2px solid #777; font-size: 22px;";
 
-    console.warn('%c  [ WGSL ] Vertex Shader      ', style)
-    console.warn(rawShader.vertexShader)
-    console.warn('%c  [ WGSL ] Fragment Shader    ', style)
-    console.warn(rawShader.fragmentShader)
+    console.warn("%c  [ WGSL ] Vertex Shader      ", style);
+    console.warn(rawShader.vertexShader);
+    console.warn("%c  [ WGSL ] Fragment Shader    ", style);
+    console.warn(rawShader.fragmentShader);
   }
 }

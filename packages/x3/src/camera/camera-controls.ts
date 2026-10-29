@@ -1,4 +1,4 @@
-import type { PerspectiveCamera } from 'three'
+import type { PerspectiveCamera } from "three";
 
 export class CameraControls {
   constructor(public camera: PerspectiveCamera) {}

@@ -1,6 +1,6 @@
-import { stage } from '../application/stage.js'
-import { qs } from '../web/document.js'
-import { Ticker } from '../web/ticker.js'
+import { stage } from "x/application/stage";
+import { qs } from "x/web/document";
+import { Ticker } from "x/web/ticker";
 /**
  * ウィンドウ幅に応じて meta[name="viewport"] の content を切り替える。
  * 360px 未満では幅を固定する（iOS 等の挙動対策）。
@@ -9,14 +9,14 @@ import { Ticker } from '../web/ticker.js'
  */
 export function setupSwitchViewport(): void {
   const switchViewport = (): void => {
-    const viewport = qs('meta[name="viewport"]')
-    const value = window.outerWidth > 360 ? 'width=device-width,initial-scale=1' : 'width=360'
-    if (viewport.getAttribute('content') !== value) {
-      viewport.setAttribute('content', value)
+    const viewport = qs('meta[name="viewport"]');
+    const value = window.outerWidth > 360 ? "width=device-width,initial-scale=1" : "width=360";
+    if (viewport.getAttribute("content") !== value) {
+      viewport.setAttribute("content", value);
     }
-  }
-  stage.addEventListener('resize', switchViewport)
-  switchViewport()
+  };
+  stage.addEventListener("resize", switchViewport);
+  switchViewport();
 }
 
 /**
@@ -26,29 +26,28 @@ export function setupSwitchViewport(): void {
  * @ref https://zenn.dev/tak_dcxi/articles/2ac77656aa94c2cd40bf
  */
 export function setupViewportHeight(): void {
-  const ticker = new Ticker()
-  ticker.fps = 2
+  const ticker = new Ticker();
+  ticker.fps = 2;
 
-  let storedWidth = -1
-  let storedHeight = -1
+  let storedWidth = -1;
+  let storedHeight = -1;
 
   const setViewportHeight = (): void => {
-    const vh = window.innerHeight * 0.01
-    document.documentElement.style.setProperty('--vh', `${vh}px`)
-  }
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  };
 
   // NOTE: ios safariの高さがresizeで設定できないので、一定時間ごとにheight設定処理をする
-  ticker.addEventListener('tick', () => {
-    const { innerWidth, innerHeight } = window
-    if (storedWidth === innerWidth && storedHeight === innerHeight)
-      return
+  ticker.addEventListener("tick", () => {
+    const { innerWidth, innerHeight } = window;
+    if (storedWidth === innerWidth && storedHeight === innerHeight) return;
 
-    storedWidth = innerWidth
-    storedHeight = innerHeight
+    storedWidth = innerWidth;
+    storedHeight = innerHeight;
 
-    setViewportHeight()
-  })
+    setViewportHeight();
+  });
 
-  setViewportHeight()
-  ticker.start()
+  setViewportHeight();
+  ticker.start();
 }

@@ -3,8 +3,8 @@
  */
 export type TransitionContext = {
   /** アニメーション対象のコンテナ要素 */
-  element: HTMLDivElement | null
-}
+  element: HTMLDivElement | null;
+};
 
 /**
  * 統一されたView Transition戦略インターフェース
@@ -15,16 +15,16 @@ export type ViewTransitionStrategy = {
    * 遷移前のアニメーション処理
    * @param context - アニメーション対象のコンテナ
    */
-  beforeTransition: (context: TransitionContext) => Promise<void>
+  beforeTransition: (context: TransitionContext) => Promise<void>;
 
   /**
    * 遷移後のアニメーション処理
    * @param context - アニメーション対象のコンテナ
    */
-  afterTransition: (context: TransitionContext) => Promise<void>
+  afterTransition: (context: TransitionContext) => Promise<void>;
 
   /**
    * クリーンアップ処理
    */
-  cleanup: () => void
-}
+  cleanup: () => void;
+};
