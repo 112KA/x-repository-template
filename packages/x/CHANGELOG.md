@@ -1,5 +1,11 @@
 # @112ka/x
 
+## 0.0.11
+
+### Patch Changes
+
+- TreeShaking 用 export の調整
+
 ## 0.0.10
 
 ### Patch Changes
