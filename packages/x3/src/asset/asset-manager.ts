@@ -5,7 +5,7 @@ import type { TextureAtlas } from "x3/textures/texture-atlas";
 import type { GLTFLoaderMode } from "./resolver/gltf-resolver";
 import type { IResolver } from "./resolver/types";
 import type { ResourceItem } from "./types.js";
-import { assertIsDefined } from "@112ka/x/data/assert.mjs";
+import { assertIsDefined } from "@112ka/x/data/assert";
 import { EventDispatcher, REVISION, WebGLRenderer } from "three";
 import { LoadingManager } from "three/webgpu";
 import { FontResolver } from "./resolver/font-resolver";
