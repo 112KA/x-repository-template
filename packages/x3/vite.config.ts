@@ -2,6 +2,7 @@ import { defineConfig } from "vite-plus";
 
 export default defineConfig({
   pack: {
+    root: "src",
     entry: [
       "src/application/*.ts",
       "!src/application/*.test.ts",
@@ -20,6 +21,7 @@ export default defineConfig({
     ],
     dts: true,
     unbundle: true,
+    preserveModules: true,
     // minify: true,
   },
 });
