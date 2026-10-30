@@ -36,3 +36,5 @@ peerDependencyRules:
   allowedVersions:
     vite: "*"
     vitest: "*"
+minimumReleaseAgeExclude:
+  - "@112ka/x@0.0.11"

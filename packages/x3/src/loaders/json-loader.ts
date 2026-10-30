@@ -1,4 +1,4 @@
-import { autotag } from "@112ka/x";
+import { autotag } from "@112ka/x/decorators/autotag.mjs"
 
 import { FileLoader, Loader, LoaderUtils } from "three";
 

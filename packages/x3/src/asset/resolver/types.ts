@@ -1,6 +1,6 @@
 import type { WebGLRenderer } from "three";
 import type { Renderer } from "three/webgpu";
-import type { ResourceItem } from "../types.js";
+import type { ResourceItem } from "../types";
 
 export interface IResolver {
   name: string;

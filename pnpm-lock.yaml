@@ -368,8 +368,8 @@ importers:
   packages/x3:
     dependencies:
       '@112ka/x':
-        specifier: 0.0.10
-        version: 0.0.10
+        specifier: 0.0.11
+        version: 0.0.11
       three:
         specifier: 0.182.0
         version: 0.182.0
@@ -392,8 +392,8 @@ importers:
 
 packages:
 
-  '@112ka/x@0.0.10':
-    resolution: {integrity: sha512-7GI6vjKCZyoGNVVVW8/DoNQVZLIlfEPMH5sO2c1xYPTYWs590PEb0ojYkTBLdUZhnh/qNZM9VhnDfq80pNP3NQ==, tarball: https://npm.pkg.github.com/download/@112ka/x/0.0.10/8928e81b34e9f4070e9558dba546e1d8c02d10cc}
+  '@112ka/x@0.0.11':
+    resolution: {integrity: sha512-eH0U6rKUATRMVLoOzxbyRudZlZqbLZl/5PdH1WhYv4LsVM72zE5HkuZ0/6Ws7dvrqzgZP9c24HmEwuvvSz9lIQ==, tarball: https://npm.pkg.github.com/download/@112ka/x/0.0.11/541d23ce9c25ab7b86d2b5c0f5bd9d8d27085f9e}
 
   '@adobe/css-tools@4.5.0':
     resolution: {integrity: sha512-6OzddxPio9UiWTCemp4N8cYLV2ZN1ncRnV1cVGtve7dhPOtRkleRyx32GQCYSwDYgaHU3USMm84tNsvKzRCa1Q==}
@@ -2346,7 +2346,7 @@ packages:
 
 snapshots:
 
-  '@112ka/x@0.0.10': {}
+  '@112ka/x@0.0.11': {}
 
   '@adobe/css-tools@4.5.0': {}
 

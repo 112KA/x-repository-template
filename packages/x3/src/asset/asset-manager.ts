@@ -1,19 +1,17 @@
 import type { Object3D, Texture } from "three";
 import type { Font, GLTF, KTX2Loader } from "three/examples/jsm/Addons.js";
 import type { WebGPURenderer } from "three/webgpu";
-import type { TextureAtlas } from "x3/textures/texture-atlas.js";
-import type { GLTFLoaderMode } from "./resolver/gltf-resolver.js";
-import type { IResolver } from "./resolver/index.js";
+import type { TextureAtlas } from "x3/textures/texture-atlas";
+import type { GLTFLoaderMode } from "./resolver/gltf-resolver";
+import type { IResolver } from "./resolver/types";
 import type { ResourceItem } from "./types.js";
-import { assertIsDefined } from "@112ka/x";
+import { assertIsDefined } from "@112ka/x/data/assert.mjs";
 import { EventDispatcher, REVISION, WebGLRenderer } from "three";
 import { LoadingManager } from "three/webgpu";
-import {
-  FontResolver,
-  GLTFResolver,
-  TextureAtlasResolver,
-  TextureResolver,
-} from "./resolver/index.js";
+import { FontResolver } from "./resolver/font-resolver";
+import { GLTFResolver } from "./resolver/gltf-resolver";
+import { TextureAtlasResolver } from "./resolver/texture-atlas-resolver";
+import { TextureResolver } from "./resolver/texture-resolver";
 
 export interface AssetManagerEventMap {
   loaded: object;

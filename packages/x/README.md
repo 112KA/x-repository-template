@@ -41,6 +41,21 @@ pnpm watch   # runs tsdown --watch
 pnpm lint:fix
 ```
 
+## テスト
+
+このパッケージのディレクトリで実行します。
+
+```bash
+pnpm test
+pnpm exec vp test --run src/decorators/autotag.test.ts
+```
+
+テストは `vitest.config.ts` で `tsconfig.json` を明示して変換します。
+テストファイルは型チェック対象から除外されているため、自動検出だけでは
+`experimentalDecorators` が適用されず、デコレーター構文が未変換になります。
+また、`resolve.tsconfigPaths: true` により、`tsconfig.json` の `paths` にある
+`x/*` をテスト実行時にも解決します。
+
 ## 推奨ワークフロー
 
 1. ブランチ作成: `git switch -c feat/your-feature`
