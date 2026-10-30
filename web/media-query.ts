@@ -1,4 +1,4 @@
-import { assertIsDefined } from '../data/assert.js'
+import { assertIsDefined } from "x/data/assert";
 
 /**
  * デバイスのサイズを表すユニオン型。
@@ -6,7 +6,7 @@ import { assertIsDefined } from '../data/assert.js'
  * - 'md': ミディアム
  * - 'lg': ラージ
  */
-export type DeviceSize = 'sm' | 'md' | 'lg'
+export type DeviceSize = "sm" | "md" | "lg";
 
 /**
  * MediaQuery クラスが発火するイベントのマップ。
@@ -14,8 +14,8 @@ export type DeviceSize = 'sm' | 'md' | 'lg'
  */
 export interface MediaQueryEventMap {
   change: {
-    deviceSize: DeviceSize
-  }
+    deviceSize: DeviceSize;
+  };
 }
 
 // const LOG_PREFIX = '[MediaQuery]'
@@ -32,46 +32,50 @@ export interface MediaQueryEventMap {
  * ```
  */
 export class MediaQuery extends EventTarget {
-  private _mediaQueryMap: Map<string, DeviceSize[]> = new Map<string, DeviceSize[]>()
+  private _mediaQueryMap: Map<string, DeviceSize[]> = new Map<string, DeviceSize[]>();
 
   /**
    * 現在のデバイスサイズ。
    * コンストラクタ実行時に初期判定される。
    * @default 'sm'
    */
-  public deviceSize: DeviceSize = 'sm'
+  public deviceSize: DeviceSize = "sm";
 
   /**
    * @param mdBreakPoint ミディアム判定の最小幅（px）。既定値 600。
    * @param lgBreakPoint ラージ判定の最小幅（px）。既定値 1025。
    */
   constructor(mdBreakPoint = 600, lgBreakPoint = 1025) {
-    super()
+    super();
 
-    this._mediaQueryMap.set(`(min-width: ${mdBreakPoint}px)`, ['sm', 'md'])
-    this._mediaQueryMap.set(`(min-width: ${lgBreakPoint}px)`, ['md', 'lg'])
+    this._mediaQueryMap.set(`(min-width: ${mdBreakPoint}px)`, ["sm", "md"]);
+    this._mediaQueryMap.set(`(min-width: ${lgBreakPoint}px)`, ["md", "lg"]);
 
     this._mediaQueryMap.forEach(([, largerBreakPoint]: DeviceSize[], key: string) => {
-      const mql = window.matchMedia(key)
-      mql.addEventListener('change', this._onChange)
+      const mql = window.matchMedia(key);
+      mql.addEventListener("change", this._onChange);
       if (mql.matches) {
-        this.deviceSize = largerBreakPoint
+        this.deviceSize = largerBreakPoint;
       }
-    })
+    });
 
     if (this.deviceSize === undefined) {
-      this.deviceSize = 'sm'
+      this.deviceSize = "sm";
     }
   }
 
   private _onChange = (e: MediaQueryListEvent): void => {
     // console.log(LOG_PREFIX, '_onChange', { e })
 
-    const deviceSizeList = this._mediaQueryMap.get(e.media)
-    assertIsDefined(deviceSizeList)
+    const deviceSizeList = this._mediaQueryMap.get(e.media);
+    assertIsDefined(deviceSizeList);
 
-    this.deviceSize = e.matches ? deviceSizeList[1] : deviceSizeList[0]
+    this.deviceSize = e.matches ? deviceSizeList[1] : deviceSizeList[0];
 
-    this.dispatchEvent(new CustomEvent<MediaQueryEventMap['change']>('change', { detail: { deviceSize: this.deviceSize } }))
-  }
+    this.dispatchEvent(
+      new CustomEvent<MediaQueryEventMap["change"]>("change", {
+        detail: { deviceSize: this.deviceSize },
+      }),
+    );
+  };
 }

@@ -12,7 +12,7 @@
  * - JSON に直列化できない値（関数、循環参照など）は正しく扱えません。キーの順序依存や表現の差異に注意してください。
  */
 export class CompositeKeyMap<K1, K2, V> {
-  private map = new Map<string, V>()
+  private map = new Map<string, V>();
 
   /**
    * 複合キーを内部格納用の文字列に変換します。
@@ -24,7 +24,7 @@ export class CompositeKeyMap<K1, K2, V> {
    */
   private _createKey(key1: K1, key2: K2): string {
     // JSON.stringify() を使って、どのような型のキーでも安全な文字列に変換します
-    return `${JSON.stringify(key1)}|${JSON.stringify(key2)}`
+    return `${JSON.stringify(key1)}|${JSON.stringify(key2)}`;
   }
 
   /**
@@ -36,9 +36,9 @@ export class CompositeKeyMap<K1, K2, V> {
    * @returns このインスタンス（メソッドチェーン用）
    */
   public set(key1: K1, key2: K2, value: V): this {
-    const compositeKey = this._createKey(key1, key2)
-    this.map.set(compositeKey, value)
-    return this
+    const compositeKey = this._createKey(key1, key2);
+    this.map.set(compositeKey, value);
+    return this;
   }
 
   /**
@@ -49,8 +49,8 @@ export class CompositeKeyMap<K1, K2, V> {
    * @returns 対応する値。存在しない場合は undefined を返します。
    */
   public get(key1: K1, key2: K2): V | undefined {
-    const compositeKey = this._createKey(key1, key2)
-    return this.map.get(compositeKey)
+    const compositeKey = this._createKey(key1, key2);
+    return this.map.get(compositeKey);
   }
 
   /**
@@ -61,8 +61,8 @@ export class CompositeKeyMap<K1, K2, V> {
    * @returns 存在する場合は true、それ以外は false
    */
   public has(key1: K1, key2: K2): boolean {
-    const compositeKey = this._createKey(key1, key2)
-    return this.map.has(compositeKey)
+    const compositeKey = this._createKey(key1, key2);
+    return this.map.has(compositeKey);
   }
 
   /**
@@ -73,8 +73,8 @@ export class CompositeKeyMap<K1, K2, V> {
    * @returns 削除に成功した場合は true
    */
   public delete(key1: K1, key2: K2): boolean {
-    const compositeKey = this._createKey(key1, key2)
-    return this.map.delete(compositeKey)
+    const compositeKey = this._createKey(key1, key2);
+    return this.map.delete(compositeKey);
   }
 
   /**
@@ -83,7 +83,7 @@ export class CompositeKeyMap<K1, K2, V> {
    * @returns 現在のエントリ数
    */
   public get size(): number {
-    return this.map.size
+    return this.map.size;
   }
 
   /**
@@ -92,7 +92,7 @@ export class CompositeKeyMap<K1, K2, V> {
    * @remarks 内部の Map をクリアします。
    */
   public clear(): void {
-    this.map.clear()
+    this.map.clear();
   }
 
   /**
@@ -100,8 +100,8 @@ export class CompositeKeyMap<K1, K2, V> {
    *
    * @returns 値のイテレータ
    */
-  public* values(): IterableIterator<V> {
-    yield* this.map.values()
+  public *values(): IterableIterator<V> {
+    yield* this.map.values();
   }
 
   /**
@@ -110,13 +110,13 @@ export class CompositeKeyMap<K1, K2, V> {
    * @returns [K1, K2] のイテレータ
    * @remarks 内部の複合キー文字列を split / JSON.parse で復元します。
    */
-  public* keys(): IterableIterator<[K1, K2]> {
+  public *keys(): IterableIterator<[K1, K2]> {
     for (const compositeKey of this.map.keys()) {
       // JSON.parse() を使ってキーを元に戻す
-      const [key1Str, key2Str] = compositeKey.split('|')
-      const key1 = JSON.parse(key1Str)
-      const key2 = JSON.parse(key2Str)
-      yield [key1, key2] as [K1, K2]
+      const [key1Str, key2Str] = compositeKey.split("|");
+      const key1 = JSON.parse(key1Str);
+      const key2 = JSON.parse(key2Str);
+      yield [key1, key2] as [K1, K2];
     }
   }
 
@@ -125,12 +125,12 @@ export class CompositeKeyMap<K1, K2, V> {
    *
    * @returns [[K1, K2], V] のイテレータ
    */
-  public* entries(): IterableIterator<[[K1, K2], V]> {
+  public *entries(): IterableIterator<[[K1, K2], V]> {
     for (const [compositeKey, value] of this.map.entries()) {
-      const [key1Str, key2Str] = compositeKey.split('|')
-      const key1 = JSON.parse(key1Str)
-      const key2 = JSON.parse(key2Str)
-      yield [[key1, key2] as [K1, K2], value]
+      const [key1Str, key2Str] = compositeKey.split("|");
+      const key1 = JSON.parse(key1Str);
+      const key2 = JSON.parse(key2Str);
+      yield [[key1, key2] as [K1, K2], value];
     }
   }
 
@@ -140,6 +140,6 @@ export class CompositeKeyMap<K1, K2, V> {
    * @returns [[K1, K2], V] のイテレータ
    */
   public [Symbol.iterator](): IterableIterator<[[K1, K2], V]> {
-    return this.entries()
+    return this.entries();
   }
 }

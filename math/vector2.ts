@@ -19,7 +19,7 @@ export class Vector2 {
    * @returns 新しい Vector2 インスタンス
    */
   clone(): Vector2 {
-    return new Vector2(this.x, this.y)
+    return new Vector2(this.x, this.y);
   }
 
   /**
@@ -30,9 +30,9 @@ export class Vector2 {
    * @returns this
    */
   set(x: number, y: number): Vector2 {
-    this.x = x
-    this.y = y
-    return this
+    this.x = x;
+    this.y = y;
+    return this;
   }
 
   /**
@@ -42,9 +42,9 @@ export class Vector2 {
    * @returns this
    */
   add(v: Vector2): Vector2 {
-    this.x += v.x
-    this.y += v.y
-    return this
+    this.x += v.x;
+    this.y += v.y;
+    return this;
   }
 
   /**
@@ -54,9 +54,9 @@ export class Vector2 {
    * @returns this
    */
   subtract(v: Vector2): Vector2 {
-    this.x -= v.x
-    this.y -= v.y
-    return this
+    this.x -= v.x;
+    this.y -= v.y;
+    return this;
   }
 
   /**
@@ -66,9 +66,9 @@ export class Vector2 {
    * @returns this
    */
   scale(s: number): Vector2 {
-    this.x *= s
-    this.y *= s
-    return this
+    this.x *= s;
+    this.y *= s;
+    return this;
   }
 
   /**
@@ -78,9 +78,9 @@ export class Vector2 {
    * @returns ユークリッド距離
    */
   distance(v: Vector2): number {
-    const dx = v.x - this.x
-    const dy = v.y - this.y
-    return Math.sqrt(dx * dx + dy * dy)
+    const dx = v.x - this.x;
+    const dy = v.y - this.y;
+    return Math.sqrt(dx * dx + dy * dy);
   }
 
   /**
@@ -89,10 +89,10 @@ export class Vector2 {
    * @returns this
    */
   roundZero(): Vector2 {
-    this.x = this.x === 0 ? 0 : this.x < -0.01 ? this.x : this.x > 0.01 ? this.x : 0
-    this.y = this.y === 0 ? 0 : this.y < -0.01 ? this.y : this.y > 0.01 ? this.y : 0
+    this.x = this.x === 0 ? 0 : this.x < -0.01 ? this.x : this.x > 0.01 ? this.x : 0;
+    this.y = this.y === 0 ? 0 : this.y < -0.01 ? this.y : this.y > 0.01 ? this.y : 0;
 
-    return this
+    return this;
   }
 
   /**
@@ -101,6 +101,6 @@ export class Vector2 {
    * @returns "x: ..., y: ..."
    */
   toString(): string {
-    return `x: ${this.x}, y: ${this.y}`
+    return `x: ${this.x}, y: ${this.y}`;
   }
 }

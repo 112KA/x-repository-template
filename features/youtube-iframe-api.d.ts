@@ -23,8 +23,8 @@ declare global {
      * @remarks
      * このプロパティは YouTube の IFrame API により呼び出されます。型は関数 () => void です。
      */
-    onYouTubeIframeAPIReady: () => void
+    onYouTubeIframeAPIReady: () => void;
   }
 }
 
-export {}
+export {};

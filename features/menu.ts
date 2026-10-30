@@ -1,5 +1,5 @@
-import { qs } from '../web/document.js'
-import { scrollFix, scrollUnfix } from './scroll.js'
+import { qs } from "x/web/document";
+import { scrollFix, scrollUnfix } from "./scroll";
 
 /**
  * メニューのセットアップを行う。
@@ -9,24 +9,22 @@ import { scrollFix, scrollUnfix } from './scroll.js'
  *
  * @param classNamePrefix - クラス名のプレフィックス（デフォルトは空文字）。例: 'site-'
  */
-export function setupMenu(classNamePrefix = ''): void {
-  const menu = qs(`.${classNamePrefix}menu`)
-  const menuButton = qs(`.${classNamePrefix}menu__button`)
-  const container = qs<HTMLElement>(`.${classNamePrefix}container`)
+export function setupMenu(classNamePrefix = ""): void {
+  const menu = qs(`.${classNamePrefix}menu`);
+  const menuButton = qs(`.${classNamePrefix}menu__button`);
+  const container = qs<HTMLElement>(`.${classNamePrefix}container`);
 
   if (menuButton) {
-    menuButton.addEventListener('click', (e): void => {
-      e.preventDefault()
-      menu.classList.toggle('open')
-      if (menu.classList.contains('open')) {
-        scrollFix(container)
+    menuButton.addEventListener("click", (e): void => {
+      e.preventDefault();
+      menu.classList.toggle("open");
+      if (menu.classList.contains("open")) {
+        scrollFix(container);
+      } else {
+        scrollUnfix(container);
       }
-      else {
-        scrollUnfix(container)
-      }
-    })
-  }
-  else {
-    console.warn('[x] setupMenu - no menuButtonClass')
+    });
+  } else {
+    console.warn("[x] setupMenu - no menuButtonClass");
   }
 }

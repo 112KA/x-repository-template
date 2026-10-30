@@ -1,4 +1,4 @@
-import { Ticker } from 'x/misc'
+import { Ticker } from "x/web/ticker";
 
 /**
  * CountDown が発火するイベントの型マップ。
@@ -10,9 +10,9 @@ import { Ticker } from 'x/misc'
  */
 export interface CoundDownEventMap {
   tick: {
-    count: number
-  }
-  complete: object
+    count: number;
+  };
+  complete: object;
 }
 
 /**
@@ -35,33 +35,33 @@ export class CountDown extends EventTarget {
   /**
    * 現在の残りカウント（秒）。初期値は 0。
    */
-  public count = 0
+  public count = 0;
   /**
    * 内部で利用する Ticker インスタンス。
    */
-  public ticker = new Ticker()
+  public ticker = new Ticker();
 
   /**
    * @param initialCount - 開始時のカウント（秒）
    */
   constructor(public initialCount: number) {
-    super()
+    super();
 
-    this.ticker.addEventListener('tick', this.#tickHandler)
+    this.ticker.addEventListener("tick", this.#tickHandler);
   }
 
   /**
    * カウントを初期値にリセットします（ticker の停止は行いません）。
    */
   reset(): void {
-    this.count = this.initialCount
+    this.count = this.initialCount;
   }
 
   /**
    * カウントダウンを開始します（内部で ticker を開始します）。
    */
   start(): void {
-    this.ticker.start()
+    this.ticker.start();
   }
 
   /**
@@ -69,7 +69,7 @@ export class CountDown extends EventTarget {
    */
   stop(): void {
     // console.log('stop countdown')
-    this.ticker.stop()
+    this.ticker.stop();
   }
 
   /**
@@ -83,17 +83,17 @@ export class CountDown extends EventTarget {
    * @private
    */
   #tickHandler = (e: Event): void => {
-    const { time, dt: _dt } = (e as CustomEvent).detail
-    const count = this.initialCount - ~~Math.floor(time / 1000)
+    const { time, dt: _dt } = (e as CustomEvent).detail;
+    const count = this.initialCount - ~~Math.floor(time / 1000);
 
     if (this.count !== count) {
       // console.log("tick", { count, time, dt });
-      this.count = count
-      this.dispatchEvent(new CustomEvent<CoundDownEventMap['tick']>('tick', { detail: { count } }))
+      this.count = count;
+      this.dispatchEvent(new CustomEvent<CoundDownEventMap["tick"]>("tick", { detail: { count } }));
       if (this.count === 0) {
-        this.stop()
-        this.dispatchEvent(new CustomEvent<CoundDownEventMap['complete']>('complete'))
+        this.stop();
+        this.dispatchEvent(new CustomEvent<CoundDownEventMap["complete"]>("complete"));
       }
     }
-  }
+  };
 }

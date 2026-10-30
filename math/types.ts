@@ -3,9 +3,9 @@
  */
 export interface Size2 {
   /** 幅（ピクセルなど） */
-  width: number
+  width: number;
   /** 高さ（ピクセルなど） */
-  height: number
+  height: number;
 }
 
 /**
@@ -13,11 +13,11 @@ export interface Size2 {
  */
 export interface Size3 {
   /** 幅 */
-  width: number
+  width: number;
   /** 高さ */
-  height: number
+  height: number;
   /** 奥行き */
-  depth: number
+  depth: number;
 }
 
 /**
@@ -25,11 +25,11 @@ export interface Size3 {
  */
 export enum Align {
   /** 左上 */
-  TL = 'top_left',
+  TL = "top_left",
   /** 右上 */
-  TR = 'top_right',
+  TR = "top_right",
   /** 左下 */
-  BL = 'bottom_left',
+  BL = "bottom_left",
   /** 右下 */
-  BR = 'bottom_right',
+  BR = "bottom_right",
 }

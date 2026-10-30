@@ -1,8 +1,8 @@
-import { ua } from './ua.js'
+import { ua } from "./ua";
 
-const LOCAL_PATTERNS = [/localhost|192.168|172.16/]
-const DEV_PATTERNS = [/dev/]
-const STG_PATTERNS = [/stg/]
+const LOCAL_PATTERNS = [/localhost|192.168|172.16/];
+const DEV_PATTERNS = [/dev/];
+const STG_PATTERNS = [/stg/];
 
 /**
  * 実行環境情報をホスト名等から判定するヘルパー。
@@ -20,80 +20,78 @@ const STG_PATTERNS = [/stg/]
  * if (env.prd) { console.log('Production environment') }
  */
 class Environment {
-  #localPatterns: RegExp[] = LOCAL_PATTERNS
-  #devPatterns: RegExp[] = DEV_PATTERNS
-  #stgPatterns: RegExp[] = STG_PATTERNS
+  #localPatterns: RegExp[] = LOCAL_PATTERNS;
+  #devPatterns: RegExp[] = DEV_PATTERNS;
+  #stgPatterns: RegExp[] = STG_PATTERNS;
 
-  #initialized = false
+  #initialized = false;
 
   // 内部的な XR 保持用
-  #xrSupported = false
+  #xrSupported = false;
 
   // サーバーサイドかチェックする共通ヘルパー
   private get isServer(): boolean {
-    return typeof window === 'undefined'
+    return typeof window === "undefined";
   }
 
   /** ローカルネットワーク/localhost 判定 */
   get local(): boolean {
-    if (this.isServer)
-      return false
-    return this.#localPatterns.some(pattern => pattern.test(window.location.hostname))
+    if (this.isServer) return false;
+    return this.#localPatterns.some((pattern) => pattern.test(window.location.hostname));
   }
 
   /** 開発環境ドメイン判定 */
   get dev(): boolean {
-    if (this.isServer)
-      return false
-    return this.#devPatterns.some(pattern => pattern.test(window.location.hostname))
+    if (this.isServer) return false;
+    return this.#devPatterns.some((pattern) => pattern.test(window.location.hostname));
   }
 
   /** ステージング環境ドメイン判定 */
   get stg(): boolean {
-    if (this.isServer)
-      return false
-    return this.#stgPatterns.some(pattern => pattern.test(window.location.hostname))
+    if (this.isServer) return false;
+    return this.#stgPatterns.some((pattern) => pattern.test(window.location.hostname));
   }
 
   /** 本番環境判定 */
   get prd(): boolean {
     // サーバーサイドでは一律 false か、特定のデフォルト値を返すよう設計
-    if (this.isServer)
-      return false
-    return !(this.local || this.dev || this.stg)
+    if (this.isServer) return false;
+    return !(this.local || this.dev || this.stg);
   }
 
   /** 機能サポート状況 */
-  get support(): { touch: boolean, xr: boolean } {
+  get support(): { touch: boolean; xr: boolean } {
     return {
       /** タッチイベントサポート */
-      touch: this.isServer ? false : 'ontouchstart' in window,
+      touch: this.isServer ? false : "ontouchstart" in window,
       /** WebXR サポート (initialize 実行後に確定) */
       xr: this.#xrSupported,
-    }
+    };
   }
 
   /**
    * 環境判定を初期化し、WebXR サポート判定を実行します。
    * 必要に応じて事前に判定パターンを追加してください。
-   */async initialize(): Promise<void> {
+   */ async initialize(): Promise<void> {
     // サーバーサイドでは何もしない
-    if (this.isServer || this.#initialized)
-      return
+    if (this.isServer || this.#initialized) return;
 
-    const { xr } = window.navigator
+    const { xr } = window.navigator as Navigator & {
+      xr?: {
+        isSessionSupported(mode: "immersive-vr"): Promise<boolean>;
+      };
+    };
     if (xr !== undefined) {
       try {
-        const isSupported = await xr.isSessionSupported('immersive-vr')
-        this.#xrSupported = isSupported && ua.pc
-      }
-      catch (e) {
-        console.warn('WebXR awareness failed:', e)
-        this.#xrSupported = false
+        const isSupported = await xr.isSessionSupported("immersive-vr");
+        this.#xrSupported = isSupported && ua.pc;
+      } catch (e) {
+        console.warn("WebXR awareness failed:", e);
+        this.#xrSupported = false;
       }
     }
 
-    this.#initialized = true
+    this.#initialized = true;
   }
 
   /**
@@ -101,7 +99,7 @@ class Environment {
    * @param patterns - ホスト名にマッチする正規表現パターンの配列
    */
   setLocalPatterns(...patterns: RegExp[]): void {
-    this.#localPatterns = patterns
+    this.#localPatterns = patterns;
   }
 
   /**
@@ -109,7 +107,7 @@ class Environment {
    * @param patterns - ホスト名にマッチする正規表現パターンの配列
    */
   setDevPatterns(...patterns: RegExp[]): void {
-    this.#devPatterns = patterns
+    this.#devPatterns = patterns;
   }
 
   /**
@@ -117,10 +115,10 @@ class Environment {
    * @param patterns - ホスト名にマッチする正規表現パターンの配列
    */
   setStgPatterns(...patterns: RegExp[]): void {
-    this.#stgPatterns = patterns
+    this.#stgPatterns = patterns;
   }
 }
 
-const env = new Environment()
+const env = new Environment();
 
-export { env }
+export { env };

@@ -1,3 +1,5 @@
+import type {} from "./error";
+
 /**
  * カスタムエラーの基底となる抽象クラス。
  *
@@ -25,13 +27,13 @@ export abstract class AbstractError extends Error {
    * Error.captureStackTrace が利用可能な環境ではスタックトレースの調整を行います。
    * コードの振る舞い自体は変更しないため、安全に継承して使用できます。
    */
-  constructor(message = '') {
-    super(message)
-    this.name = new.target.name
+  constructor(message = "") {
+    super(message);
+    this.name = new.target.name;
 
     // Maintains proper stack trace for where our error was thrown (only available on V8)
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, this.constructor)
+      Error.captureStackTrace(this, this.constructor);
     }
   }
 }

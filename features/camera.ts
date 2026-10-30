@@ -1,6 +1,6 @@
-import type { Nullable } from '../@types/utils.js'
-import { assertIsDefined } from '../data/assert.js'
-import { deepmerge } from '../data/object.js'
+import type { Nullable } from "x/@types/utils.type";
+import { assertIsDefined } from "x/data/assert";
+import { deepmerge } from "x/data/object";
 
 /**
  * デフォルトの MediaStreamConstraints のセット。
@@ -18,13 +18,13 @@ const constraintsDefault = {
   front: {
     audio: false,
     video: {
-      facingMode: 'user',
+      facingMode: "user",
     },
   },
   back: {
     audio: false,
     video: {
-      facingMode: { exact: 'environment' },
+      facingMode: { exact: "environment" },
     },
   },
   UHD: {
@@ -48,7 +48,7 @@ const constraintsDefault = {
       height: { min: 288, ideal: 540, max: 540 },
     },
   },
-}
+};
 
 /**
  * CameraDisplay がサポートする表示プリセットのキー集合。
@@ -58,7 +58,7 @@ const constraintsDefault = {
  * @remarks
  * これらのキーは CameraDisplay.startByDisplayType に直接渡してプリセット制約を適用できます。
  */
-export type CameraDisplayType = keyof typeof constraintsDefault
+export type CameraDisplayType = keyof typeof constraintsDefault;
 
 /**
  * ビデオ要素に対してカメラの MediaStream を管理するユーティリティクラス。
@@ -81,7 +81,7 @@ export type CameraDisplayType = keyof typeof constraintsDefault
  * @public
  */
 export class CameraDisplay {
-  public stream: Nullable<MediaStream> = null
+  public stream: Nullable<MediaStream> = null;
 
   constructor(public video: HTMLVideoElement) {}
 
@@ -93,14 +93,14 @@ export class CameraDisplay {
    * ブラウザの権限設定により空配列が返ることがあります。デバイス名やラベルは権限がないと空になる場合があります。
    */
   static async getVideoInputList(): Promise<MediaDeviceInfo[]> {
-    const devices = await navigator.mediaDevices.enumerateDevices()
-    const ret: MediaDeviceInfo[] = []
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const ret: MediaDeviceInfo[] = [];
     for (const device of devices) {
-      if (device.kind === 'videoinput') {
-        ret.push(device)
+      if (device.kind === "videoinput") {
+        ret.push(device);
       }
     }
-    return ret
+    return ret;
   }
 
   /**
@@ -113,27 +113,26 @@ export class CameraDisplay {
    * 既にストリームが存在する場合は内部で stop() を呼び出してから新規取得を行います。
    */
   async start(constraints: MediaStreamConstraints): Promise<void> {
-    this.stop()
+    this.stop();
 
     try {
-      this.stream = await navigator.mediaDevices.getUserMedia(constraints)
-    }
-    catch (error) {
-      console.error('Error accessing camera:', error)
-      throw error
+      this.stream = await navigator.mediaDevices.getUserMedia(constraints);
+    } catch (error) {
+      console.error("Error accessing camera:", error);
+      throw error;
     }
 
     const loadVideo = (): Promise<void> => {
-      this.video.srcObject = this.stream
+      this.video.srcObject = this.stream;
 
       return new Promise((resolve) => {
         this.video.onloadedmetadata = async () => {
-          await this.video.play()
-          resolve()
-        }
-      })
-    }
-    await loadVideo()
+          await this.video.play();
+          resolve();
+        };
+      });
+    };
+    await loadVideo();
   }
 
   /**
@@ -146,9 +145,12 @@ export class CameraDisplay {
    * @remarks
    * constraintsDefault に定義された既定値を基に、呼び出し側で渡した constraints を上書き・追加します。
    */
-  async startByDisplayType(type: CameraDisplayType, constraints: MediaStreamConstraints = {}): Promise<void> {
-    const o = deepmerge(constraintsDefault[type], constraints as Record<string, unknown>)
-    await this.start(o)
+  async startByDisplayType(
+    type: CameraDisplayType,
+    constraints: MediaStreamConstraints = {},
+  ): Promise<void> {
+    const o = deepmerge(constraintsDefault[type], constraints as Record<string, unknown>);
+    await this.start(o);
   }
 
   /**
@@ -160,9 +162,9 @@ export class CameraDisplay {
   stop(): void {
     if (this.stream) {
       for (const videoTrack of this.stream.getVideoTracks()) {
-        videoTrack.stop()
+        videoTrack.stop();
       }
-      this.stream = null
+      this.stream = null;
     }
   }
 
@@ -172,7 +174,7 @@ export class CameraDisplay {
    * @returns ストリームが存在する場合に true、それ以外は false
    */
   get isStart(): boolean {
-    return this.stream !== null
+    return this.stream !== null;
   }
 
   /**
@@ -184,12 +186,12 @@ export class CameraDisplay {
    * 返される設定は実際にカメラが確保している解像度・フレームレート等であり、要求した制約と完全に一致しない場合があります。
    */
   getCurrentVideoSettings(): Nullable<MediaTrackSettings> {
-    assertIsDefined(this.stream)
-    const videoTracks = this.stream.getVideoTracks()
+    assertIsDefined(this.stream);
+    const videoTracks = this.stream.getVideoTracks();
 
     if (videoTracks.length > 0) {
-      return videoTracks[0].getSettings()
+      return videoTracks[0].getSettings();
     }
-    return null
+    return null;
   }
 }

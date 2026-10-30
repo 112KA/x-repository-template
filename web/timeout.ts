@@ -1,9 +1,9 @@
 /** タイムアウトイベントのペイロード型集合 */
 export interface TimeoutEventMap {
   /** 反復タイムアウト発生時 (detail なし) */
-  timeout: object
+  timeout: object;
   /** 最終完了時 (repeat 消費後 / repeat=0) */
-  complete: object
+  complete: object;
 }
 
 /**
@@ -14,9 +14,9 @@ export interface TimeoutEventMap {
  *  - -1: 無限に timeout を発火し complete しない
  */
 export class Timeout extends EventTarget {
-  #elapsedTime: number | null
+  #elapsedTime: number | null;
 
-  #isComplete = false
+  #isComplete = false;
 
   /**
    * @param durationSeconds タイムアウト判定秒数
@@ -26,14 +26,14 @@ export class Timeout extends EventTarget {
     private durationSeconds: number,
     private _repeat = 0,
   ) {
-    super()
+    super();
 
-    this.#elapsedTime = null
+    this.#elapsedTime = null;
   }
 
   /** 完了状態を解除し再度 tick 監視を可能にする */
   reset(): void {
-    this.#isComplete = false
+    this.#isComplete = false;
   }
 
   /**
@@ -43,27 +43,24 @@ export class Timeout extends EventTarget {
    * @fires complete 最終回到達時
    */
   tick(elapsedTime: number): void {
-    if (this.#isComplete)
-      return
+    if (this.#isComplete) return;
 
-    if (this.#elapsedTime === null)
-      this.#elapsedTime = elapsedTime
+    if (this.#elapsedTime === null) this.#elapsedTime = elapsedTime;
 
-    const result = this.durationSeconds < elapsedTime - this.#elapsedTime
+    const result = this.durationSeconds < elapsedTime - this.#elapsedTime;
 
     // console.log({ result, elapsedTime })
 
     if (result) {
-      this.#elapsedTime = null
+      this.#elapsedTime = null;
       if (this._repeat === -1 || this._repeat > 0) {
         if (this._repeat !== -1) {
-          this._repeat -= 1
+          this._repeat -= 1;
         }
-        this.dispatchEvent(new CustomEvent<TimeoutEventMap['timeout']>('timeout'))
-      }
-      else if (this._repeat === 0) {
-        this.#isComplete = true
-        this.dispatchEvent(new CustomEvent<TimeoutEventMap['complete']>('complete'))
+        this.dispatchEvent(new CustomEvent<TimeoutEventMap["timeout"]>("timeout"));
+      } else if (this._repeat === 0) {
+        this.#isComplete = true;
+        this.dispatchEvent(new CustomEvent<TimeoutEventMap["complete"]>("complete"));
       }
     }
   }
