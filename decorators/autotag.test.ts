@@ -1,26 +1,26 @@
 import { describe, expect, it } from "vite-plus/test";
 import { autotag } from "./autotag.js";
 
-describe("autotag decorator", () => {
-  it("sets Symbol.toStringTag on instances to class name", () => {
+describe("autotag デコレーター", () => {
+  it("インスタンスの Symbol.toStringTag にクラス名を設定する", () => {
     @autotag
     class Foo {}
     const f = new Foo();
     expect(Object.prototype.toString.call(f)).toBe("[object [Foo]]");
   });
 
-  it("returns the same constructor and sets prototype tag for function constructors", () => {
+  it("関数コンストラクターをそのまま返し、prototype にタグを設定する", () => {
     function Bar() {}
     const ret = autotag(Bar);
     expect(ret).toBe(Bar);
     expect(Bar.prototype[Symbol.toStringTag]).toBe("[Bar]");
   });
 
-  it("does nothing when prototype is not an object", () => {
+  it("prototype が null の場合は変更しない", () => {
     const Ctor = function CtorNoProto() {};
-    (Ctor as unknown as any).prototype = null;
+    Ctor.prototype = null;
     const ret = autotag(Ctor);
     expect(ret).toBe(Ctor);
-    expect((Ctor as any).prototype).toBeNull();
+    expect(Ctor.prototype).toBeNull();
   });
 });
