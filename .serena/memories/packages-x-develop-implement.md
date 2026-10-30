@@ -2,13 +2,13 @@
 
 ## スクリプト
 
-| スクリプト | 用途 |
-| --- | --- |
-| `pnpm lint` | ESLint による静的解析 |
-| `pnpm lint:fix` | ESLint による自動修正 |
-| `pnpm build` | tsdown でビルド（`dist/` に出力） |
-| `pnpm watch` | tsdown のウォッチモード |
-| `pnpm test` | vitest による全テスト実行（coverage 付き） |
+| スクリプト      | 用途                                       |
+| --------------- | ------------------------------------------ |
+| `pnpm lint`     | ESLint による静的解析                      |
+| `pnpm lint:fix` | ESLint による自動修正                      |
+| `pnpm build`    | tsdown でビルド（`dist/` に出力）          |
+| `pnpm watch`    | tsdown のウォッチモード                    |
+| `pnpm test`     | vitest による全テスト実行（coverage 付き） |
 
 ## タスク完了後のスクリプト処理
 
@@ -36,11 +36,11 @@ ls -la dist/
 
 ### エラー時の対応
 
-| エラー | 確認項目 |
-| --- | --- |
-| TypeScript エラー（build 時） | `tsconfig.json` の `include`/`exclude` と paths 確認 |
-| ESLint エラー | `eslint.config.mjs` の rules 確認、`@antfu/eslint-config` の型確認 |
-| vitest エラー | `vitest.config.ts` の environment と include パターン確認 |
+| エラー                        | 確認項目                                                           |
+| ----------------------------- | ------------------------------------------------------------------ |
+| TypeScript エラー（build 時） | `tsconfig.json` の `include`/`exclude` と paths 確認               |
+| ESLint エラー                 | `eslint.config.mjs` の rules 確認、`@antfu/eslint-config` の型確認 |
+| vitest エラー                 | `vitest.config.ts` の environment と include パターン確認          |
 
 ### Coverage 目標
 

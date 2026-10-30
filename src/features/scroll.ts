@@ -1,4 +1,4 @@
-import { qs } from '../web/document.js'
+import { qs } from "x/web/document";
 
 /**
  * スムーススクロールで指定トップ位置へ移動する。
@@ -8,11 +8,11 @@ import { qs } from '../web/document.js'
 export function scrollTo(top: number): void {
   window.scrollTo({
     top,
-    behavior: 'smooth',
-  })
+    behavior: "smooth",
+  });
 }
 
-let py: number
+let py: number;
 
 /**
  * 指定コンテナを固定表示状態にする（スクロール位置を保持）。
@@ -20,10 +20,10 @@ let py: number
  * @param container - 固定対象の HTMLElement
  */
 export function scrollFix(container: HTMLElement): void {
-  const target = container
-  py = window.scrollY
-  target.classList.add('fixed')
-  target.style.top = `-${py}px`
+  const target = container;
+  py = window.scrollY;
+  target.classList.add("fixed");
+  target.style.top = `-${py}px`;
 }
 
 /**
@@ -32,10 +32,10 @@ export function scrollFix(container: HTMLElement): void {
  * @param container - 固定解除対象の HTMLElement
  */
 export function scrollUnfix(container: HTMLElement): void {
-  const target = container
-  target.classList.remove('fixed')
-  target.style.top = ''
-  window.scroll(0, py)
+  const target = container;
+  target.classList.remove("fixed");
+  target.style.top = "";
+  window.scroll(0, py);
 }
 
 /**
@@ -43,15 +43,14 @@ export function scrollUnfix(container: HTMLElement): void {
  *
  * @param btnClassName - ボタンのセレクタ（デフォルト '.btn-totop'）
  */
-export function setupScrollToTop(btnClassName = '.btn-totop'): void {
-  const button = qs(btnClassName)
+export function setupScrollToTop(btnClassName = ".btn-totop"): void {
+  const button = qs(btnClassName);
   if (button) {
-    button.addEventListener('click', (e: Event) => {
-      e.preventDefault()
-      scrollTo(0)
-    })
-  }
-  else {
-    console.warn('[x] setupScrollToTop - no button')
+    button.addEventListener("click", (e: Event) => {
+      e.preventDefault();
+      scrollTo(0);
+    });
+  } else {
+    console.warn("[x] setupScrollToTop - no button");
   }
 }

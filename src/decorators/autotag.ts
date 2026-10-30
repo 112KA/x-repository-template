@@ -28,14 +28,14 @@
  */
 export const autotag: ClassDecorator = (constructor) => {
   if (constructor.prototype !== null) {
-    const name = constructor.name ?? 'Object'
+    const name = constructor.name ?? "Object";
     // Symbol.toStringTag を設定（非列挙、再設定可能）
     Object.defineProperty(constructor.prototype, Symbol.toStringTag, {
       value: `[${name}]`,
       writable: false,
       configurable: true,
       enumerable: false,
-    })
+    });
   }
-  return constructor
-}
+  return constructor;
+};

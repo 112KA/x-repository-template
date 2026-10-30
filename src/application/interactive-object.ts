@@ -1,5 +1,4 @@
-import { autotag } from 'x/decorators/autotag.js'
-import { ExtendEventTarget } from './extend-event-target.js'
+import { ExtendEventTarget } from "./extend-event-target";
 
 /**
  * InteractiveObject
@@ -10,7 +9,6 @@ import { ExtendEventTarget } from './extend-event-target.js'
  * ExtendEventTarget を継承し、プロパティ変更の CustomEvent 発火や
  * リスナー追跡機能を利用します。
  */
-@autotag
 export class InteractiveObject extends ExtendEventTarget {
   /**
    * コンストラクタ
@@ -19,12 +17,12 @@ export class InteractiveObject extends ExtendEventTarget {
    * @param isAddEventListeners true の場合、デフォルトの pointer リスナーを自動追加
    */
   constructor(targetElement: HTMLElement | Window, isAddEventListeners = true) {
-    super()
+    super();
 
-    this.set({ targetElement })
+    this.set({ targetElement });
 
     if (isAddEventListeners) {
-      this.addEventListeners(targetElement)
+      this.addEventListeners(targetElement);
     }
   }
 
@@ -34,10 +32,10 @@ export class InteractiveObject extends ExtendEventTarget {
    * @param targetElement イベントを追加する HTMLElement または Window
    */
   protected addEventListeners(targetElement: HTMLElement | Window): void {
-    targetElement.addEventListener('pointerdown', this._bubble)
-    targetElement.addEventListener('pointermove', this._bubble)
-    targetElement.addEventListener('pointerup', this._bubble)
-    targetElement.addEventListener('pointerleave', this._bubble)
+    targetElement.addEventListener("pointerdown", this._bubble);
+    targetElement.addEventListener("pointermove", this._bubble);
+    targetElement.addEventListener("pointerup", this._bubble);
+    targetElement.addEventListener("pointerleave", this._bubble);
   }
 
   /**
@@ -46,11 +44,11 @@ export class InteractiveObject extends ExtendEventTarget {
    * 内部で保持している targetElement から登録した pointer イベントを取り除きます。
    */
   dispose(): void {
-    const targetElement = this.get('targetElement') as HTMLElement
-    targetElement.removeEventListener('pointerdown', this._bubble)
-    targetElement.removeEventListener('pointermove', this._bubble)
-    targetElement.removeEventListener('pointerup', this._bubble)
-    targetElement.removeEventListener('pointerleave', this._bubble)
+    const targetElement = this.get("targetElement") as HTMLElement;
+    targetElement.removeEventListener("pointerdown", this._bubble);
+    targetElement.removeEventListener("pointermove", this._bubble);
+    targetElement.removeEventListener("pointerup", this._bubble);
+    targetElement.removeEventListener("pointerleave", this._bubble);
   }
 
   /**
@@ -62,8 +60,9 @@ export class InteractiveObject extends ExtendEventTarget {
    * @param e 元の Event
    */
   protected _bubble = (e: Event): void => {
-    this.dispatchEvent(new (e as any).constructor(e.type, e))
-  }
+    // oxlint-disable-next-line new-cap
+    this.dispatchEvent(new (e as any).constructor(e.type, e));
+  };
 
   /**
    * イベントを破棄（preventDefault）します。
@@ -72,5 +71,5 @@ export class InteractiveObject extends ExtendEventTarget {
    *
    * @param e 対象の Event
    */
-  protected _discard = (e: Event): void => e.preventDefault()
+  protected _discard = (e: Event): void => e.preventDefault();
 }

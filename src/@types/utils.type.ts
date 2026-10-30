@@ -12,7 +12,7 @@
  * @remarks
  * DOM API や外部入力など、値が null になり得る箇所の型注釈に使用します。
  */
-export type Nullable<T> = T | null
+export type Nullable<T> = T | null;
 
 /**
  * PartiallyPartial<T, K>
@@ -33,7 +33,7 @@ export type Nullable<T> = T | null
  * @remarks
  * 特定のプロパティのみを optional にしたい場合に便利です。既存の型の他のプロパティには影響を与えません。
  */
-export type PartiallyPartial<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+export type PartiallyPartial<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 /**
  * ValueOf<T>
@@ -50,4 +50,4 @@ export type PartiallyPartial<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T
  * @remarks
  * マップ状のオブジェクトから値型のユニオンを取得したい場面で使用します。
  */
-export type ValueOf<T> = T[keyof T]
+export type ValueOf<T> = T[keyof T];

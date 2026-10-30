@@ -21,7 +21,7 @@ export class Vector3 {
    * @returns 新しい Vector3 インスタンス（同じ成分）
    */
   clone(): Vector3 {
-    return new Vector3(this.x, this.y, this.z)
+    return new Vector3(this.x, this.y, this.z);
   }
 
   /**
@@ -33,10 +33,10 @@ export class Vector3 {
    * @returns this
    */
   set(x: number, y: number, z: number): Vector3 {
-    this.x = x
-    this.y = y
-    this.z = z
-    return this
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    return this;
   }
 
   /**
@@ -46,10 +46,10 @@ export class Vector3 {
    * @returns this
    */
   add(v: Vector3): Vector3 {
-    this.x += v.x
-    this.y += v.y
-    this.z += v.z
-    return this
+    this.x += v.x;
+    this.y += v.y;
+    this.z += v.z;
+    return this;
   }
 
   /**
@@ -59,10 +59,10 @@ export class Vector3 {
    * @returns this
    */
   subtract(v: Vector3): Vector3 {
-    this.x -= v.x
-    this.y -= v.y
-    this.z -= v.z
-    return this
+    this.x -= v.x;
+    this.y -= v.y;
+    this.z -= v.z;
+    return this;
   }
 
   /**
@@ -72,10 +72,10 @@ export class Vector3 {
    * @returns this
    */
   scale(s: number): Vector3 {
-    this.x *= s
-    this.y *= s
-    this.z *= s
-    return this
+    this.x *= s;
+    this.y *= s;
+    this.z *= s;
+    return this;
   }
 
   /**
@@ -85,10 +85,10 @@ export class Vector3 {
    * @returns ユークリッド距離
    */
   distance(v: Vector3): number {
-    const dx = v.x - this.x
-    const dy = v.y - this.y
-    const dz = v.z - this.z
-    return Math.sqrt(dx * dx + dy * dy + dz * dz)
+    const dx = v.x - this.x;
+    const dy = v.y - this.y;
+    const dz = v.z - this.z;
+    return Math.sqrt(dx * dx + dy * dy + dz * dz);
   }
 
   /**
@@ -97,11 +97,11 @@ export class Vector3 {
    * @returns this
    */
   roundZero(): Vector3 {
-    this.x = this.x === 0 ? 0 : this.x < -0.01 ? this.x : this.x > 0.01 ? this.x : 0
-    this.y = this.y === 0 ? 0 : this.y < -0.01 ? this.y : this.y > 0.01 ? this.y : 0
-    this.z = this.z === 0 ? 0 : this.z < -0.01 ? this.z : this.z > 0.01 ? this.z : 0
+    this.x = this.x === 0 ? 0 : this.x < -0.01 ? this.x : this.x > 0.01 ? this.x : 0;
+    this.y = this.y === 0 ? 0 : this.y < -0.01 ? this.y : this.y > 0.01 ? this.y : 0;
+    this.z = this.z === 0 ? 0 : this.z < -0.01 ? this.z : this.z > 0.01 ? this.z : 0;
 
-    return this
+    return this;
   }
 
   /**
@@ -110,6 +110,6 @@ export class Vector3 {
    * @returns "x: ..., y: ..., z: ..."
    */
   toString(): string {
-    return `x: ${this.x}, y: ${this.y}, z: ${this.z}`
+    return `x: ${this.x}, y: ${this.y}, z: ${this.z}`;
   }
 }
