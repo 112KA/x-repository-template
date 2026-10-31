@@ -19,7 +19,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "pnpm exec vite --host localhost --port 5173",
+    command: "pnpm dev",
     url: "https://localhost:5173",
     ignoreHTTPSErrors: true,
     reuseExistingServer: !process.env.CI,

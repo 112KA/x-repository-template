@@ -3,6 +3,7 @@
     "target": "ES2022",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "moduleDetection": "force",
+    "jsx": "react-jsx",
     "useDefineForClassFields": true,
     "module": "ESNext",
 
@@ -12,7 +13,8 @@
       "@/*": ["./src/*"],
       "@112ka/x/*": ["./node_modules/@112ka/x/dist/*"]
     },
-    "types": ["vite/client"],
+    "rootDirs": [".", "./.react-router/types"],
+    "types": ["node", "vite/client"],
     "allowImportingTsExtensions": true,
 
     /* Linting */
@@ -26,6 +28,6 @@
     "skipLibCheck": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "public", "dist"]
+  "include": ["**/*", ".react-router/types/**/*"],
+  "exclude": ["node_modules", "public", "dist", "playwright-report", "test-results"]
 }

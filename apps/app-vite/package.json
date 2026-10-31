@@ -7,16 +7,26 @@
     "lint": "vp lint",
     "lint:fix": "vp lint --fix",
     "dev": "vp dev",
-    "build": "tsc && vp build",
+    "build": "tsc && react-router build",
     "preview": "vp preview",
     "test:e2e": "pnpm playwright test"
   },
   "dependencies": {
-    "@112ka/x": "workspace:@112ka/x@*"
+    "@112ka/x": "workspace:@112ka/x@*",
+    "class-variance-authority": "0.7.1",
+    "gsap": "3.15.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-router": "8.5.1",
+    "tailwind-merge": "3.7.0",
+    "isbot": "^5"
   },
   "devDependencies": {
     "@playwright/test": "catalog:",
+    "@react-router/dev": "8.5.1",
     "@tailwindcss/vite": "catalog:",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "@vitejs/plugin-basic-ssl": "catalog:",
     "tailwindcss": "catalog:",
     "vite": "catalog:",
