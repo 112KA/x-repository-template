@@ -5,6 +5,8 @@ import { defineConfig, lazyPlugins } from "vite-plus";
 export default defineConfig({
   plugins: lazyPlugins(() => [tailwindcss(), basicSsl()]),
   server: {
-    strictPort: false,
+    host: "0.0.0.0",
+    port: 5173,
+    strictPort: true,
   },
 });
