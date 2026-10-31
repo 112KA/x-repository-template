@@ -8,7 +8,7 @@ test.describe("Smoke Test (Minimum Render Check)", () => {
     const response = await page.goto("/");
     expect(response?.status()).toBe(200);
 
-    await expect(page).toHaveTitle("app-vite-vanilla");
+    await expect(page).toHaveTitle("app-vite");
     await expect(page.getByRole("heading", { name: "Vite + TypeScript" })).toBeVisible();
     const counter = page.getByRole("button", { name: "count is 0" });
     await counter.click();

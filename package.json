@@ -7,7 +7,7 @@
   "scripts": {
     "app": "pnpm app:nextjs",
     "app:nextjs": "pnpm -F app-nextjs",
-    "app:vite": "pnpm -F app-vite-vanilla",
+    "app:vite": "pnpm -F app-vite",
     "x": "pnpm -F @112ka/x",
     "x3": "pnpm -F @112ka/x3",
     "x-lib": "pnpm -F x-lib",

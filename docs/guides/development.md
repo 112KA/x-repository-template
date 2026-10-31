@@ -30,7 +30,7 @@ cd apps/app-nextjs
 pnpm dev
 
 # Vite アプリ
-cd apps/app-vite-vanilla
+cd apps/app-vite
 pnpm dev
 ```
 
@@ -101,7 +101,7 @@ apps/
 │   ├── src/components/  React コンポーネント
 │   ├── src/lib/         ユーティリティ関数
 │   └── public/          静的ファイル
-└── app-vite-vanilla/    Vite + Vanilla TypeScript
+└── app-vite/    Vite + Vanilla TypeScript
     ├── src/            TypeScript ソース
     └── public/         静的ファイル
 ```
@@ -273,7 +273,7 @@ pnpm start
 ### デプロイ対象
 
 - **Next.js**: `apps/app-nextjs/.next/` + `public/`
-- **Vite**: `apps/app-vite-vanilla/dist/`
+- **Vite**: `apps/app-vite/dist/`
 
 ## デバッグ
 
