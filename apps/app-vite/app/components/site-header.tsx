@@ -8,7 +8,7 @@ import {
 
 export function SiteHeader() {
   return (
-    <header className="sticky border-b p-4">
+    <header className="sticky top-0 border-b bg-background p-4">
       <NavigationMenu aria-label="メインナビゲーション">
         <NavigationMenuList>
           <NavigationMenuItem>

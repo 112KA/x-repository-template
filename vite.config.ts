@@ -1,7 +1,13 @@
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
-  fmt: {},
+  fmt: {
+    sortTailwindcss: {
+      stylesheet: "./apps/app-vite/app/global.css",
+      functions: ["clsx", "cn"],
+      preserveWhitespace: true,
+    },
+  },
   lint: {
     plugins: ["oxc", "typescript", "unicorn", "react", "import"],
     jsPlugins: [

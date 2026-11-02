@@ -1,7 +1,4 @@
-
-
 export default function Index() {
-
   return (
     <section>
       <h1>トップページ</h1>

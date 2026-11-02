@@ -3,6 +3,7 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import "./global.css";
 import { SiteHeader } from "@/components/site-header";
 import { ViewTransition } from "react";
+import { useViewportHeight } from "./hooks/use-viewport-height";
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -11,6 +12,12 @@ export function Layout({ children }: { children: ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap"
+          rel="stylesheet"
+        />
         <Meta />
         <Links />
       </head>
@@ -28,15 +35,16 @@ export function meta() {
 }
 
 export default function App() {
+  useViewportHeight();
+
   return (
     <>
       <SiteHeader />
-      
+
       <ViewTransition>
-        <main>
+        <main className="min-h-viewport">
           <Outlet />
         </main>
-
       </ViewTransition>
     </>
   );
