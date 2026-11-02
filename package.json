@@ -27,7 +27,7 @@
     "@tsconfig/recommended": "1.0.13",
     "@types/node": "26.6.6",
     "concurrently": "10.0.6",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "vite": "catalog:",
     "vite-plus": "catalog:"
   },

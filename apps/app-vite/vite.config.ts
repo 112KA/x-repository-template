@@ -4,6 +4,7 @@ import basicSsl from "@vitejs/plugin-basic-ssl";
 import { defineConfig, lazyPlugins } from "vite-plus";
 
 export default defineConfig(({ command, isPreview }) => ({
+  base: "/",
   resolve: {
     tsconfigPaths: true,
   },
