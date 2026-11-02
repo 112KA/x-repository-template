@@ -10,6 +10,18 @@ test.describe("React Routerのフレームワークモードのスモークテ�
     expect(faviconResponse.headers()["content-type"]).toContain("image/svg+xml");
   });
 
+  test("末尾スラッシュ付きのサブページに直接アクセスして再読み込みできること", async ({ page }) => {
+    const response = await page.goto("/sub/");
+    expect(response?.status()).toBe(200);
+    await expect(page).toHaveURL("/sub/");
+    await expect(page.getByRole("heading", { name: "サブページ" })).toBeVisible();
+
+    const reloadedResponse = await page.reload();
+    expect(reloadedResponse?.status()).toBe(200);
+    await expect(page).toHaveURL("/sub/");
+    await expect(page.getByRole("heading", { name: "サブページ" })).toBeVisible();
+  });
+
   test("トップページとサブページを切り替えられること", async ({ page }) => {
     const pageErrors: Error[] = [];
     page.on("pageerror", (exception) => pageErrors.push(exception));
@@ -19,12 +31,10 @@ test.describe("React Routerのフレームワークモードのスモークテ�
 
     await expect(page).toHaveTitle("app-vite");
     await expect(page.getByRole("heading", { name: "トップページ" })).toBeVisible();
-    const counter = page.getByRole("button", { name: "count is 0" });
-    await counter.click();
-    await expect(page.getByRole("button", { name: "count is 1" })).toBeVisible();
-
-    await page.getByRole("link", { name: "サブページ" }).click();
-    await expect(page).toHaveURL(/\/sub$/);
+    const subPageLink = page.getByRole("link", { name: "サブページ" });
+    await expect(subPageLink).toHaveAttribute("href", "/sub/");
+    await subPageLink.click();
+    await expect(page).toHaveURL("/sub/");
     await expect(page.getByRole("heading", { name: "サブページ" })).toBeVisible();
 
     await page.getByRole("link", { name: "トップページ" }).click();

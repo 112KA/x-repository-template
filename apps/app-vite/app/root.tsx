@@ -38,7 +38,7 @@ export default function App() {
       <header>
         <nav aria-label="メインナビゲーション">
           <Link to="/">トップページ</Link>
-          <Link to="/sub">サブページ</Link>
+          <Link to="/sub/">サブページ</Link>
         </nav>
       </header>
       <main>

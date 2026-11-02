@@ -10,7 +10,7 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./app/*"],
       "@112ka/x/*": ["./node_modules/@112ka/x/dist/*"]
     },
     "rootDirs": [".", "./.react-router/types"],
