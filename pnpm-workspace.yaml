@@ -1,6 +1,5 @@
 allowBuilds:
   esbuild: true
-  sharp: set this to true or false
   simple-git-hooks: true
 
 engineStrict: true
