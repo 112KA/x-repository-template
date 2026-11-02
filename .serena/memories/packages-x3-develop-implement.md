@@ -2,12 +2,12 @@
 
 ## スクリプト
 
-| スクリプト | 用途 |
-| --- | --- |
-| `pnpm lint` | ESLint による静的解析 |
-| `pnpm lint:fix` | ESLint による自動修正 |
-| `pnpm build` | tsdown でビルド（`dist/` に出力） |
-| `pnpm watch` | tsdown のウォッチモード |
+| スクリプト      | 用途                              |
+| --------------- | --------------------------------- |
+| `pnpm lint`     | ESLint による静的解析             |
+| `pnpm lint:fix` | ESLint による自動修正             |
+| `pnpm build`    | tsdown でビルド（`dist/` に出力） |
+| `pnpm watch`    | tsdown のウォッチモード           |
 
 ## タスク完了後の lint, test, build のスクリプト処理
 
@@ -31,12 +31,12 @@ ls -la dist/
 
 ### エラー時の対応
 
-| エラー | 確認項目 |
-| --- | --- |
-| TypeScript エラー（build 時） | `tsconfig.json` の paths（x3/*, @112ka/x, three）と `src/**/*.ts` の include 確認 |
-| ESLint エラー | `eslint.config.mjs` の rules 確認、`@antfu/eslint-config` の lib 型確認 |
-| 依存解決エラー（build 時） | `tsconfig.json` の moduleResolution: bundler 確認、node_modules/@types タイムスタンプ確認 |
-| Three.js 型エラー | `@types/three` が `package.json` devDependencies に存在し、バージョン 0.182.0 と整合していることを確認 |
+| エラー                        | 確認項目                                                                                               |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------ |
+| TypeScript エラー（build 時） | `tsconfig.json` の paths（x3/*, @112ka/x, three）と `src/**/*.ts` の include 確認                      |
+| ESLint エラー                 | `eslint.config.mjs` の rules 確認、`@antfu/eslint-config` の lib 型確認                                |
+| 依存解決エラー（build 時）    | `tsconfig.json` の moduleResolution: bundler 確認、node_modules/@types タイムスタンプ確認              |
+| Three.js 型エラー             | `@types/three` が `package.json` devDependencies に存在し、バージョン 0.182.0 と整合していることを確認 |
 
 ### ホットリロードと開発フロー
 

@@ -1,5 +1,5 @@
-import type { RendererConfig } from './renderer'
+import type { RendererConfig } from "./renderer/types";
 
 export interface ApplicationConfig {
-  renderer?: RendererConfig
+  renderer?: RendererConfig;
 }

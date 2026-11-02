@@ -1,16 +1,16 @@
-import type { WebGPURenderer } from 'three/webgpu'
-import type { PostProcessingHostContext } from './types'
-import { PostProcessing } from 'three/webgpu'
+import type { WebGPURenderer } from "three/webgpu";
+import type { PostProcessingHostContext } from "./types";
+import { PostProcessing } from "three/webgpu";
 
 export abstract class AbstractPostProcessing extends PostProcessing {
   constructor(protected hostContext: PostProcessingHostContext) {
-    const { rendererAdapter } = hostContext
-    super(rendererAdapter.renderer as WebGPURenderer)
+    const { rendererAdapter } = hostContext;
+    super(rendererAdapter.renderer as WebGPURenderer);
 
-    rendererAdapter.addPostProcessing(this)
+    rendererAdapter.addPostProcessing(this);
   }
 
-  abstract update(): void
+  abstract update(): void;
 
-  abstract resize(): void
+  abstract resize(): void;
 }
