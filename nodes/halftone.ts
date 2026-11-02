@@ -1,17 +1,7 @@
-import type { ShaderNodeObject } from 'three/tsl'
-import type { Color, UniformNode, Vector3 } from 'three/webgpu'
-import { Fn, mix, rotate, screenCoordinate, screenSize, sin, vec4 } from 'three/tsl'
+import type { Node } from "three/webgpu";
+import { Fn, mix, rotate, screenCoordinate, screenSize, sin, vec4 } from "three/tsl";
 
-export type HalftoneTuple = [
-  ShaderNodeObject<UniformNode<number>>,
-  ShaderNodeObject<UniformNode<Color>>,
-  ShaderNodeObject<UniformNode<Vector3>>,
-  ShaderNodeObject<UniformNode<number>>,
-  ShaderNodeObject<UniformNode<number>>,
-  ShaderNodeObject<UniformNode<number>>,
-  ShaderNodeObject<UniformNode<number>>,
-  ShaderNodeObject<UniformNode<number>>,
-]
+export type HalftoneTuple = [Node, Node, Node, Node, Node, Node, Node, Node];
 
 /**
  * Dot pattern
@@ -21,12 +11,12 @@ export const dotPattern = /* @__PURE__ */ Fn(
   ([count, color, direction, start, end, radius, mixLow, mixHigh]: HalftoneTuple) => {
     // grid pattern
 
-    const gridUv = screenCoordinate.xy.div(screenSize.yy).mul(count)
-    const rotatedGridUv = rotate(gridUv, Math.PI * 0.25).mod(1)
+    const gridUv = screenCoordinate.xy.div(screenSize.yy).mul(count);
+    const rotatedGridUv = rotate(gridUv, Math.PI * 0.25).mod(1);
 
     // orientation strength
 
-    const orientationStrength = direction.remapClamp(end, start, 0, 1)
+    const orientationStrength = direction.remapClamp(end, start, 0, 1);
 
     // mask
 
@@ -34,11 +24,11 @@ export const dotPattern = /* @__PURE__ */ Fn(
       .sub(0.5)
       .length()
       .step(orientationStrength.mul(radius).mul(0.5))
-      .mul(mix(mixLow, mixHigh, orientationStrength))
+      .mul(mix(mixLow, mixHigh, orientationStrength));
 
-    return vec4(color, mask)
+    return vec4(color, mask);
   },
-)
+);
 
 /**
  * Dot pattern
@@ -48,19 +38,19 @@ export const linePattern = /* @__PURE__ */ Fn(
   ([count, color, direction, start, end, radius, mixLow, mixHigh]: HalftoneTuple) => {
     // grid pattern
 
-    const gridUv = screenCoordinate.xy.div(screenSize.yy).mul(count)
+    const gridUv = screenCoordinate.xy.div(screenSize.yy).mul(count);
 
     // orientation strength
 
-    const orientationStrength = direction.remapClamp(end, start, 0, 1)
+    const orientationStrength = direction.remapClamp(end, start, 0, 1);
 
     // mask
 
     const mask = sin(gridUv.x.add(gridUv.y))
       .oneMinus()
       .step(orientationStrength.mul(radius))
-      .mul(mix(mixLow, mixHigh, orientationStrength))
+      .mul(mix(mixLow, mixHigh, orientationStrength));
 
-    return vec4(color, mask)
+    return vec4(color, mask);
   },
-)
+);

@@ -1,23 +1,23 @@
-import type { ApplicationBase } from '../application-base'
-import type { IPlugin } from './types.js'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { PluginInitializationPhase } from './types.js'
+import type { ApplicationBase } from "../application-base";
+import type { IPlugin } from "./types.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { PluginInitializationPhase } from "./types.js";
 
 export class OrbitControlsPlugin implements IPlugin {
-  public name = 'orbitControls'
-  public version = '1.0.0'
-  public initializationPhase = PluginInitializationPhase.AfterScene
+  public name = "orbitControls";
+  public version = "1.0.0";
+  public initializationPhase = PluginInitializationPhase.AfterScene;
 
-  private controls!: OrbitControls
+  private controls!: OrbitControls;
 
   initialize(app: ApplicationBase): void {
-    this.controls = new OrbitControls(app.camera, app.$wrapper)
-    this.controls.enableDamping = true
-    this.controls.dampingFactor = 0.25
+    this.controls = new OrbitControls(app.camera, app.$wrapper);
+    this.controls.enableDamping = true;
+    this.controls.dampingFactor = 0.25;
   }
 
   update(): void {
-    this.controls.update()
+    this.controls.update();
   }
 
   resize(_width: number, _height: number): void {
@@ -25,6 +25,6 @@ export class OrbitControlsPlugin implements IPlugin {
   }
 
   destroy(): void {
-    this.controls.dispose()
+    this.controls.dispose();
   }
 }
