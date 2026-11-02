@@ -4,6 +4,9 @@ import basicSsl from "@vitejs/plugin-basic-ssl";
 import { defineConfig, lazyPlugins } from "vite-plus";
 
 export default defineConfig(({ command, isPreview }) => ({
+  resolve: {
+    tsconfigPaths: true,
+  },
   plugins: lazyPlugins(() => [
     tailwindcss(),
     reactRouter(),

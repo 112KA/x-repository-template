@@ -36,6 +36,8 @@ pnpm dev
 
 Vite アプリは `https://localhost:5173/` で起動します。リモート環境でのポート転送に対応するため、`0.0.0.0` で待ち受けます。ネットワーク上の他の端末からも接続可能になるため、信頼できる開発環境で使用してください。ポート 5173 が使用中の場合は、別ポートに切り替えず起動エラーになります。HTTPS は自己署名証明書を使用するため、ブラウザーで証明書の信頼設定が必要になる場合があります。
 
+Vite アプリの `@/` エイリアスは `apps/app-vite/app/` を参照します。`tsconfig.json` の `compilerOptions.paths` を開発サーバーとビルドでも使用するため、`vite.config.ts` で `resolve.tsconfigPaths: true` を設定しています。
+
 ## よく使うコマンド
 
 ### ビルド
@@ -273,7 +275,7 @@ pnpm start
 ### デプロイ対象
 
 - **Next.js**: `apps/app-nextjs/.next/` + `public/`
-- **Vite**: `apps/app-vite/dist/`
+- **Vite**: `apps/app-vite/build/client/`
 
 ## デバッグ
 

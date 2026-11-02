@@ -1,13 +1,7 @@
 import type { ReactNode } from "react";
-import {
-  Links,
-  Link,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "react-router";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import "./global.css";
+import { SiteHeader } from "@/components/site-header";
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -35,12 +29,7 @@ export function meta() {
 export default function App() {
   return (
     <>
-      <header>
-        <nav aria-label="メインナビゲーション">
-          <Link to="/">トップページ</Link>
-          <Link to="/sub/">サブページ</Link>
-        </nav>
-      </header>
+      <SiteHeader />
       <main>
         <Outlet />
       </main>
