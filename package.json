@@ -38,10 +38,7 @@
     "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
-    "packages/x/**/*.{js,ts,jsx,tsx}": "pnpm x lint:fix --",
-    "packages/x-lib/**/*.{js,ts,jsx,tsx}": "pnpm x-lib lint:fix --",
-    "packages/x3/**/*.{js,ts,jsx,tsx}": "pnpm x3 lint:fix --",
-    "apps/app-vite/**/*.{js,ts,jsx,tsx}": "pnpm app:vite lint:fix --"
+    "*.*": "pnpm check:fix"
   },
   "devEngines": {
     "packageManager": {

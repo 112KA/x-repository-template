@@ -20,6 +20,11 @@ export function Layout({ children }: { children: ReactNode }) {
         />
         <Meta />
         <Links />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if(localStorage.getItem("theme")==="dark"){document.documentElement.classList.add("dark")}`,
+          }}
+        />
       </head>
       <body>
         {children}

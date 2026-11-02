@@ -5,12 +5,13 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import { ThemeSwitch } from "@/components/theme-switch";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 border-b bg-background p-4">
+    <header className="sticky top-0 flex items-center justify-between gap-4 border-b bg-background p-4">
       <NavigationMenu aria-label="メインナビゲーション">
-        <NavigationMenuList>
+        <NavigationMenuList className="gap-4">
           <NavigationMenuItem>
             <NavigationMenuLink render={<Link to="/" />}>トップページ</NavigationMenuLink>
           </NavigationMenuItem>
@@ -19,6 +20,7 @@ export function SiteHeader() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
+      <ThemeSwitch />
     </header>
   );
 }
