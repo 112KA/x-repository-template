@@ -1,5 +1,11 @@
 # @112ka/x
 
+## 0.0.12
+
+### Patch Changes
+
+- ファイル拡張子なしでも import できるようにしたい
+
 ## 0.0.11
 
 ### Patch Changes
