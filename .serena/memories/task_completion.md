@@ -1,7 +1,7 @@
 # Task completion checklist
 
-- Run linting: pnpm lint (or pnpm lint:fix if needed).
-- Run tests relevant to the change (pnpm testAll or package-specific pnpm x test, etc.).
-- If updating app-nextjs page definitions: update src/lib/page-definitions.generated.ts and/or run pnpm app:nextjs generate:pages.
-- If adding new package exports: update packages/\*/src/index.ts and build as needed.
-- Be aware of repo hooks: simple-git-hooks runs lint-staged on pre-commit.
+- 変更したパッケージに応じて lint/check を実行: packages/x は pnpm x lint, apps/app-vite は pnpm check (vp check)。
+- 関連テストを実行: pnpm testAll または pnpm x test。
+- packages/x の export を追加した場合は src/index.ts 更新とビルド (pnpm build:x)。
+- pre-commit で lint-staged が走るため、コミット前に lint:fix が通ることを確認。
+- vp check が環境で失敗する場合は `vp env doctor` で診断。

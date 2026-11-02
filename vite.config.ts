@@ -2,6 +2,7 @@ import { defineConfig } from "vite-plus";
 
 export default defineConfig({
   fmt: {
+    ignorePatterns: ["**/.react-router"],
     sortTailwindcss: {
       stylesheet: "./apps/app-vite/app/global.css",
       functions: ["clsx", "cn"],
@@ -57,6 +58,7 @@ export default defineConfig({
       "**/.cache",
       "**/.output",
       "**/.vite-inspect",
+      "**/.react-router",
       "**/.yarn",
       "**/CHANGELOG*.md",
       "**/LICENSE*",

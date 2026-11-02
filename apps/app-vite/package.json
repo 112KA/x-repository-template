@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "vp lint",
-    "lint:fix": "vp lint --fix",
+    "check": "vp check",
+    "check:fix": "vp check --fix",
     "dev": "vp dev",
     "build": "tsc && react-router build",
     "preview": "vp preview",
-    "test:e2e": "pnpm playwright test"
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@112ka/x": "workspace:@112ka/x@*",

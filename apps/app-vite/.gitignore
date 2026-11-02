@@ -24,4 +24,6 @@ dist-ssr
 *.sln
 *.sw?
 
-/playwright-report/
+.react-router
+playwright-report
+test-results

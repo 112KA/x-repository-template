@@ -2,48 +2,22 @@
 
 ## Setup
 
-- pnpm install
+- pnpm install (postinstall で pnpm build 実行)
 
-## Dev servers
+## Root scripts
 
-- pnpm dev:nextjs
-- pnpm dev:vite
+- pnpm dev / pnpm dev:vite: watch (@112ka/x, x3) + app-vite dev を concurrently で起動
+- pnpm build, pnpm build:x, pnpm build:x3
+- pnpm watch, pnpm watch:x, pnpm watch:x3
+- pnpm testAll: 全パッケージで pnpm -r test
+- pnpm check / pnpm check:fix: vp check (--fix)
+- pnpm app:vite <cmd>, pnpm x <cmd>, pnpm x3 <cmd>, pnpm x-lib <cmd>: 各パッケージの script 実行
 
-## Watch/build packages
+## Per package
 
-- pnpm watch
-- pnpm watch:x
-- pnpm watch:x3
-- pnpm build
-- pnpm build:x
-- pnpm build:x3
-
-## Lint/format
-
-- pnpm lint
-- pnpm lint:fix
-
-## Tests
-
-- pnpm testAll
-- pnpm x test
-
-## App-specific shortcuts
-
-- pnpm app:nextjs <command>
-- pnpm app:vite <command>
-- pnpm x <command>
-- pnpm x3 <command>
-- pnpm x-lib <command>
-
-## Next.js page definition tooling
-
-- pnpm app:nextjs generate:pages
+- packages/x: pnpm x lint, pnpm x lint:fix, pnpm x test (vp test --run --coverage)
+- apps/app-vite: pnpm app:vite check, pnpm app:vite test:e2e (playwright)
 
 ## System utilities (Linux)
 
-- ls, cd, pwd
-- cat, less
-- grep, rg
-- find
-- git status, git diff, git log
+- ls, cd, pwd, cat, less, grep, rg, find, git status/diff/log

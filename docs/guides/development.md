@@ -25,10 +25,6 @@ pnpm dev:nextjs        # Next.js
 特定のアプリケーションのみで作業する場合：
 
 ```bash
-# Next.js アプリ
-cd apps/app-nextjs
-pnpm dev
-
 # Vite アプリ
 cd apps/app-vite
 pnpm dev
@@ -98,13 +94,8 @@ pnpm app:nextjs build
 
 ```
 apps/
-├── app-nextjs/           Next.js メインアプリケーション
-│   ├── src/app/         App Router (route groups など)
-│   ├── src/components/  React コンポーネント
-│   ├── src/lib/         ユーティリティ関数
-│   └── public/          静的ファイル
-└── app-vite/    Vite + Vanilla TypeScript
-    ├── src/            TypeScript ソース
+└── app-vite/    Vite + React TypeScript
+    ├── app/            TypeScript ソース
     └── public/         静的ファイル
 ```
 
@@ -139,7 +130,7 @@ packages/
 内部パッケージは `workspace:*` プロトコルで参照：
 
 ```json
-// apps/app-nextjs/package.json
+// apps/app-vite/package.json
 {
   "dependencies": {
     "x": "workspace:@112ka/x@*"
@@ -240,7 +231,7 @@ npx tsc --version
 環境変数が必要な場合は `.env.local` を作成：
 
 ```bash
-# apps/app-nextjs/.env.local
+# apps/app-vite/.env.local
 NEXT_PUBLIC_API_URL=http://localhost:3000
 SECRET_KEY=your-secret
 ```
@@ -254,10 +245,7 @@ SECRET_KEY=your-secret
 ```bash
 # Full monorepo rebuild
 pnpm build
-pnpm app:nextjs build
-
-# Check output
-ls -la apps/app-nextjs/.next/
+pnpm app:vite build
 ```
 
 ### 本番ビルド
@@ -265,16 +253,15 @@ ls -la apps/app-nextjs/.next/
 ```bash
 # Optimize build
 NODE_ENV=production pnpm build
-NODE_ENV=production pnpm app:nextjs build
+NODE_ENV=production pnpm app:vite build
 
 # Start Next.js production server
-cd apps/app-nextjs
+cd apps/app-vite
 pnpm start
 ```
 
 ### デプロイ対象
 
-- **Next.js**: `apps/app-nextjs/.next/` + `public/`
 - **Vite**: `apps/app-vite/build/client/`
 
 ## デバッグ
@@ -305,7 +292,7 @@ ls -la packages/x/dist/
 ls -la packages/x3/dist/
 
 # node_modules でシンボリックリンクを確認
-ls -la apps/app-nextjs/node_modules/@112ka/
+ls -la apps/app-vite/node_modules/@112ka/
 ```
 
 ## トラブルシューティング
@@ -360,7 +347,7 @@ pnpm install
 
 ```bash
 # Next.js
-cd apps/app-nextjs
+cd apps/app-vite
 npm run build
 # .next/static/chunks/ を確認
 ```

@@ -17,7 +17,7 @@ on:
 
 env:
   BUCKET: my-bucket-name
-  DEPLOY_LOCAL_DIR: ./apps/app-nextjs/out
+  DEPLOY_LOCAL_DIR: ./apps/app-vite/build/client
 
 jobs:
   deploy:
@@ -61,9 +61,9 @@ jobs:
 
       - run: pnpm install
 
-      - name: Remove develop directory for staging/production
-        if: inputs.target == 'staging' || inputs.target == 'production'
-        run: rm -rf './apps/app-nextjs/src/app/(examples)'
+      # - name: Remove develop directory for staging/production
+      #   if: inputs.target == 'staging' || inputs.target == 'production'
+      #   run: rm -rf './apps/app-vite/src/app/(examples)'
 
       - run: pnpm app build
 

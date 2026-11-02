@@ -1,6 +1,7 @@
 ---
 name: generate-package-memory
-description: Monorepo内の特定パッケージを解析し、AIエージェントが効率的に動作するために必要な「基本・共通・実装」の3要素に特化した高密度な日本語ナレッジファイルを生成する。
+description: "Monorepo内の特定パッケージを解析し、AIエージェントが効率的に動作するために必要な「基本・共通・実装」の3要素に特化した高密度な日本語ナレッジファイルを生成する。"
+disable-model-invocation: true
 ---
 
 # `/generate-package-memory` Slash Command
@@ -17,7 +18,7 @@ description: Monorepo内の特定パッケージを解析し、AIエージェン
 
 - **対象環境**: monorepoリポジトリ内の特定の1パッケージ。
 - **利用ツール**: oraios/serena（AIコーディングエージェント）。
-- **ディレクトリ構造**: `{packages}` は親ディレクトリ、`{package}` は個別パッケージ名（例: `apps/app-nextjs`）。
+- **ディレクトリ構造**: `{packages}` は親ディレクトリ、`{package}` は個別パッケージ名（例: `apps/app-vite`）。
 - **目的の背景**: AIエージェントのコンテキスト負荷を軽減しつつ、依存関係や設計ルールを正確に伝達する。
 
 ## 4. Inputs

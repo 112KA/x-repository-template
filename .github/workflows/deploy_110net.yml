@@ -7,7 +7,7 @@ on:
 
 env:
   DEPLOY_BRANCH: develop
-  DEPLOY_LOCAL_DIR: ./apps/app-nextjs/out
+  DEPLOY_LOCAL_DIR: ./apps/app-vite/build/client
   DEPLOY_REMOTE_DIR: /home/1-10net/www/xxxx.1-10.net
 
 jobs:

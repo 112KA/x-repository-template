@@ -5,8 +5,7 @@
   "keywords": [],
   "author": "Masayuki Iizuka <mas.iizuka@gmail.com>",
   "scripts": {
-    "app": "pnpm app:nextjs",
-    "app:nextjs": "pnpm -F app-nextjs",
+    "app": "pnpm app:vite",
     "app:vite": "pnpm -F app-vite",
     "x": "pnpm -F @112ka/x",
     "x3": "pnpm -F @112ka/x3",
@@ -16,8 +15,7 @@
     "watch:x": "pnpm x watch",
     "watch:x3": "pnpm x3 watch",
     "watch": "pnpm -r -F @112ka/x -F @112ka/x3 watch",
-    "dev": "pnpm dev:nextjs",
-    "dev:nextjs": "concurrently \"pnpm watch\" \"pnpm app:nextjs dev\"",
+    "dev": "pnpm dev:vite",
     "dev:vite": "concurrently \"pnpm watch\" \"pnpm app:vite dev\"",
     "build:x": "pnpm x build",
     "build:x3": "pnpm x3 build",
@@ -43,7 +41,6 @@
     "packages/x/**/*.{js,ts,jsx,tsx}": "pnpm x lint:fix --",
     "packages/x-lib/**/*.{js,ts,jsx,tsx}": "pnpm x-lib lint:fix --",
     "packages/x3/**/*.{js,ts,jsx,tsx}": "pnpm x3 lint:fix --",
-    "apps/app-nextjs/**/*.{js,ts,jsx,tsx}": "pnpm app:nextjs lint:fix --",
     "apps/app-vite/**/*.{js,ts,jsx,tsx}": "pnpm app:vite lint:fix --"
   },
   "devEngines": {

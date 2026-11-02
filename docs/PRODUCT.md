@@ -59,8 +59,7 @@ TypeScript 5.9.3 Strict Mode、ESLint 9、Vitest などの標準設定が完備�
 ```
 x-repository-template/
 ├── apps/
-│   ├── app-nextjs/      # Next.js 16 メインアプリケーション
-│   └── app-vite/# Vite + Vanilla TypeScript
+│   └── app-vite/# Vite + React TypeScript
 ├── packages/
 │   ├── @112ka/x/        # コアライブラリ
 │   ├── @112ka/x3/       # 3D グラフィックス
