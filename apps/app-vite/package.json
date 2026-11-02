@@ -15,6 +15,7 @@
     "@112ka/x": "workspace:@112ka/x@*",
     "@base-ui/react": "1.9.0",
     "@fontsource-variable/geist": "5.3.0",
+    "@fontsource-variable/noto-sans-jp": "5.3.1",
     "@react-router/fs-routes": "8.5.1",
     "class-variance-authority": "0.7.1",
     "cn": "0.5.1",

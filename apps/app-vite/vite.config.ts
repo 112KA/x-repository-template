@@ -18,4 +18,8 @@ export default defineConfig(({ command, isPreview }) => ({
     port: 5173,
     strictPort: true,
   },
+  // 初回ページ読み込み中に依存が再最適化されると動的 import が失敗するため、事前にまとめて最適化する。
+  optimizeDeps: {
+    include: ["react", "react-dom/client", "react/jsx-runtime", "react-router", "react-router/dom"],
+  },
 }));
