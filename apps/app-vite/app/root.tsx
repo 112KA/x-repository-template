@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import "./global.css";
 import { SiteHeader } from "@/components/site-header";
+import { ViewTransition } from "react";
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -30,9 +31,13 @@ export default function App() {
   return (
     <>
       <SiteHeader />
-      <main>
-        <Outlet />
-      </main>
+      
+      <ViewTransition>
+        <main>
+          <Outlet />
+        </main>
+
+      </ViewTransition>
     </>
   );
 }
