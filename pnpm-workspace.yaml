@@ -18,14 +18,14 @@ packages:
   - packages/*
 catalog:
   "@playwright/test": 1.64.1
-  "@tailwindcss/vite": 4.3.3
+  "@tailwindcss/vite": 4.3.4
   "@vitejs/plugin-basic-ssl": 2.3.0
   eslint-plugin-tailwindcss: 4.3.0
-  tailwindcss: 4.3.3
+  tailwindcss: 4.3.4
   vite: npm:@voidzero-dev/vite-plus-core@1.4.0
-  vitest: 5.0.5
+  vitest: 5.1.0
   vite-plus: 1.4.0
-  "@vitest/coverage-v8": 5.0.5
+  "@vitest/coverage-v8": 5.1.0
 overrides:
   vite@*: "catalog:"
   vitest@*: "catalog:"

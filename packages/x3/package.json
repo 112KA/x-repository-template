@@ -27,14 +27,13 @@
     "watch": "vp pack --watch"
   },
   "devDependencies": {
-    "@tsconfig/recommended": "^1.0.13",
     "@types/three": "0.182.0",
     "stats-gl": "3.8.0",
-    "vite": "npm:@voidzero-dev/vite-plus-core@1.5.0",
-    "vite-plus": "1.5.0"
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
   },
   "peerDependencies": {
-    "@112ka/x": "0.0.12",
+    "@112ka/x": "workspace:@112ka/x@*",
     "stats-gl": "3.8.0",
     "three": "0.182.0"
   }
