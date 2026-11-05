@@ -18,9 +18,7 @@ while read -r pair; do
   echo "adding remote: $pair"
   sh "$ADD_SCRIPT" "$pair"
 done <<'REMS'
-x=https://github.com/112KA/x.git
 x-src=https://github.com/112KA/x_src.git
-x3=https://github.com/112KA/x3.git
 x3-src=https://github.com/112KA/x3_src.git
 REMS
 
@@ -33,9 +31,7 @@ while read -r remote prefix branch; do
   echo "setting up subtree: remote=$remote prefix=$prefix branch=$branch"
   sh "$SUBTREE_SCRIPT" "$remote" "$prefix" "$branch"
 done <<'SUBS'
-x packages/x main
 x-src packages/x/src main
-x3 packages/x3 main
 x3-src packages/x3/src main
 SUBS
 
