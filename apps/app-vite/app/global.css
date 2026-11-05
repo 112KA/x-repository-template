@@ -145,11 +145,11 @@
   }
 }
 
-::view-transition-old(*) {
+::view-transition-old(route-content) {
   animation: view-fade-out 0.5s ease both;
 }
 
-::view-transition-new(*) {
+::view-transition-new(route-content) {
   animation: view-fade-in 0.5s ease 0.5s both;
 }
 

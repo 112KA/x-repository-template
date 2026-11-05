@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import "./global.css";
-import { SiteHeader } from "@/components/site-header";
-import { ViewTransition } from "react";
 import { useViewportHeight } from "./hooks/use-viewport-height";
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -37,14 +35,8 @@ export default function App() {
   useViewportHeight();
 
   return (
-    <>
-      <SiteHeader />
-
-      <ViewTransition>
-        <main className="min-h-viewport">
-          <Outlet />
-        </main>
-      </ViewTransition>
-    </>
+    <div className="min-h-viewport">
+      <Outlet />
+    </div>
   );
 }

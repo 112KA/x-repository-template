@@ -5,7 +5,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { ThemeSwitch } from "@/components/theme-switch";
+import { ThemeSwitch } from "./theme-switch";
 
 export function SiteHeader() {
   return (
