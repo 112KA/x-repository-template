@@ -105,11 +105,11 @@ src/
 
 ### 外部ライブラリ（peerDependencies）
 
-- **three** 0.182.0 - 3D エンジン（WebGLRenderer, WebGPURenderer, Scene, Camera 等）
+- **three** 0.187.0 - 3D エンジン（WebGLRenderer, WebGPURenderer, Scene, Camera 等）
 - **stats-gl** 3.8.0 - WebGPU/WebGL パフォーマンス統計表示
 
 ### DevDependencies
 
-- **@types/three** 0.182.0 - Three.js 型定義
+- **@types/three** 0.187.0 - Three.js 型定義
 - **tsdown** - ビルドツール
 - **eslint**, **@antfu/eslint-config** - リント設定

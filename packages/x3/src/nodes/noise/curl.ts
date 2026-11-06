@@ -2,7 +2,7 @@ import type { Node } from "three/webgpu";
 import { float, Fn, vec3 } from "three/tsl";
 import { snoise3 } from "./snoise3";
 
-export const snoiseVec3 = Fn(([x_immutable]: [Node]) => {
+export const snoiseVec3 = Fn(([x_immutable]: [Node<"vec3">]) => {
   const x = vec3(x_immutable).toVar();
   const s = float(snoise3(vec3(x))).toVar();
   const s1 = float(snoise3(vec3(x.y.sub(19.1), x.z.add(33.4), x.x.add(47.2)))).toVar();
@@ -15,7 +15,7 @@ export const snoiseVec3 = Fn(([x_immutable]: [Node]) => {
   inputs: [{ name: "x", type: "vec3" }],
 });
 
-export const curl = Fn(([pos_immutable]: [Node]) => {
+export const curl = Fn(([pos_immutable]: [Node<"vec3">]) => {
   const pos = vec3(pos_immutable).toVar();
   const a = vec3(snoiseVec3(pos)).toVar();
   const b = vec3(snoiseVec3(pos.add(vec3(1.23456, 7.89012, 3.45678)))).toVar();

@@ -37,12 +37,19 @@ export class YoutubePlayer {
    * 指定した要素 ID に対してプレイヤーを作成する。
    *
    * @param playerId - プレイヤーを配置する要素の ID
-   * @param videoId - 初期再生する動画 ID（デフォルト M7lc1UVf-VE）
+   * @param videoId - 初期再生する動画 ID（デフォルト PqoX5T7f6-M）
    * @param width - プレイヤー幅
    * @param height - プレイヤー高さ
+   * @param onError - エラー発生時に YT のエラーコードを受け取るコールバック
    * @returns プレイヤー生成が完了したら解決する Promise<void>
    */
-  create(playerId: string, videoId = "M7lc1UVf-VE", width = 640, height = 360): Promise<void> {
+  create(
+    playerId: string,
+    videoId = "M7lc1UVf-VE",
+    width = 640,
+    height = 360,
+    onError?: (code: YT.OnErrorEvent["data"]) => void,
+  ): Promise<void> {
     return new Promise((resolve: () => void) => {
       this.body = new YT.Player(playerId, {
         height,
@@ -51,6 +58,9 @@ export class YoutubePlayer {
         events: {
           onReady: () => {
             resolve();
+          },
+          onError: (event: YT.OnErrorEvent) => {
+            onError?.(event.data);
           },
           //   onStateChange: onPlayerStateChange,
         },

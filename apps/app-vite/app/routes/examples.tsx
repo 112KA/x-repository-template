@@ -16,8 +16,8 @@ import { ViewTransition } from "react";
 import { Link, Outlet, useLocation } from "react-router";
 
 const examplePages = [
-  { label: "test1", to: "/examples/test1" },
-  { label: "test2", to: "/examples/test2" },
+  { label: "R3F Example", to: "/examples/r3f" },
+  { label: "Camera Example", to: "/examples/camera" },
 ];
 
 export default function ExamplesLayout() {
@@ -54,7 +54,7 @@ export default function ExamplesLayout() {
           <SidebarTrigger />
           <span className="font-medium">Examples</span>
         </header>
-        <div className="flex-1 p-6">
+        <div className="flex-1">
           <ViewTransition name="route-content">
             <Outlet />
           </ViewTransition>

@@ -27,8 +27,8 @@
     "test": "vp test --run --coverage"
   },
   "devDependencies": {
-    "@types/webxr": "^0.5.22",
-    "@types/youtube": "^0.1.2",
+    "@types/webxr": "0.5.24",
+    "@types/youtube": "0.3.0",
     "@vitest/coverage-v8": "catalog:",
     "vite": "catalog:",
     "vite-plus": "catalog:",

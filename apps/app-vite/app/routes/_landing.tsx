@@ -5,13 +5,13 @@ import { ViewTransition } from "react";
 export default function SiteLayout() {
   return (
     <>
-      <SiteHeader />
+      <div className="bg-background">
+        <SiteHeader />
 
-      <ViewTransition name="route-content">
-        <main>
+        <ViewTransition name="route-content">
           <Outlet />
-        </main>
-      </ViewTransition>
+        </ViewTransition>
+      </div>
     </>
   );
 }

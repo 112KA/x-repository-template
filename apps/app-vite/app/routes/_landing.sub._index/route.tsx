@@ -1,8 +1,10 @@
 export default function Sub() {
   return (
-    <section>
-      <h1>サブページ</h1>
-      <p>React Router framework modeのサブページです。</p>
-    </section>
+    <main>
+      <section>
+        <h1>サブページ</h1>
+        <p>React Router framework modeのサブページです。</p>
+      </section>
+    </main>
   );
 }

@@ -1,3 +1,5 @@
+/// <reference types="youtube" />
+
 /**
  * Window グローバル拡張（YouTube IFrame API 用）
  *
@@ -7,8 +9,12 @@
  *
  * @see https://developers.google.com/youtube/iframe_api_reference
  */
+// @types/youtube の YT はグローバル namespace のため import せず、モジュール化のために export する
+export {};
+
 declare global {
   interface Window {
+    YT?: typeof YT;
     /**
      * YouTube IFrame API が準備できたときに呼び出されるコールバック関数です。
      *

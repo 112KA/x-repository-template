@@ -7,7 +7,7 @@ export default defineConfig({
   fmt: {
     ignorePatterns: ["**/.react-router"],
     sortTailwindcss: {
-      stylesheet: "./apps/app-vite/app/global.css",
+      stylesheet: "./apps/app-vite/app/css/global.css",
       functions: ["clsx", "cn"],
       preserveWhitespace: true,
     },

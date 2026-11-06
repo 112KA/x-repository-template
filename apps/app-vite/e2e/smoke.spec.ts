@@ -54,7 +54,10 @@ test.describe("React Routerのフレームワークモードのスモークテ�
     page.on("pageerror", (exception) => pageErrors.push(exception));
     await page.goto("/");
 
-    const menuButton = page.getByRole("button", { name: /メニューを(開く|閉じる)/ });
+    const menuButton = page.getByRole("button", {
+      name: /メニューを(開く|閉じる)/,
+      includeHidden: true,
+    });
     await expect(menuButton).toBeVisible();
     await expect(page.locator('body > [data-slot="sheet-trigger"]')).toHaveCount(1);
     const buttonElement = await menuButton.elementHandle();
@@ -64,7 +67,7 @@ test.describe("React Routerのフレームワークモードのスモークテ�
     await menuButton.click();
     const sheet = page.getByRole("dialog");
     await expect(sheet).toBeVisible();
-    await expect(sheet.getByRole("heading", { name: "メニュー" })).toBeVisible();
+    await expect(sheet.getByRole("navigation", { name: "メインナビゲーション" })).toBeVisible();
     await expect(menuButton).toHaveAttribute("aria-label", "メニューを閉じる");
     expect(
       await menuButton.evaluate((button) => {
@@ -94,6 +97,7 @@ test.describe("React Routerのフレームワークモードのスモークテ�
     page,
   }) => {
     await page.setViewportSize({ width: 375, height: 812 });
+    await page.emulateMedia({ colorScheme: "light" });
     await page.goto("/");
     await expect(page.getByRole("switch", { name: "ダークモード" })).toHaveCount(0);
     await page.getByRole("button", { name: "メニューを開く" }).click();
@@ -101,8 +105,10 @@ test.describe("React Routerのフレームワークモードのスモークテ�
     const sheet = page.getByRole("dialog");
     const themeSwitch = sheet.getByRole("switch", { name: "ダークモード" });
     await expect(themeSwitch).toBeVisible();
+    await expect(themeSwitch.locator("svg.lucide-sun")).toBeVisible();
     await themeSwitch.click();
     await expect(themeSwitch).toBeChecked();
+    await expect(themeSwitch.locator("svg.lucide-moon")).toBeVisible();
     await expect(page.locator("html")).toHaveClass(/dark/);
     await expect(sheet).toBeVisible();
 
@@ -114,5 +120,129 @@ test.describe("React Routerのフレームワークモードのスモークテ�
     await expect(desktopSwitch).toBeChecked();
     await desktopSwitch.click();
     await expect(page.locator("html")).not.toHaveClass(/dark/);
+    await expect(desktopSwitch.locator("svg.lucide-sun")).toBeVisible();
+
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.getByRole("button", { name: "メニューを開く" }).click();
+    await expect(themeSwitch).not.toBeChecked();
   });
+
+  for (const theme of ["light", "dark"]) {
+    test(`保存済みテーマ「${theme}」があっても React 起動前はライトで表示すること`, async ({
+      page,
+    }) => {
+      await page.addInitScript((value) => localStorage.setItem("theme", value), theme);
+      await page.route("**/*", (route) => {
+        const request = route.request();
+        if (request.resourceType() === "script") {
+          return route.abort();
+        }
+        return route.continue();
+      });
+
+      await page.goto("/");
+
+      await expect(page.locator('script[src="/theme-init.js"]')).toHaveCount(0);
+      await expect(page.locator("html")).not.toHaveClass(/dark/);
+      await expect(page.locator('body > [data-slot="sheet-trigger"]')).toHaveCount(0);
+    });
+
+    test(`保存済みのテーマ「${theme}」をページ表示時に反映すること`, async ({ page }) => {
+      await page.addInitScript((value) => localStorage.setItem("theme", value), theme);
+      await page.emulateMedia({ colorScheme: theme === "dark" ? "light" : "dark" });
+      await page.goto("/");
+
+      const isDark = theme === "dark";
+      await expect(page.locator("html")).toHaveClass(isDark ? /dark/ : /light/);
+      await expect(
+        page.getByRole("banner").getByRole("switch", { name: "ダークモード" }),
+      ).toBeChecked({ checked: isDark });
+    });
+  }
+
+  test("テーマの変更が画面遷移と再読み込み後も維持されること", async ({ page }) => {
+    await page.emulateMedia({ colorScheme: "light" });
+    await page.goto("/");
+    // portal の生成を待ち、hydration 完了後に操作する。
+    await expect(page.locator('body > [data-slot="sheet-trigger"]')).toHaveCount(1);
+    const themeSwitch = page.getByRole("banner").getByRole("switch", { name: "ダークモード" });
+
+    for (const theme of ["dark", "light"]) {
+      const isDark = theme === "dark";
+      await themeSwitch.click();
+      await expect(themeSwitch).toBeChecked({ checked: isDark });
+      expect(await page.evaluate(() => localStorage.getItem("theme"))).toBe(theme);
+
+      await page
+        .getByRole("navigation", { name: "メインナビゲーション" })
+        .getByRole("link", { name: "サブページ" })
+        .click();
+      await expect(page).toHaveURL("/sub/");
+      await expect(themeSwitch).toBeChecked({ checked: isDark });
+
+      await page.reload();
+      await expect(page.locator('body > [data-slot="sheet-trigger"]')).toHaveCount(1);
+      await expect(themeSwitch).toBeChecked({ checked: isDark });
+      await expect(page.locator("html")).toHaveClass(isDark ? /dark/ : /light/);
+    }
+  });
+
+  test("テーマの保存に失敗した場合はエラーを通知し表示と共有状態を変更しないこと", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ colorScheme: "light" });
+    await page.goto("/");
+    await expect(page.locator('body > [data-slot="sheet-trigger"]')).toHaveCount(1);
+    await page.evaluate(() => {
+      Storage.prototype.setItem = () => {
+        throw new DOMException("設定を保存できません。", "QuotaExceededError");
+      };
+    });
+
+    const error = page.waitForEvent("pageerror");
+    const themeSwitch = page.getByRole("banner").getByRole("switch", { name: "ダークモード" });
+    await themeSwitch.click();
+
+    expect((await error).message).toContain("設定を保存できません。");
+    await expect(themeSwitch).not.toBeChecked();
+    await expect(page.locator("html")).not.toHaveClass(/dark/);
+    expect(await page.evaluate(() => localStorage.getItem("theme"))).toBeNull();
+  });
+
+  for (const colorScheme of ["light", "dark"] as const) {
+    test(`未設定のテーマはシステムの「${colorScheme}」を使用すること`, async ({ page }) => {
+      await page.emulateMedia({ colorScheme });
+      await page.goto("/");
+
+      const themeSwitch = page.getByRole("banner").getByRole("switch", { name: "ダークモード" });
+      await expect(page.locator('body > [data-slot="sheet-trigger"]')).toHaveCount(1);
+      await expect(themeSwitch).toBeChecked({ checked: colorScheme === "dark" });
+      await expect(page.locator("html")).toHaveClass(colorScheme);
+      expect(await page.evaluate(() => localStorage.getItem("theme"))).toBeNull();
+
+      await page.emulateMedia({ colorScheme: colorScheme === "dark" ? "light" : "dark" });
+      await expect(page.locator("html")).toHaveClass(colorScheme);
+      await themeSwitch.click();
+      const selectedTheme = colorScheme === "dark" ? "light" : "dark";
+      await expect(page.locator("html")).toHaveClass(selectedTheme);
+      expect(await page.evaluate(() => localStorage.getItem("theme"))).toBe(selectedTheme);
+
+      await page.emulateMedia({ colorScheme });
+      await page.reload();
+      await expect(themeSwitch).toBeChecked({ checked: selectedTheme === "dark" });
+      await expect(page.locator("html")).toHaveClass(selectedTheme);
+    });
+
+    test(`以前保存したテーマ system はデバイスの「${colorScheme}」を初期値として扱うこと`, async ({
+      page,
+    }) => {
+      await page.emulateMedia({ colorScheme });
+      await page.addInitScript(() => localStorage.setItem("theme", "system"));
+      await page.goto("/");
+      await expect(page.locator("html")).toHaveClass(colorScheme);
+      await expect(
+        page.getByRole("banner").getByRole("switch", { name: "ダークモード" }),
+      ).toBeChecked({ checked: colorScheme === "dark" });
+    });
+  }
 });

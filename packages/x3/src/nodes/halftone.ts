@@ -1,7 +1,16 @@
 import type { Node } from "three/webgpu";
 import { Fn, mix, rotate, screenCoordinate, screenSize, sin, vec4 } from "three/tsl";
 
-export type HalftoneTuple = [Node, Node, Node, Node, Node, Node, Node, Node];
+export type HalftoneTuple = [
+  Node<"float">,
+  Node<"vec3">,
+  Node<"float">,
+  Node<"float">,
+  Node<"float">,
+  Node<"float">,
+  Node<"float">,
+  Node<"float">,
+];
 
 /**
  * Dot pattern

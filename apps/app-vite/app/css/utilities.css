@@ -1,0 +1,26 @@
+@utility min-h-viewport {
+  min-height: calc(var(--vh) * 100);
+}
+
+@utility stack-gap-* {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * --value(integer));
+}
+
+@utility stack-h-gap-* {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--spacing) * --value(integer));
+}
+
+@theme {
+  --container-page: 1280px;
+}
+
+@utility container-px-* {
+  max-width: var(--container-page);
+  margin-left: auto;
+  margin-right: auto;
+  padding-inline: calc(var(--spacing) * --value(integer));
+}

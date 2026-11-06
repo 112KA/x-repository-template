@@ -27,7 +27,7 @@
     "watch": "vp pack --watch"
   },
   "devDependencies": {
-    "@types/three": "0.182.0",
+    "@types/three": "0.187.0",
     "stats-gl": "3.8.0",
     "vite": "catalog:",
     "vite-plus": "catalog:"
@@ -35,6 +35,6 @@
   "peerDependencies": {
     "@112ka/x": "workspace:@112ka/x@*",
     "stats-gl": "3.8.0",
-    "three": "0.182.0"
+    "three": "0.187.0"
   }
 }

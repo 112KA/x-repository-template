@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-import "./global.css";
+import "./css/global.css";
 import { useViewportHeight } from "./hooks/use-viewport-height";
+import { ThemeProvider } from "./features/theme/theme-provider";
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -12,14 +13,11 @@ export function Layout({ children }: { children: ReactNode }) {
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <Meta />
         <Links />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `if(localStorage.getItem("theme")==="dark"){document.documentElement.classList.add("dark")}`,
-          }}
-        />
       </head>
       <body>
-        {children}
+        <ThemeProvider defaultTheme="system" storageKey="theme">
+          {children}
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

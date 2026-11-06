@@ -2,9 +2,10 @@ import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import { defineConfig, lazyPlugins } from "vite-plus";
+import { BASE_PATH } from "./base-path.ts";
 
 export default defineConfig(({ command, isPreview }) => ({
-  base: "/",
+  base: BASE_PATH,
   resolve: {
     tsconfigPaths: true,
   },

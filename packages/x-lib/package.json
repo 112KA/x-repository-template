@@ -23,6 +23,5 @@
     "vite": "catalog:",
     "vite-plus": "catalog:",
     "vitest": "catalog:"
-  },
-  "packageManager": "pnpm@10.19.0"
+  }
 }

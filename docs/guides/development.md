@@ -34,6 +34,25 @@ Vite アプリは `https://localhost:5173/` で起動します。リモート環
 
 Vite アプリの `@/` エイリアスは `apps/app-vite/app/` を参照します。`tsconfig.json` の `compilerOptions.paths` を開発サーバーとビルドでも使用するため、`vite.config.ts` で `resolve.tsconfigPaths: true` を設定しています。
 
+### アプリケーション設定
+
+テーマ関連の Provider・hook・切替 UI は `apps/app-vite/app/features/theme/` に集約しています。`theme-provider.tsx` が状態管理と永続化、`use-theme.ts` が Context と参照用 hook、`ui/theme-switch.tsx` が切替 UI を担当します。
+
+Vite アプリのテーマは shadcn/ui の Vite 向け実装をベースとした `ThemeProvider` で共有し、`useTheme` から `theme` と `setTheme` を取得します。Provider 外での利用はエラーになります。テーマ切替 UI はライト・ダークの二択のアイコントグルで、現在のテーマがライトなら Sun、ダークなら Moon を表示します。アクセシビリティ上は「ダークモード」スイッチとして状態を公開します。共有状態と更新 API は `"light"`・`"dark"` のみを扱います。
+
+ユーザーが選んだテーマはブラウザー単位の設定として localStorage に `"light"`・`"dark"` を保存します。Provider の props は `defaultTheme`（既定値 `"system"`）と `storageKey`（既定値 `"vite-ui-theme"`）です。このアプリは既存設定を引き継ぐため `storageKey="theme"` を指定しています。未設定時はデバイス環境からライト・ダークの初期値を決め、初期化だけでは保存しません。以前保存した `"system"` もデバイス環境から初期値を決める指定として扱います。それ以外の不正な保存値はエラーになります。
+
+サンプルと異なり、プリレンダリングに対応するため保存値は hydration 後の Effect で読み込みます。テーマ専用の起動スクリプトは使わず、初期表示のライトからの切替を許容します。HTML の `light`・`dark` クラスはテーマ状態に応じた Effect で付け替えます。デバイス環境は初期値の決定にのみ使用し、表示中の OS 設定変更には追従しません。ユーザーの保存済み選択はデバイス環境より優先されます。保存に失敗した場合はエラーを伝播し、画面や共有状態だけが更新されないようにしています。
+
+テーマ以外の設定を追加する際は、寿命と適用範囲に応じて Provider と保存先を選びます。全設定をテーマ用の Provider や localStorage に集約する仕組みにはしていません。
+
+- 画面・セッション中だけの設定: 必要な範囲の React state。
+- ブラウザー単位で再訪時も維持する小さな設定: localStorage。
+- サーバー描画にも必要な設定: Cookie を検討。
+- アカウント単位で端末間共有する設定: サーバー保存を検討。
+
+現時点ではテーマのみを実装しています。別タブでの変更の自動同期は行いません。
+
 ## よく使うコマンド
 
 ### ビルド
