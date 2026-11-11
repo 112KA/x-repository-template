@@ -1,17 +1,70 @@
 import type { CameraDisplayType } from "@112ka/x/features/camera";
 import { Button } from "@/components/ui/button";
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@/components/ui/combobox";
 import { useCamera } from "../use-camera";
 
 type CameraCaptureProps = {
   displayType?: CameraDisplayType;
 };
 
+type CameraOption = {
+  value: string;
+  label: string;
+};
+
 export function CameraCapture({ displayType }: CameraCaptureProps) {
-  const { videoRef, phase, photoUrl, error, isMirrored, capture, retake, confirm } =
-    useCamera(displayType);
+  const {
+    videoRef,
+    phase,
+    photoUrl,
+    error,
+    isMirrored,
+    devices,
+    deviceId,
+    switchDevice,
+    capture,
+    retake,
+    confirm,
+  } = useCamera(displayType);
+
+  const cameraOptions: CameraOption[] = devices.map((device, index) => ({
+    value: device.deviceId,
+    label: device.label || `カメラ ${index + 1}`,
+  }));
+  const selectedOption = cameraOptions.find((option) => option.value === deviceId) ?? null;
 
   return (
     <div className="flex flex-col gap-4">
+      {phase === "live" && (
+        <Combobox
+          items={cameraOptions}
+          value={selectedOption}
+          onValueChange={(option) => {
+            if (option) switchDevice(option.value);
+          }}
+          itemToStringLabel={(option) => option.label}
+          isItemEqualToValue={(a, b) => a.value === b.value}
+        >
+          <ComboboxInput placeholder="カメラを選択" readOnly className="w-64" />
+          <ComboboxContent>
+            <ComboboxEmpty>カメラが見つかりません</ComboboxEmpty>
+            <ComboboxList>
+              {(option: CameraOption) => (
+                <ComboboxItem key={option.value} value={option}>
+                  {option.label}
+                </ComboboxItem>
+              )}
+            </ComboboxList>
+          </ComboboxContent>
+        </Combobox>
+      )}
       <div className="relative aspect-video w-full max-w-3xl overflow-hidden rounded-md bg-black">
         <video
           ref={videoRef}

@@ -28,19 +28,39 @@ export function useCamera(displayType: CameraDisplayType = "front") {
   const [phase, setPhase] = useState<Phase>("live");
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const isMirrored = displayType === "front";
+  const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
+  const [deviceId, setDeviceId] = useState<string | null>(null);
+  const [isMirrored, setIsMirrored] = useState(false);
 
-  const startCamera = useCallback(async () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (!cameraRef.current) cameraRef.current = new CameraDisplay(video);
-    await cameraRef.current.startByDisplayType(displayType);
-  }, [displayType]);
+  const startCamera = useCallback(
+    async (selectedDeviceId: string | null) => {
+      const video = videoRef.current;
+      if (!video) return;
+      if (!cameraRef.current) cameraRef.current = new CameraDisplay(video);
+      if (selectedDeviceId === null) {
+        await cameraRef.current.startByDisplayType(displayType);
+      } else {
+        await cameraRef.current.start({
+          audio: false,
+          video: { deviceId: { exact: selectedDeviceId } },
+        });
+      }
+      setIsMirrored(cameraRef.current.getCurrentVideoSettings()?.facingMode === "user");
+      setDevices(await CameraDisplay.getVideoInputList());
+    },
+    [displayType],
+  );
 
   useEffect(() => {
-    startCamera().catch(() => setError(CAMERA_ERROR_MESSAGE));
+    startCamera(null).catch(() => setError(CAMERA_ERROR_MESSAGE));
     return () => cameraRef.current?.stop();
   }, [startCamera]);
+
+  const switchDevice = (nextDeviceId: string) => {
+    setDeviceId(nextDeviceId);
+    setError(null);
+    startCamera(nextDeviceId).catch(() => setError(CAMERA_ERROR_MESSAGE));
+  };
 
   const capture = () => {
     const video = videoRef.current;
@@ -58,10 +78,22 @@ export function useCamera(displayType: CameraDisplayType = "front") {
   const retake = () => {
     setPhotoUrl(null);
     setPhase("live");
-    startCamera().catch(() => setError(CAMERA_ERROR_MESSAGE));
+    startCamera(deviceId).catch(() => setError(CAMERA_ERROR_MESSAGE));
   };
 
   const confirm = () => setPhase("done");
 
-  return { videoRef, phase, photoUrl, error, isMirrored, capture, retake, confirm };
+  return {
+    videoRef,
+    phase,
+    photoUrl,
+    error,
+    isMirrored,
+    devices,
+    deviceId,
+    switchDevice,
+    capture,
+    retake,
+    confirm,
+  };
 }
