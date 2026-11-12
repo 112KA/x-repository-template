@@ -1,4 +1,4 @@
-import { useState, useSyncExternalStore } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router";
 import {
@@ -25,11 +25,13 @@ const getServerSnapshot = () => false;
 export function SiteHeader() {
   const isClient = useSyncExternalStore(subscribeToClient, getClientSnapshot, getServerSnapshot);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // リンク遷移で閉じる場合、閉じるアニメーション中はトリガーが aria-hidden のままなので、フォーカスを戻さない
+  const skipFinalFocusRef = useRef(false);
   const menuButton = (
     <Button
       variant="ghost"
       size="icon-sm"
-      className="fixed top-4 right-4 z-[60] md:hidden"
+      className="fixed top-4 right-4 z-60 md:hidden"
       aria-label={isMenuOpen ? "メニューを閉じる" : "メニューを開く"}
     >
       {isMenuOpen ? <XIcon /> : <MenuIcon />}
@@ -56,6 +58,11 @@ export function SiteHeader() {
             {isClient &&
               createPortal(
                 <SheetTrigger
+                  onMouseDown={(event) => {
+                    // Base UI の modal Dialog は外側要素に aria-hidden を付与するため、トリガーにフォーカスが入ると警告が出ます。
+                    // 開いている間はトリガーが aria-hidden のため、フォーカスさせない
+                    if (isMenuOpen) event.preventDefault();
+                  }}
                   onClick={(event) => {
                     event.preventDefault();
                     setIsMenuOpen((open) => !open);
@@ -64,7 +71,15 @@ export function SiteHeader() {
                 />,
                 document.body,
               )}
-            <SheetContent side="right" showCloseButton={false}>
+            <SheetContent
+              side="right"
+              showCloseButton={false}
+              finalFocus={() => {
+                const skip = skipFinalFocusRef.current;
+                skipFinalFocusRef.current = false;
+                return !skip;
+              }}
+            >
               <SheetHeader className="flex-row justify-end p-3.5 pr-12">
                 <ThemeSwitch />
               </SheetHeader>
@@ -73,7 +88,10 @@ export function SiteHeader() {
                   <Link
                     key={to}
                     to={to}
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => {
+                      skipFinalFocusRef.current = true;
+                      setIsMenuOpen(false);
+                    }}
                     className="rounded-md px-4 py-3 text-base transition-colors hover:bg-muted"
                   >
                     {label}

@@ -1,3 +1,7 @@
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { setupReveal } from "@112ka/x/features/reveal";
 import { Button } from "@/components/ui/button";
 import { YouTubeVideo } from "@/features/youtube/youtube-video";
 import {
@@ -9,11 +13,29 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+gsap.registerPlugin(ScrollToPlugin);
+
 export default function Index() {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const handleScrollToTop = () => {
+    gsap.to(window, { duration: 0.8, ease: "power2.inOut", scrollTo: { y: 0 } });
+  };
+
+  useEffect(() => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    return setupReveal(content, 0);
+  }, []);
+
   return (
     <main className="">
-      <div className="container-px-4 stack-gap-8 py-8 xl:container-px-0">
-        <section>
+      <div
+        ref={contentRef}
+        className="landing-reveal container-px-4 stack-gap-8 py-8 xl:container-px-0"
+      >
+        <section data-reveal>
           <h1>トップページ</h1>
           <p>React Router framework modeのトップページです。</p>
           <p>BASE_HOST_URL: {import.meta.env.VITE_BASE_HOST_URL}</p>
@@ -23,7 +45,7 @@ export default function Index() {
           </p>
         </section>
 
-        <section>
+        <section data-reveal>
           <h2>Heading2</h2>
           <p>
             あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
@@ -31,14 +53,14 @@ export default function Index() {
           </p>
         </section>
 
-        <section>
+        <section data-reveal>
           <h3>Heading3</h3>
           <p>
             あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
             またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう。
           </p>
 
-          <div className="mt-4 stack-h-gap-2">
+          <div className="mt-4 stack-h-gap-2" data-reveal-toggle>
             <p>
               <Dialog>
                 <DialogTrigger render={<Button />}>modal(youtube)</DialogTrigger>
@@ -68,7 +90,7 @@ export default function Index() {
           </div>
         </section>
 
-        <section>
+        <section data-reveal>
           <h4>Heading4</h4>
           <p>
             あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
@@ -76,7 +98,7 @@ export default function Index() {
           </p>
         </section>
 
-        <section>
+        <section data-reveal>
           <h5>Heading5</h5>
           <p>
             あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
@@ -85,7 +107,7 @@ export default function Index() {
         </section>
 
         <div>
-          <Button className="btn-totop">Topへ</Button>
+          <Button onClick={handleScrollToTop}>Topへ</Button>
         </div>
       </div>
     </main>

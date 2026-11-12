@@ -1,6 +1,34 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("React Routerのフレームワークモードのスモークテスト", () => {
+  test("セクションが画面内に入ると一度だけ下から表示されること", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 600 });
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto("/");
+
+    const section = page.locator(".landing-reveal > section").last();
+    await expect(section).toHaveAttribute("data-reveal", "true");
+    await expect(section).not.toHaveClass(/play/);
+    await expect(section).toHaveCSS("opacity", "0");
+    await section.scrollIntoViewIfNeeded();
+    await expect(section).toHaveClass(/play/);
+    await expect(section).toHaveCSS("opacity", "1");
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(section).toHaveClass(/play/);
+  });
+
+  test("動きを抑える設定ではセクションをアニメーションせずに表示すること", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 600 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+
+    const section = page.locator(".landing-reveal > section").last();
+    await expect(section).toHaveCSS("opacity", "1");
+    await expect(section).toHaveCSS("transform", "none");
+    await section.scrollIntoViewIfNeeded();
+    await expect(section).toHaveCSS("transition-duration", "0s");
+  });
+
   test("SVGをfaviconとして設定し配信できること", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator('link[rel="icon"]')).toHaveAttribute("href", "/vite.svg");
