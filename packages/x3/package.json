@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@types/three": "0.187.0",
-    "stats-gl": "3.8.0",
+    "stats-gl": "4.2.3",
     "vite": "catalog:",
     "vite-plus": "catalog:"
   },
