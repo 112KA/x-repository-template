@@ -1,10 +1,12 @@
-# Suggested commands (Linux)
+# Suggested commands (Windows)
+
+- シェルは PowerShell。コマンドは pnpm / git / rg をそのまま使用。
 
 ## Setup
 
 - pnpm install (postinstall で pnpm build 実行)
 
-## Root scripts
+## Root scripts (root package.json)
 
 - pnpm dev / pnpm dev:vite: watch (@112ka/x, x3) + app-vite dev を concurrently で起動
 - pnpm build, pnpm build:x, pnpm build:x3
@@ -18,6 +20,6 @@
 - packages/x: pnpm x lint, pnpm x lint:fix, pnpm x test (vp test --run --coverage)
 - apps/app-vite: pnpm app:vite check, pnpm app:vite test:e2e (playwright)
 
-## System utilities (Linux)
+## Git / search
 
-- ls, cd, pwd, cat, less, grep, rg, find, git status/diff/log
+- git status / diff / log, rg (ripgrep)
