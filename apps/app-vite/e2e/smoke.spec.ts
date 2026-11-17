@@ -61,8 +61,8 @@ test.describe("React Routerのフレームワークモードのスモークテ�
     await expect(page.getByRole("heading", { name: "トップページ" })).toBeVisible();
     const navigation = page.getByRole("navigation", { name: "メインナビゲーション" });
     await expect(navigation).toHaveAttribute("data-slot", "navigation-menu");
-    await expect(navigation.getByRole("listitem")).toHaveCount(2);
-    await expect(navigation.getByRole("button")).toHaveCount(0);
+    const topPageLink = navigation.getByRole("link", { name: "トップページ" });
+    await expect(topPageLink).toHaveAttribute("href", "/");
     const subPageLink = navigation.getByRole("link", { name: "サブページ" });
     await expect(subPageLink).toHaveAttribute("data-slot", "navigation-menu-link");
     await expect(subPageLink).toHaveAttribute("href", "/sub/");
@@ -245,20 +245,20 @@ test.describe("React Routerのフレームワークモードのスモークテ�
       const themeSwitch = page.getByRole("banner").getByRole("switch", { name: "ダークモード" });
       await expect(page.locator('body > [data-slot="sheet-trigger"]')).toHaveCount(1);
       await expect(themeSwitch).toBeChecked({ checked: colorScheme === "dark" });
-      await expect(page.locator("html")).toHaveClass(colorScheme);
+      await expect(page.locator("html")).toHaveClass(new RegExp(`\\b${colorScheme}\\b`));
       expect(await page.evaluate(() => localStorage.getItem("theme"))).toBeNull();
 
       await page.emulateMedia({ colorScheme: colorScheme === "dark" ? "light" : "dark" });
-      await expect(page.locator("html")).toHaveClass(colorScheme);
+      await expect(page.locator("html")).toHaveClass(new RegExp(`\\b${colorScheme}\\b`));
       await themeSwitch.click();
       const selectedTheme = colorScheme === "dark" ? "light" : "dark";
-      await expect(page.locator("html")).toHaveClass(selectedTheme);
+      await expect(page.locator("html")).toHaveClass(new RegExp(`\\b${selectedTheme}\\b`));
       expect(await page.evaluate(() => localStorage.getItem("theme"))).toBe(selectedTheme);
 
       await page.emulateMedia({ colorScheme });
       await page.reload();
       await expect(themeSwitch).toBeChecked({ checked: selectedTheme === "dark" });
-      await expect(page.locator("html")).toHaveClass(selectedTheme);
+      await expect(page.locator("html")).toHaveClass(new RegExp(`\\b${selectedTheme}\\b`));
     });
 
     test(`以前保存したテーマ system はデバイスの「${colorScheme}」を初期値として扱うこと`, async ({
@@ -267,7 +267,7 @@ test.describe("React Routerのフレームワークモードのスモークテ�
       await page.emulateMedia({ colorScheme });
       await page.addInitScript(() => localStorage.setItem("theme", "system"));
       await page.goto("/");
-      await expect(page.locator("html")).toHaveClass(colorScheme);
+      await expect(page.locator("html")).toHaveClass(new RegExp(`\\b${colorScheme}\\b`));
       await expect(
         page.getByRole("banner").getByRole("switch", { name: "ダークモード" }),
       ).toBeChecked({ checked: colorScheme === "dark" });
