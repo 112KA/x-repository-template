@@ -9,9 +9,11 @@
     {
       "groupName": "all dependencies",
       "groupSlug": "all-dependencies",
-      "matchPackagePatterns": ["*"],
       "automerge": true,
-      "platformAutomerge": true
+      "platformAutomerge": true,
+      "matchPackageNames": [
+        "*"
+      ]
     }
   ]
 }
