@@ -1,0 +1,51 @@
+name: Notify Renovate to Google Chat
+
+on:
+  # 1. PR がマージされた時の検知用
+  pull_request:
+    types: [closed]
+    branches:
+      - main # デフォルトブランチ名に合わせて変更してください
+
+  # 2. CI が失敗した時の検知用
+  workflow_run:
+    workflows: ["check", "e2e"] # ← 実際の CI ワークフローの「name:」に合わせて書き換えてください
+    types:
+      - completed
+
+jobs:
+  # パターンA: Renovate の PR が自動マージされた時
+  notify-merge:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.user.login == 'renovate[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Merge Notification to Google Chat
+        env:
+          WEBHOOK_URL: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          curl -X POST "$WEBHOOK_URL" \
+            -H 'Content-Type: application/json' \
+            -d "{\"text\": \"✅ *Renovate の更新が自動マージされました*\n• <${PR_URL}|${PR_TITLE}>\"}"
+
+  # パターンB: Renovate の PR で CI が失敗した時
+  notify-ci-failure:
+    if: >-
+      github.event_name == 'workflow_run' &&
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.actor.login == 'renovate[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Failure Notification to Google Chat
+        env:
+          WEBHOOK_URL: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          curl -X POST "$WEBHOOK_URL" \
+            -H 'Content-Type: application/json' \
+            -d "{\"text\": \"🚨 *Renovate の PR で CI が失敗しました*\n• ブランチ: \`${BRANCH}\`\n• <${RUN_URL}|エラーログを確認する>\"}"
