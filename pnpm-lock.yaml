@@ -198,10 +198,6 @@ catalogs:
       specifier: 5.1.0
       version: 5.1.0
 
-overrides:
-  vite@*: npm:@voidzero-dev/vite-plus-core@1.6.0
-  vitest@*: 5.1.0
-
 importers:
 
   .:
