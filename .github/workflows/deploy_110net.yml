@@ -5,6 +5,9 @@ on:
 #     branches:
 #       - 'develop'
 
+permissions:
+  contents: read
+
 env:
   DEPLOY_BRANCH: develop
   DEPLOY_LOCAL_DIR: ./apps/app-vite/build/client
