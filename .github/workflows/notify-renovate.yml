@@ -13,6 +13,8 @@ on:
     types:
       - completed
 
+permissions: {}
+
 jobs:
   # パターンA: Renovate の PR が自動マージされた時
   notify-merge:

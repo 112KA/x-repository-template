@@ -10,9 +10,7 @@
       "groupSlug": "all-dependencies",
       "automerge": true,
       "platformAutomerge": true,
-      "matchPackageNames": [
-        "*"
-      ]
+      "matchPackageNames": ["*"]
     }
   ]
 }
