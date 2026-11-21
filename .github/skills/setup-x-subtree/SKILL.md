@@ -21,8 +21,14 @@ disable-model-invocation: true
 
 ## 3. Context / Assumptions
 
-- **対象環境**: Node.js が利用できる環境（動作確認は v26.13.1、Windows）。
-- **前提**: `node` と `git` が利用可能（`git subtree` を含む）、`git config user.name` と `git config user.email` が設定済み、ネットワークで upstream（GitHub）に到達できる。
+- **前提条件**（実行前に満たすこと）:
+  - Node.js が利用できること
+  - `git subtree` コマンドが利用できること
+  - `git config user.name` と `git config user.email` が設定されていること（削除コミットや印用コミットを作成するため）
+  - 作業ツリーがクリーンであること（未コミットの変更があると中止する）
+  - `https://github.com/112KA/x_src.git` と `https://github.com/112KA/x3_src.git` に読み取り権限でアクセスできること
+  - 各 upstream の `main` ブランチのルート構成が、`packages/x/src` と `packages/x3/src` の中身と一致すること
+- **対象の subtree**: `x-src`（`packages/x/src`）と `x3-src`（`packages/x3/src`）。
 - **スクリプト挙動**: `.github/skills/setup-x-subtree/scripts/_git-subtree-setup.mjs` は upstream の `main` ツリーと `HEAD:<prefix>` を比較する。
   - 一致: 履歴の書き換えや内容の変更は行わず、印の空コミットのみを作成する。
   - 不一致: 既存の `<prefix>` を `git rm -r` で削除するコミットを作成し、その後 `git subtree add --squash` する。既存内容は置き換わる。
