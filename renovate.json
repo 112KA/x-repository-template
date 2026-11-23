@@ -3,6 +3,7 @@
   "extends": ["config:recommended"],
   "timezone": "Asia/Tokyo",
   "schedule": ["before 9am on monday"],
+  "minimumReleaseAge": "1 day",
   "postUpdateOptions": ["pnpmDedupe"],
   "ignorePaths": [],
   "packageRules": [
