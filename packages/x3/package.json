@@ -34,7 +34,7 @@
   },
   "peerDependencies": {
     "@112ka/x": "workspace:@112ka/x@*",
-    "stats-gl": "3.8.0",
+    "stats-gl": "4.2.3",
     "three": "0.187.0"
   }
 }
