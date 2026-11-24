@@ -50,7 +50,6 @@ TypeScript 5.9.3 Strict Mode、ESLint 9、Vitest などの標準設定が完備�
 - **テスティング**: Vitest
 - **ビルド**: tsdown (packages), Turbopack (Next.js), Vite
 - **スタイリング**: Tailwind CSS 4
-- **Git**: simple-git-hooks + lint-staged
 
 ## Architecture Highlights
 

@@ -11,7 +11,7 @@
   - Next.js 16（App Router）: Tailwind CSS 4、shadcn/ui、Radix UI、View Transitions API
   - Vite (Vanilla): シンプルな TypeScript アプリ
 - **共有パッケージ**: @112ka/x（コアライブラリ）、@112ka/x3（3D関連）、x-lib（汎用）
-- **開発環境**: TypeScript 5.9.3 Strict Mode、ESLint 9、Vitest、simple-git-hooks
+- **開発環境**: TypeScript 5.9.3 Strict Mode、ESLint 9、Vitest
 
 ## Design Philosophy
 

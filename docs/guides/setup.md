@@ -29,4 +29,3 @@ pnpm dev:vite     # Vite 開発サーバー
 ### 補足: ルートのスクリプトについて
 
 - ルートの `postinstall` スクリプトは `pnpm build` を実行します。
-- `prepare` スクリプトは simple-git-hooks のセットアップを行います。
